@@ -8,12 +8,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
     })
   ],
-  callbacks: {
-    async jwt({ token, trigger, user }) {
-      if (trigger === 'signUp') {
-      }
-      return token;
-    }
+  pages: {
+    // signIn: '/auth'
   }
 };
 
