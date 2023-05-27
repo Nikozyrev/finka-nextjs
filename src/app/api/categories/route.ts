@@ -7,7 +7,10 @@ export async function POST(req: Request) {
     return new Response('Bad request', { status: 400 });
   }
 
-  const dbRes = await addCategory({ name: body.name, userId: 1 });
+  const dbRes = await addCategory({
+    name: body.name,
+    userId: 'cli5rn1ll0000qbw821lqpt5l'
+  });
 
   return NextResponse.json({ dbRes });
 }

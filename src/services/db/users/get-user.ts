@@ -1,11 +1,7 @@
-import { queryBuilder } from '../../../lib/planetscale';
+import { prisma } from '../../../lib/prisma';
 
 export const getUserByEmail = async (email: string) => {
   if (!email) return;
 
-  return queryBuilder
-    .selectFrom('users')
-    .selectAll()
-    .where('email', '=', email)
-    .executeTakeFirst();
+  return prisma.user.findFirst({ where: { email } });
 };

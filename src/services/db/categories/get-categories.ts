@@ -1,11 +1,10 @@
-import { queryBuilder } from '../../../lib/planetscale';
+import { prisma } from '../../../lib/prisma';
 
-export const getCategories = async (userId: number) => {
-  const data = await queryBuilder
-    .selectFrom('categories')
-    .selectAll()
-    .where('user_id', '=', userId)
-    .execute();
+export const getCategories = async (userId: string) => {
+  const data = await prisma.category.findMany({
+    select: { id: true, name: true },
+    where: { userId }
+  });
 
-  return data.map(({ id, name, user_id }) => ({ id, name, userId: user_id }));
+  return data;
 };
