@@ -5,12 +5,18 @@ import { PlanetScaleDialect } from 'kysely-planetscale';
 interface User {
   id: Generated<number>;
   email: string;
+  name?: string;
+}
+
+interface Category {
+  id: Generated<number>;
   name: string;
+  user_id: number;
 }
 
 interface Database {
   users: User;
-  // https://github.com/nextauthjs/next-auth/issues/4922
+  categories: Category;
 }
 
 export const queryBuilder = new Kysely<Database>({
