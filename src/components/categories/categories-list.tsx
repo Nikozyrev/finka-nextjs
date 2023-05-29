@@ -8,10 +8,9 @@ export default async function CategoriesList() {
     <Card>
       <Title className="mb-2">Categories</Title>
       <List>
-        {categories &&
-          categories.map(({ id, name }) => (
-            <ListItem key={id}>{name}</ListItem>
-          ))}
+        {categories.map(({ id, name }) => (
+          <ListItem key={id}>{name}</ListItem>
+        ))}
       </List>
     </Card>
   );
