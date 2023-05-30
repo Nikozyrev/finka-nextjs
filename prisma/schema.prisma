@@ -62,27 +62,51 @@ model User {
   sessions      Session[]
   categories    Category[]
   cashAccounts  CashAccount[]
+  transactions  Transaction[]
 
   @@map("users")
 }
 
 model Category {
-  id     String @id @default(cuid())
-  name   String
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+  id           String        @id @default(cuid())
+  name         String
+  userId       String        @map("user_id")
+  user         User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
 
   @@index([userId])
   @@map("categories")
 }
 
 model CashAccount {
-  id           String  @id @default(cuid())
+  id           String        @id @default(cuid())
   name         String
-  startBalance Decimal @default(0.00) @map("start_balance")
-  userId       String  @map("user_id")
-  user         User    @relation(fields: [userId], references: [id])
+  startBalance Decimal       @default(0.00) @map("start_balance")
+  userId       String        @map("user_id")
+  user         User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
 
   @@index([userId])
   @@map("cashaccounts")
+}
+
+model Transaction {
+  id            String       @id @default(cuid())
+  date          DateTime
+  sum           Decimal
+  comment       String?
+  transferId    String?      @unique @map("transfer_id")
+  transferFrom  Transaction? @relation("transfer", fields: [transferId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  transferTo    Transaction? @relation("transfer")
+  cashAccountId String       @map("cash_account_id")
+  cashAccount   CashAccount  @relation(fields: [cashAccountId], references: [id])
+  categoryId    String       @map("category_id")
+  category      Category     @relation(fields: [categoryId], references: [id])
+  userId        String       @map("user_id")
+  user          User         @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([cashAccountId])
+  @@index([categoryId])
+  @@map("transactions")
 }
