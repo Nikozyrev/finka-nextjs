@@ -9,8 +9,8 @@ export default function UserProfile({ user }: UserProfileProps) {
   return (
     <>
       {user && (
-        <div className="profile">
-          <div>{user.name ?? 'User name'}</div>
+        <div className="flex items-center">
+          <div className="mr-3">{user.name ?? 'User name'}</div>
           <SignOutBtn></SignOutBtn>
         </div>
       )}

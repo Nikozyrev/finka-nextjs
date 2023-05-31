@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import ServerProfile from '../../components/auth/server-profile';
+import NavBar from '../../components/user/navbar';
 
 export default async function UserLayout({
   children
@@ -8,10 +9,13 @@ export default async function UserLayout({
 }) {
   return (
     <>
-      <Suspense fallback="...">
-        {/* @ts-expect-error Server Component */}
-        <ServerProfile />
-      </Suspense>
+      <div className="flex w-full justify-between p-2">
+        <NavBar />
+        <Suspense fallback="...">
+          {/* @ts-expect-error Server Component */}
+          <ServerProfile />
+        </Suspense>
+      </div>
       {children}
     </>
   );
