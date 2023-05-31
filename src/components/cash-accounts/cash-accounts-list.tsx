@@ -1,19 +1,22 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
-import { getCashAccounts } from '../../services/db/cash-accounts/get-cash-accounts';
+import { getCashAccountsWithBalances } from '../../services/cash-accounts-balances/get-cash-accounts-with-balances';
 
 export default async function CashAccountsList() {
-  const cashAccounts = await getCashAccounts();
+  const accountsWithActualBalances = await getCashAccountsWithBalances();
 
   return (
     <Card>
       <Title className="mb-2">Cash Accounts</Title>
       <List>
-        {cashAccounts.map(({ id, name, startBalance }) => (
-          <ListItem key={id}>
-            <span className="mr-2">{name}</span>
-            <span>{startBalance.toString()}</span>
-          </ListItem>
-        ))}
+        {accountsWithActualBalances.map(
+          ({ id, name, startBalance, currentBalance }) => (
+            <ListItem key={id}>
+              <span className="mr-2">{name}</span>
+              <span>{startBalance.toString()}</span>
+              <span>{currentBalance.toString()}</span>
+            </ListItem>
+          )
+        )}
       </List>
     </Card>
   );
