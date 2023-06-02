@@ -3,7 +3,7 @@ import { getCurrencies } from '../db/currencies/get-currencies';
 import { addCurrencyRates } from '../db/currency-rates/add-currency-rates';
 import { ICurrencyRate } from '../../models/currency-rate.model';
 
-export const saveRates = async (date: Date) => {
+export const saveRatesOnDate = async (date: Date) => {
   const source = 'nbrb';
   date.setUTCHours(0, 0, 0, 0);
 

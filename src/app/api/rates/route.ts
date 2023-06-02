@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { saveRates } from '../../../services/nbrb-currency-rates/save-today-rates';
+import { saveRatesOnDate } from '../../../services/nbrb-currency-rates/save-rates-on-date';
 
 const saveTodayRates = async () => {
   try {
-    const rates = await saveRates(new Date());
+    const rates = await saveRatesOnDate(new Date());
     return NextResponse.json(rates);
   } catch (error) {
     let message = '';
