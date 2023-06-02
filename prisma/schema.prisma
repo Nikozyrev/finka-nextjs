@@ -82,10 +82,13 @@ model CashAccount {
   id           String        @id @default(cuid())
   name         String
   startBalance Decimal       @default(0.00) @map("start_balance")
+  currencyId   Int           @map("currency_id")
+  currency     Currency      @relation(fields: [currencyId], references: [id])
   userId       String        @map("user_id")
   user         User          @relation(fields: [userId], references: [id])
   transactions Transaction[]
 
+  @@index([currencyId])
   @@index([userId])
   @@map("cashaccounts")
 }
@@ -109,4 +112,27 @@ model Transaction {
   @@index([cashAccountId])
   @@index([categoryId])
   @@map("transactions")
+}
+
+model Currency {
+  id            Int            @id @default(autoincrement())
+  name          String
+  symbol        String         @unique
+  currencyRates CurrencyRate[]
+  cashAccounts  CashAccount[]
+
+  @@map("currencies")
+}
+
+model CurrencyRate {
+  id         Int      @id @default(autoincrement())
+  date       DateTime
+  rate       Decimal
+  source     String?
+  currencyId Int      @map("currency_id")
+  currency   Currency @relation(fields: [currencyId], references: [id])
+
+  @@unique([date, currencyId])
+  @@index([currencyId])
+  @@map("currencyrates")
 }

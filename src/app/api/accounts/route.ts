@@ -6,6 +6,7 @@ export async function POST(req: Request) {
   const body = await req.json();
   const name = body.name;
   const startBalance = body.startBalance || 0;
+  const currencyId = body.currencyId;
 
   if (!name) {
     return new Response('Bad request', { status: 400 });
@@ -21,7 +22,8 @@ export async function POST(req: Request) {
   const dbRes = await addCashAccount({
     name,
     userId,
-    startBalance
+    startBalance,
+    currencyId
   });
 
   return NextResponse.json({ dbRes });

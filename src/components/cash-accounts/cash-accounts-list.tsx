@@ -9,9 +9,10 @@ export default async function CashAccountsList() {
       <Title className="mb-2">Cash Accounts</Title>
       <List>
         {accountsWithActualBalances.map(
-          ({ id, name, startBalance, currentBalance }) => (
+          ({ id, name, startBalance, currentBalance, currency }) => (
             <ListItem key={id}>
               <span className="mr-2">{name}</span>
+              <span>{currency.symbol}</span>
               <span>{startBalance.toString()}</span>
               <span>{currentBalance.toString()}</span>
             </ListItem>

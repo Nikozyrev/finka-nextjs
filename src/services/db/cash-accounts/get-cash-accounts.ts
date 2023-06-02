@@ -8,7 +8,7 @@ export const getCashAccounts = async () => {
   if (!userId) return [];
 
   const data = await prisma.cashAccount.findMany({
-    select: { id: true, name: true, startBalance: true },
+    select: { id: true, name: true, startBalance: true, currency: true },
     where: { userId }
   });
 
