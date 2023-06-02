@@ -7,6 +7,6 @@ export const getCashAccountsWithBalances = async () => {
 
   return cashAccounts.map((account) => ({
     ...account,
-    currentBalance: account.startBalance.add(accountsMovements[account.id])
+    currentBalance: account.startBalance.add(accountsMovements[account.id] || 0)
   }));
 };
