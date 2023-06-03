@@ -4,7 +4,10 @@ import { getUserInfo } from '../../../services/user/get-user-info';
 
 export async function POST(req: Request) {
   const body = await req.json();
-  if (!body.name) {
+  const name = body.name;
+  const mainCategoryId = body.mainCategoryId;
+
+  if (!name || !mainCategoryId) {
     return new Response('Bad request', { status: 400 });
   }
 
@@ -16,7 +19,8 @@ export async function POST(req: Request) {
   }
 
   const dbRes = await addCategory({
-    name: body.name,
+    name,
+    mainCategoryId,
     userId
   });
 
