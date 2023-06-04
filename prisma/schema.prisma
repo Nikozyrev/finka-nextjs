@@ -11,6 +11,17 @@ datasource db {
   relationMode = "prisma"
 }
 
+enum CategoryType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum CashFlowSection {
+  OPERATIONAL
+  INVESTMENTS
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -53,29 +64,48 @@ model VerificationToken {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  email         String        @unique
-  name          String?
-  emailVerified DateTime?     @map("email_verified")
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  categories    Category[]
-  cashAccounts  CashAccount[]
-  transactions  Transaction[]
+  id             String         @id @default(cuid())
+  email          String         @unique
+  name           String?
+  emailVerified  DateTime?      @map("email_verified")
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  categories     Category[]
+  mainCategories MainCategory[]
+  cashAccounts   CashAccount[]
+  transactions   Transaction[]
 
   @@map("users")
 }
 
 model Category {
-  id           String        @id @default(cuid())
-  name         String
-  userId       String        @map("user_id")
-  user         User          @relation(fields: [userId], references: [id])
-  transactions Transaction[]
+  id             String        @id @default(cuid())
+  name           String
+  mainCategoryId String        @map("main_category_id")
+  mainCategory   MainCategory  @relation(fields: [mainCategoryId], references: [id])
+  userId         String        @map("user_id")
+  user           User          @relation(fields: [userId], references: [id])
+  transactions   Transaction[]
 
+  @@unique([name, mainCategoryId, userId])
+  @@index([mainCategoryId])
   @@index([userId])
   @@map("categories")
+}
+
+model MainCategory {
+  id              String          @id @default(cuid())
+  name            String
+  categoryType    CategoryType    @map("category_type")
+  cashFlowSection CashFlowSection @map("cash_flow_section")
+  userId          String          @map("user_id")
+  user            User            @relation(fields: [userId], references: [id])
+  categories      Category[]
+
+  @@unique([name, categoryType, cashFlowSection, userId])
+  @@index([userId])
+  @@map("maincategories")
 }
 
 model CashAccount {
