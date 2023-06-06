@@ -1,3 +1,4 @@
+import { CashFlowSection, CategoryType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime';
 
 export interface ICashFlowSums {
@@ -23,13 +24,15 @@ export interface ICashFlowSumsByMonths {
   '10'?: ICashFlowSums;
   '11'?: ICashFlowSums;
   '12'?: ICashFlowSums;
+  totalYear: ICashFlowSums;
 }
 
 export interface ICashFlowCategory {
   id: string;
   name: string;
+  categoryType: CategoryType;
+  cashFlowSection: CashFlowSection;
   sumsByMonths: ICashFlowSumsByMonths;
-  yearSums: ICashFlowSums;
 }
 
 export interface ICashFlowTotals {

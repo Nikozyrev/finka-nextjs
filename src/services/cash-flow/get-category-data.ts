@@ -15,25 +15,23 @@ export const getCategoryData = (
 
   if (!categoryTransactions.length) throw new Error('No category');
 
-  const yearSums = categoryTransactions.reduce(
-    (acc, val) => ({
-      BYN: val.sum_BYN.add(acc.BYN)
-    }),
-    { BYN: new Decimal(0) }
+  const sumsByMonths = categoryTransactions.reduce(
+    (acc, val) => {
+      const month = val.month.toString();
+      acc[month] = {
+        BYN: val.sum_BYN
+      };
+      acc.totalYear.BYN = val.sum_BYN.add(acc.totalYear.BYN);
+      return acc;
+    },
+    { totalYear: { BYN: new Decimal(0) } } as ICashFlowSumsByMonths
   );
-
-  const sumsByMonths = categoryTransactions.reduce((acc, val) => {
-    const month = val.month.toString();
-    acc[month] = {
-      BYN: val.sum_BYN
-    };
-    return acc;
-  }, {} as ICashFlowSumsByMonths);
 
   return {
     id: categoryId,
     name: categoryTransactions[0].main_category_name,
-    sumsByMonths,
-    yearSums
+    categoryType: categoryTransactions[0].category_type,
+    cashFlowSection: categoryTransactions[0].cash_flow_section,
+    sumsByMonths
   };
 };

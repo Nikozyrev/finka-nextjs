@@ -22,7 +22,7 @@ export default function CashFlowTableRow({
         );
       })}
       <TableCell className="text-right">
-        {category.yearSums.BYN.toFixed(0)}
+        {category.sumsByMonths.totalYear.BYN.toFixed(0)}
       </TableCell>
     </TableRow>
   );
