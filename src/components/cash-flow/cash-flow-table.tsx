@@ -2,22 +2,18 @@ import {
   Card,
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeaderCell,
   TableRow
 } from '@tremor/react';
-import { getSumsByCategories } from '../../services/db/transactions/get-sums-by-categories';
+import { getCashFlowData } from '../../services/cash-flow/get-cash-flow-data';
+import CashFlowTableRow from './cash-flow-table-row';
 
 export default async function CashFlowTable() {
-  const cashFlowData = await getSumsByCategories();
-  const categories = cashFlowData.reduce(
-    (acc, val) =>
-      acc.includes(val.main_category) ? acc : [...acc, val.main_category],
-    [] as string[]
-  );
+  const categories = await getCashFlowData();
+
   const months = Array.from(new Array(12), (_, i) => i + 1);
-  const tableColumns = ['Category', ...months];
+  const tableColumns = ['Category', ...months, 'YTD'];
 
   return (
     <Card>
@@ -25,25 +21,20 @@ export default async function CashFlowTable() {
         <TableHead>
           <TableRow>
             {tableColumns.map((v) => (
-              <TableHeaderCell key={v}>{v}</TableHeaderCell>
+              <TableHeaderCell className="text-center font-bold" key={v}>
+                {v}
+              </TableHeaderCell>
             ))}
           </TableRow>
         </TableHead>
 
         <TableBody>
           {categories.map((category) => (
-            <TableRow key={category}>
-              <TableCell>{category}</TableCell>
-              {months.map((m) => {
-                const cellData = cashFlowData.find(
-                  ({ main_category, month }) =>
-                    main_category === category && month === m
-                );
-                return (
-                  <TableCell key={m}>{cellData?.sum_BYN.toFixed(0)}</TableCell>
-                );
-              })}
-            </TableRow>
+            <CashFlowTableRow
+              key={category.id}
+              category={category}
+              months={months}
+            />
           ))}
         </TableBody>
       </Table>
