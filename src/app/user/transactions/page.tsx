@@ -12,7 +12,10 @@ export default async function TransactionsPage() {
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title className="mb-3">Transactions page</Title>
-      <AddTransactionForm cashAccounts={cashAccounts} categories={categories} />
+      <AddTransactionForm
+        cashAccounts={cashAccounts.map(({ id, name }) => ({ id, name }))}
+        categories={categories}
+      />
       <Suspense fallback={'Loading...'}>
         {/* @ts-expect-error Server Component */}
         <TransactionsList />

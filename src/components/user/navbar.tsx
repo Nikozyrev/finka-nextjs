@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const routes = [
+  { text: 'Cash Flow', link: '/user/cashflow' },
   { text: 'Accounts', link: '/user/accounts' },
   { text: 'Transactions', link: '/user/transactions' },
   { text: 'Categories', link: '/user/categories' }
