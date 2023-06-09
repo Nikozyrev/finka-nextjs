@@ -5,11 +5,6 @@ export interface ICashFlowSums {
   BYN: Decimal;
 }
 
-// export interface ICashFlowSumsByMonth {
-//   month: number;
-//   sums: ICashFlowSums;
-// }
-
 export interface ICashFlowSumsByMonths {
   [month: string]: ICashFlowSums | undefined;
   '1'?: ICashFlowSums;
@@ -35,20 +30,14 @@ export interface ICashFlowCategory {
   sumsByMonths: ICashFlowSumsByMonths;
 }
 
-export interface ICashFlowTotals {
+export interface ICashFlowSectionTotals {
   cashFlowIn: ICashFlowSumsByMonths;
   cashFlowOut: ICashFlowSumsByMonths;
   cashFlow: ICashFlowSumsByMonths;
 }
 
-export interface ICashFlowSection {
-  income: ICashFlowCategory[];
-  expenses: ICashFlowCategory[];
-  subtotal: ICashFlowTotals;
-}
-
-export interface ICashFlowData {
-  operational: ICashFlowSection;
-  investments: ICashFlowSection;
-  total: ICashFlowTotals;
+export interface ICashFlowTotals {
+  OPERATIONAL: ICashFlowSectionTotals;
+  INVESTMENTS: ICashFlowSectionTotals;
+  grandTotal: ICashFlowSectionTotals;
 }

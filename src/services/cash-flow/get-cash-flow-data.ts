@@ -1,4 +1,5 @@
 import { getSumsByCategories } from '../db/transactions/get-sums-by-categories';
+import { getCashFlowTotals } from './get-cash-flow-totals';
 import { getCategoryData } from './get-category-data';
 
 export const getCashFlowData = async () => {
@@ -14,5 +15,7 @@ export const getCashFlowData = async () => {
     getCategoryData(sumsByCategories, id)
   );
 
-  return categories;
+  const totals = getCashFlowTotals(sumsByCategories);
+
+  return { categories, totals };
 };
