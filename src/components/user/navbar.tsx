@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ROUTES } from '../../constants/routes';
 
 const routes = [
-  { text: 'Cash Flow', link: '/user/cashflow' },
-  { text: 'Accounts', link: '/user/accounts' },
-  { text: 'Transactions', link: '/user/transactions' },
-  { text: 'Categories', link: '/user/categories' }
+  { text: 'Cash Flow', link: ROUTES.USER_CASH_FLOW },
+  { text: 'Accounts', link: ROUTES.USER_ACCOUNTS },
+  { text: 'Transactions', link: ROUTES.USER_TRANSACTIONS },
+  { text: 'Categories', link: ROUTES.USER_CATEGORIES }
 ];
 
 export default function NavBar() {
