@@ -1,4 +1,4 @@
-import { CashFlowSection, CategoryType } from '@prisma/client';
+import { CategoryType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import { ICashFlowTotals } from '../../models/cash-flow.model';
 import { ISumsByCategories } from '../db/transactions/get-sums-by-categories';
@@ -24,6 +24,8 @@ export const getCashFlowTotals = (categories: ISumsByCategories[]) => {
 
   const totals = categories.reduce(
     (acc, { category_type, cash_flow_section, month, sum_BYN }) => {
+      if (!sum_BYN) throw new Error('Not all rates found in DB');
+
       const section = cash_flow_section;
       const type =
         category_type === CategoryType.INCOME ? 'cashFlowIn' : 'cashFlowOut';
