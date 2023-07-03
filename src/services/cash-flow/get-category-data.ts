@@ -17,6 +17,7 @@ export const getCategoryData = (
 
   const sumsByMonths = categoryTransactions.reduce(
     (acc, val) => {
+      if (!val.sum_BYN) throw new Error('Not all currency rates found in DB');
       const month = val.month.toString();
       acc[month] = {
         BYN: val.sum_BYN
