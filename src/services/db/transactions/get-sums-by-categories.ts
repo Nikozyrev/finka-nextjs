@@ -1,7 +1,7 @@
+import { Decimal } from '@prisma/client/runtime';
 import { CashFlowSection, CategoryType, Prisma } from '@prisma/client';
 import { prisma } from '../../../lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
-import { Decimal } from '@prisma/client/runtime';
 
 export interface ISumsByCategories {
   year: number;
@@ -13,7 +13,10 @@ export interface ISumsByCategories {
   sum: Decimal | null;
 }
 
-export const getSumsByCategories = async (baseCurrencyId: number = 1) => {
+export const getSumsByCategories = async (
+  year: number,
+  baseCurrencyId: number
+) => {
   const user = await getUserInfo();
   const userId = user?.id;
 
@@ -27,7 +30,7 @@ export const getSumsByCategories = async (baseCurrencyId: number = 1) => {
     LEFT JOIN currencyrates AS R ON TO_DAYS(T.date) = TO_DAYS(R.date) AND A.currency_id = R.currency_id AND R.base_currency_id = ${baseCurrencyId}
     LEFT JOIN categories AS C ON T.category_id = C.id
     LEFT JOIN maincategories AS M ON C.main_category_id = M.id
-    WHERE T.user_id = '${userId}'
+    WHERE T.user_id = '${userId}' AND YEAR(T.date) = '${year}'
     GROUP BY year, month, M.id;`
     ])
   );

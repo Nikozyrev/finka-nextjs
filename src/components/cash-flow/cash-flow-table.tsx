@@ -12,9 +12,17 @@ import CashFlowTableSection from './cash-flow-table-section';
 import CashFlowTableTotals from './cash-flow-table-totals';
 import AppError from '../ui/error';
 
-export default async function CashFlowTable() {
+interface ICashFlowTableProps {
+  year: number;
+  currencyId: number;
+}
+
+export default async function CashFlowTable({
+  year,
+  currencyId
+}: ICashFlowTableProps) {
   try {
-    const { categories, totals } = await getCashFlowData(2);
+    const { categories, totals } = await getCashFlowData(year, currencyId);
 
     const months = Array.from(new Array(12), (_, i) => i + 1);
     const tableColumns = ['Category', ...months, 'YTD'];
