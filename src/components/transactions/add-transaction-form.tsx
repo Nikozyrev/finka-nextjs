@@ -31,6 +31,7 @@ export default function AddTransactionForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!date || !cashAccountId || !categoryId) return;
+    date[0]?.setUTCHours(0, 0, 0, 0);
     await fetch('/api/transactions', {
       method: 'POST',
       body: JSON.stringify({

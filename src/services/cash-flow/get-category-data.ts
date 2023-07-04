@@ -17,14 +17,13 @@ export const getCategoryData = (
 
   const sumsByMonths = categoryTransactions.reduce(
     (acc, val) => {
+      if (!val.sum) throw new Error('Not all currency rates found in DB');
       const month = val.month.toString();
-      acc[month] = {
-        BYN: val.sum_BYN
-      };
-      acc.totalYear.BYN = val.sum_BYN.add(acc.totalYear.BYN);
+      acc[month] = val.sum;
+      acc.totalYear = val.sum.add(acc.totalYear);
       return acc;
     },
-    { totalYear: { BYN: new Decimal(0) } } as ICashFlowSumsByMonths
+    { totalYear: new Decimal(0) } as ICashFlowSumsByMonths
   );
 
   return {

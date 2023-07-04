@@ -20,7 +20,7 @@ export default function CashFlowTableRow({
         {name}
       </TableCell>
       {months.map((m) => {
-        const cellSum = sumsByMonths[m]?.BYN.toFixed(0);
+        const cellSum = sumsByMonths[m]?.toFixed(0);
         return (
           <TableCell className={`text-right p-1 ${className ?? ''}`} key={m}>
             {cellSum}
@@ -28,7 +28,7 @@ export default function CashFlowTableRow({
         );
       })}
       <TableCell className={`text-right p-1 ${className ?? ''}`}>
-        {sumsByMonths.totalYear.BYN.toFixed(0)}
+        {sumsByMonths.totalYear.toFixed(0)}
       </TableCell>
     </TableRow>
   );
