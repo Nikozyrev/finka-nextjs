@@ -145,24 +145,24 @@ model Transaction {
 }
 
 model Currency {
-  id            Int            @id @default(autoincrement())
-  name          String
-  symbol        String         @unique
-  currencyRates CurrencyRate[]
-  cashAccounts  CashAccount[]
+  id           Int           @id @default(autoincrement())
+  name         String
+  symbol       String        @unique
+  cashAccounts CashAccount[]
 
   @@map("currencies")
 }
 
 model CurrencyRate {
-  id         Int      @id @default(autoincrement())
-  date       DateTime
-  rate       Decimal
-  source     String?
-  currencyId Int      @map("currency_id")
-  currency   Currency @relation(fields: [currencyId], references: [id])
+  id             Int      @id @default(autoincrement())
+  date           DateTime
+  rate           Decimal
+  source         String?
+  currencyId     Int      @map("currency_id")
+  baseCurrencyId Int      @map("base_currency_id")
 
-  @@unique([date, currencyId])
+  @@unique([date, currencyId, baseCurrencyId])
   @@index([currencyId])
+  @@index([baseCurrencyId])
   @@map("currencyrates")
 }
