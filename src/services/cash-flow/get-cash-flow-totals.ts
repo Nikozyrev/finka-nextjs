@@ -6,55 +6,49 @@ import { ISumsByCategories } from '../db/transactions/get-sums-by-categories';
 export const getCashFlowTotals = (categories: ISumsByCategories[]) => {
   const initial: ICashFlowTotals = {
     OPERATIONAL: {
-      cashFlowIn: { totalYear: { BYN: new Decimal(0) } },
-      cashFlowOut: { totalYear: { BYN: new Decimal(0) } },
-      cashFlow: { totalYear: { BYN: new Decimal(0) } }
+      cashFlowIn: { totalYear: new Decimal(0) },
+      cashFlowOut: { totalYear: new Decimal(0) },
+      cashFlow: { totalYear: new Decimal(0) }
     },
     INVESTMENTS: {
-      cashFlowIn: { totalYear: { BYN: new Decimal(0) } },
-      cashFlowOut: { totalYear: { BYN: new Decimal(0) } },
-      cashFlow: { totalYear: { BYN: new Decimal(0) } }
+      cashFlowIn: { totalYear: new Decimal(0) },
+      cashFlowOut: { totalYear: new Decimal(0) },
+      cashFlow: { totalYear: new Decimal(0) }
     },
     grandTotal: {
-      cashFlowIn: { totalYear: { BYN: new Decimal(0) } },
-      cashFlowOut: { totalYear: { BYN: new Decimal(0) } },
-      cashFlow: { totalYear: { BYN: new Decimal(0) } }
+      cashFlowIn: { totalYear: new Decimal(0) },
+      cashFlowOut: { totalYear: new Decimal(0) },
+      cashFlow: { totalYear: new Decimal(0) }
     }
   };
 
   const totals = categories.reduce(
-    (acc, { category_type, cash_flow_section, month, sum_BYN }) => {
-      if (!sum_BYN) throw new Error('Not all rates found in DB');
+    (acc, { category_type, cash_flow_section, month, sum }) => {
+      if (!sum) throw new Error('Not all rates found in DB');
 
       const section = cash_flow_section;
       const type =
         category_type === CategoryType.INCOME ? 'cashFlowIn' : 'cashFlowOut';
 
       const sectionType = acc[section][type];
-      sectionType[month] = { BYN: sum_BYN.add(sectionType[month]?.BYN || 0) };
-      sectionType.totalYear = { BYN: sum_BYN.add(sectionType.totalYear.BYN) };
+      sectionType[month] = sum.add(sectionType[month] || 0);
+      sectionType.totalYear = sum.add(sectionType.totalYear);
 
-      acc[section].cashFlow[month] = {
-        BYN: sum_BYN.add(acc[section].cashFlow[month]?.BYN || 0)
-      };
-      acc[section].cashFlow.totalYear = {
-        BYN: sum_BYN.add(acc[section].cashFlow.totalYear.BYN)
-      };
+      acc[section].cashFlow[month] = sum.add(acc[section].cashFlow[month] || 0);
+      acc[section].cashFlow.totalYear = sum.add(
+        acc[section].cashFlow.totalYear
+      );
 
       const grandTotalType = acc.grandTotal[type];
-      grandTotalType[month] = {
-        BYN: sum_BYN.add(grandTotalType[month]?.BYN || 0)
-      };
-      grandTotalType.totalYear = {
-        BYN: sum_BYN.add(grandTotalType.totalYear.BYN)
-      };
+      grandTotalType[month] = sum.add(grandTotalType[month] || 0);
+      grandTotalType.totalYear = sum.add(grandTotalType.totalYear);
 
-      acc.grandTotal.cashFlow[month] = {
-        BYN: sum_BYN.add(acc.grandTotal.cashFlow[month]?.BYN || 0)
-      };
-      acc.grandTotal.cashFlow.totalYear = {
-        BYN: sum_BYN.add(acc.grandTotal.cashFlow.totalYear.BYN)
-      };
+      acc.grandTotal.cashFlow[month] = sum.add(
+        acc.grandTotal.cashFlow[month] || 0
+      );
+      acc.grandTotal.cashFlow.totalYear = sum.add(
+        acc.grandTotal.cashFlow.totalYear
+      );
 
       return acc;
     },

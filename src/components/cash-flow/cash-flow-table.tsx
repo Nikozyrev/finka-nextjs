@@ -14,7 +14,7 @@ import AppError from '../ui/error';
 
 export default async function CashFlowTable() {
   try {
-    const { categories, totals } = await getCashFlowData();
+    const { categories, totals } = await getCashFlowData(2);
 
     const months = Array.from(new Array(12), (_, i) => i + 1);
     const tableColumns = ['Category', ...months, 'YTD'];
