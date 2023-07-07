@@ -1,5 +1,6 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
 import { getTransactions } from '../../services/db/transactions/get-transactions';
+import DeleteTransactionButton from './delete-transaction-button';
 
 export default async function TransactionsList() {
   const transactions = await getTransactions();
@@ -16,6 +17,7 @@ export default async function TransactionsList() {
               <span>{category.name}</span>
               <span>{cashAccount.name}</span>
               <span>{comment}</span>
+              <DeleteTransactionButton id={id} />
             </ListItem>
           )
         )}
