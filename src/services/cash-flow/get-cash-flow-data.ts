@@ -2,8 +2,8 @@ import { getSumsByCategories } from '../db/transactions/get-sums-by-categories';
 import { getCashFlowTotals } from './get-cash-flow-totals';
 import { getCategoryData } from './get-category-data';
 
-export const getCashFlowData = async (baseCurrencyId: number) => {
-  const sumsByCategories = await getSumsByCategories(baseCurrencyId);
+export const getCashFlowData = async (year: number, baseCurrencyId: number) => {
+  const sumsByCategories = await getSumsByCategories(year, baseCurrencyId);
 
   const uniqueCategoriesIds = sumsByCategories.reduce(
     (acc, val) =>
