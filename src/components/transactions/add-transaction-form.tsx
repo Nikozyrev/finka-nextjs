@@ -9,8 +9,8 @@ import {
   TextInput,
   Title
 } from '@tremor/react';
-import { useRouter } from 'next/navigation';
 import AppSelect from '../ui/select';
+import { useTransactionsApi } from '../../services/api/transactions';
 
 interface IAddTransactionFormProps {
   categories: { id: string; name: string }[];
@@ -21,7 +21,7 @@ export default function AddTransactionForm({
   cashAccounts,
   categories
 }: IAddTransactionFormProps) {
-  const Router = useRouter();
+  const { addTransaction } = useTransactionsApi();
   const [date, setDate] = useState<DateRangePickerValue>([new Date()]);
   const [sum, setSum] = useState<string>('');
   const [cashAccountId, setCashAccountId] = useState<string>('');
@@ -30,19 +30,14 @@ export default function AddTransactionForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!date || !cashAccountId || !categoryId) return;
-    await fetch('/api/transactions', {
-      method: 'POST',
-      body: JSON.stringify({
-        date: date[0],
-        sum: Number.isNaN(sum) ? 0 : Number(sum),
-        cashAccountId,
-        categoryId,
-        comment
-      })
+    if (!date[0] || !cashAccountId || !categoryId) return;
+    await addTransaction({
+      date: date[0],
+      sum: Number(sum),
+      cashAccountId,
+      categoryId,
+      comment
     });
-    Router.refresh();
-    return;
   };
 
   return (

@@ -1,20 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Button, Icon } from '@tremor/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import { useTransactionsApi } from '../../services/api/transactions';
 
 export default function DeleteTransactionButton({ id }: { id: string }) {
-  const Router = useRouter();
+  const { deleteTransaction } = useTransactionsApi();
 
-  const deleteTransaction = async () => {
-    const url = `/api/transactions/${id}`;
-    await fetch(url, { method: 'DELETE' });
-    Router.refresh();
+  const handleClick = async () => {
+    await deleteTransaction(id);
   };
 
   return (
-    <Button className="p-0" size="xs" color="amber" onClick={deleteTransaction}>
+    <Button className="p-0" size="xs" color="amber" onClick={handleClick}>
       <Icon icon={XMarkIcon} variant="simple" size="md" color="red"></Icon>
     </Button>
   );
