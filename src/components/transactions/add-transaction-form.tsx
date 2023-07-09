@@ -11,6 +11,7 @@ import {
 } from '@tremor/react';
 import AppSelect from '../ui/select';
 import { useTransactionsApi } from '../../services/api/transactions';
+import { getUTCDate } from '../../helpers/get-utc-date';
 
 interface IAddTransactionFormProps {
   categories: { id: string; name: string }[];
@@ -32,7 +33,7 @@ export default function AddTransactionForm({
     e.preventDefault();
     if (!date[0] || !cashAccountId || !categoryId) return;
     await addTransaction({
-      date: date[0],
+      date: getUTCDate(date[0]),
       sum: Number(sum),
       cashAccountId,
       categoryId,
