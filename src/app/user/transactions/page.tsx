@@ -4,6 +4,7 @@ import AddTransactionForm from '../../../components/transactions/add-transaction
 import TransactionsList from '../../../components/transactions/transactions-list';
 import { getCashAccounts } from '../../../services/db/cash-accounts/get-cash-accounts';
 import { getCategories } from '../../../services/db/categories/get-categories';
+import AppModal from '../../../components/ui/modal';
 
 export default async function TransactionsPage() {
   const cashAccounts = await getCashAccounts();
@@ -11,15 +12,16 @@ export default async function TransactionsPage() {
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <Title className="mb-3">Transactions page</Title>
-      <AddTransactionForm
-        cashAccounts={cashAccounts.map(({ id, name }) => ({ id, name }))}
-        categories={categories}
-      />
       <Suspense fallback={'Loading...'}>
         {/* @ts-expect-error Server Component */}
         <TransactionsList />
       </Suspense>
+      <AppModal>
+        <AddTransactionForm
+          cashAccounts={cashAccounts.map(({ id, name }) => ({ id, name }))}
+          categories={categories}
+        />
+      </AppModal>
     </main>
   );
 }
