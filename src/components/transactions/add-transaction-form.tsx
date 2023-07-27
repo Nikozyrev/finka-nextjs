@@ -1,14 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import {
-  Button,
-  Card,
-  DateRangePicker,
-  DateRangePickerValue,
-  TextInput,
-  Title
-} from '@tremor/react';
+import { Button, Card, DatePicker, TextInput, Title } from '@tremor/react';
 import AppSelect from '../ui/select';
 import { useTransactionsApi } from '../../services/api/transactions';
 import { getUTCDate } from '../../helpers/get-utc-date';
@@ -23,7 +16,7 @@ export default function AddTransactionForm({
   categories
 }: IAddTransactionFormProps) {
   const { addTransaction } = useTransactionsApi();
-  const [date, setDate] = useState<DateRangePickerValue>([new Date()]);
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const [sum, setSum] = useState<string>('');
   const [cashAccountId, setCashAccountId] = useState<string>('');
   const [categoryId, setCategoryId] = useState<string>('');
@@ -31,9 +24,9 @@ export default function AddTransactionForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!date[0] || !cashAccountId || !categoryId) return;
+    if (!date || !cashAccountId || !categoryId) return;
     await addTransaction({
-      date: getUTCDate(date[0]),
+      date: getUTCDate(date),
       sum: Number(sum),
       cashAccountId,
       categoryId,
@@ -45,11 +38,10 @@ export default function AddTransactionForm({
     <Card>
       <Title className="mb-3">Add transaction</Title>
       <form onSubmit={handleSubmit}>
-        <DateRangePicker
-          className="max-w-sm mx-auto mb-3"
+        <DatePicker
+          className="mb-3"
           value={date}
           onValueChange={setDate}
-          enableDropdown={false}
           enableClear={false}
         />
         <AppSelect

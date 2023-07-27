@@ -1,6 +1,6 @@
 'use client';
 
-import { SelectBox, SelectBoxItem } from '@tremor/react';
+import { SearchSelect, SearchSelectItem } from '@tremor/react';
 
 interface ISelectOption {
   value: string;
@@ -24,15 +24,17 @@ export default function AppSelect({
 }: IAppSelectProps) {
   return (
     <div className={className ?? ''}>
-      <SelectBox
+      <SearchSelect
         value={value}
         onValueChange={onValueChange}
         placeholder={placeholder}
       >
         {options.map(({ text, value }) => (
-          <SelectBoxItem key={value} value={value} text={text} />
+          <SearchSelectItem key={value} value={value}>
+            {text}
+          </SearchSelectItem>
         ))}
-      </SelectBox>
+      </SearchSelect>
     </div>
   );
 }
