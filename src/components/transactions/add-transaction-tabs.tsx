@@ -1,11 +1,12 @@
 'use client';
 
+import { CategoryType } from '@prisma/client';
 import { ReactNode } from 'react';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@tremor/react';
 import AddTransactionForm from './add-transaction-form';
 
 interface IAddTransactionTabsProps {
-  categories: { id: string; name: string }[];
+  categories: { id: string; name: string; categoryType: CategoryType }[];
   cashAccounts: { id: string; name: string }[];
 }
 
@@ -25,6 +26,7 @@ export default function AddTransactionTabs({
         <AddTransactionForm
           cashAccounts={cashAccounts}
           categories={categories}
+          categoryType="INCOME"
         />
       )
     },
@@ -34,17 +36,13 @@ export default function AddTransactionTabs({
         <AddTransactionForm
           cashAccounts={cashAccounts}
           categories={categories}
+          categoryType="EXPENSE"
         />
       )
     },
     {
       name: 'Transfer',
-      component: (
-        <AddTransactionForm
-          cashAccounts={cashAccounts}
-          categories={categories}
-        />
-      )
+      component: null
     }
   ];
 

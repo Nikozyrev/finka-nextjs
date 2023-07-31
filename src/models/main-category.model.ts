@@ -7,3 +7,5 @@ export interface IMainCategory {
   cashFlowSection: CashFlowSection;
   userId: string;
 }
+
+export type IAddCategoryType = 'INCOME' | 'EXPENSE';
