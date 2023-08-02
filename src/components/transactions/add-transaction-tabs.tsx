@@ -4,10 +4,11 @@ import { CategoryType } from '@prisma/client';
 import { ReactNode } from 'react';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@tremor/react';
 import AddTransactionForm from './add-transaction-form';
+import { AddTransferForm } from './add-transfer-form';
 
 interface IAddTransactionTabsProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];
-  cashAccounts: { id: string; name: string }[];
+  cashAccounts: { id: string; name: string; currencyId: number }[];
 }
 
 interface ITab {
@@ -42,7 +43,7 @@ export default function AddTransactionTabs({
     },
     {
       name: 'Transfer',
-      component: null
+      component: <AddTransferForm cashAccounts={cashAccounts} />
     }
   ];
 

@@ -17,7 +17,13 @@ export default async function TransactionsPage() {
       </Suspense>
       <AppModal>
         <AddTransactionTabs
-          cashAccounts={cashAccounts.map(({ id, name }) => ({ id, name }))}
+          cashAccounts={cashAccounts.map(
+            ({ id, name, currency: { id: currencyId } }) => ({
+              id,
+              name,
+              currencyId
+            })
+          )}
           categories={categories}
         />
       </AppModal>
