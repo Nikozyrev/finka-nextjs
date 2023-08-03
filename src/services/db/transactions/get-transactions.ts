@@ -16,7 +16,8 @@ export const getTransactions = async () => {
       cashAccount: true,
       category: true
     },
-    where: { userId }
+    where: { userId },
+    orderBy: { date: 'desc' }
   });
 
   return data;

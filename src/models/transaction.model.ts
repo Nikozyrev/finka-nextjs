@@ -10,3 +10,11 @@ export interface ITransaction {
   categoryId: string;
   userId: string;
 }
+
+export interface ITransactionBody {
+  date: Date;
+  sum: number;
+  cashAccountId: string;
+  categoryId: string;
+  comment?: string;
+}

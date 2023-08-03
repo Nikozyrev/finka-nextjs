@@ -8,9 +8,17 @@ export const getCategories = async () => {
   if (!userId) return [];
 
   const data = await prisma.category.findMany({
-    select: { id: true, name: true },
+    select: {
+      id: true,
+      name: true,
+      mainCategory: { select: { categoryType: true } }
+    },
     where: { userId }
   });
 
-  return data;
+  return data.map(({ id, name, mainCategory: { categoryType } }) => ({
+    id,
+    name,
+    categoryType
+  }));
 };

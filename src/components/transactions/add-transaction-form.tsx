@@ -1,96 +1,120 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import {
-  Button,
-  Card,
-  DateRangePicker,
-  DateRangePickerValue,
-  TextInput,
-  Title
-} from '@tremor/react';
-import { useRouter } from 'next/navigation';
+import { CategoryType } from '@prisma/client';
+import { Button, Card, DatePicker, TextInput } from '@tremor/react';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import AppSelect from '../ui/select';
+import { useTransactionsApi } from '../../services/api/transactions';
+import { getUTCDate } from '../../helpers/get-utc-date';
+import { getSumWithSign } from '../../helpers/get-sum-with-sign';
+import { IAddCategoryType } from '../../models/main-category.model';
 
 interface IAddTransactionFormProps {
-  categories: { id: string; name: string }[];
+  categories: { id: string; name: string; categoryType: CategoryType }[];
   cashAccounts: { id: string; name: string }[];
+  categoryType: IAddCategoryType;
+}
+
+interface IAddTransactionFormInputs {
+  date: Date;
+  sum: number;
+  cashAccountId: string;
+  categoryId: string;
+  comment: string;
 }
 
 export default function AddTransactionForm({
   cashAccounts,
-  categories
+  categories,
+  categoryType
 }: IAddTransactionFormProps) {
-  const Router = useRouter();
-  const [date, setDate] = useState<DateRangePickerValue>([new Date()]);
-  const [sum, setSum] = useState<string>('');
-  const [cashAccountId, setCashAccountId] = useState<string>('');
-  const [categoryId, setCategoryId] = useState<string>('');
-  const [comment, setComment] = useState<string>('');
+  const { addTransaction } = useTransactionsApi();
+  const { register, handleSubmit, reset, formState, control } =
+    useForm<IAddTransactionFormInputs>({
+      defaultValues: { date: new Date(), cashAccountId: '', categoryId: '' }
+    });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!date || !cashAccountId || !categoryId) return;
-    date[0]?.setUTCHours(0, 0, 0, 0);
-    await fetch('/api/transactions', {
-      method: 'POST',
-      body: JSON.stringify({
-        date: date[0],
-        sum: Number.isNaN(sum) ? 0 : Number(sum),
+  const onSubmit: SubmitHandler<IAddTransactionFormInputs> = async (
+    formData
+  ) => {
+    const { date, sum, cashAccountId, categoryId, comment } = formData;
+    if (formState.isValid) {
+      await addTransaction({
+        date: getUTCDate(date),
+        sum: getSumWithSign(categoryType, sum),
         cashAccountId,
         categoryId,
         comment
-      })
-    });
-    Router.refresh();
-    return;
+      });
+      reset();
+      return;
+    }
   };
 
   return (
     <Card>
-      <Title className="mb-3">Add transaction</Title>
-      <form onSubmit={handleSubmit}>
-        <DateRangePicker
-          className="max-w-sm mx-auto mb-3"
-          value={date}
-          onValueChange={setDate}
-          enableDropdown={false}
-          enableClear={false}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="date"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <DatePicker
+              className="mb-3"
+              value={field.value}
+              onValueChange={field.onChange}
+              enableClear={false}
+            />
+          )}
         />
-        <AppSelect
-          className="mb-3"
-          options={cashAccounts.map(({ id, name }) => ({
-            value: id,
-            text: name
-          }))}
-          value={cashAccountId}
-          onValueChange={setCashAccountId}
-          placeholder="Account"
+        <Controller
+          name="cashAccountId"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <AppSelect
+              className="mb-3"
+              options={cashAccounts.map(({ id, name }) => ({
+                value: id,
+                text: name
+              }))}
+              value={field.value}
+              onValueChange={field.onChange}
+              placeholder="Account"
+            />
+          )}
         />
         <TextInput
           className="mb-3"
           placeholder="Sum"
-          value={sum}
-          onChange={(e) => setSum(e.target.value)}
-        ></TextInput>
-        <AppSelect
-          className="mb-3"
-          options={categories.map(({ id, name }) => ({
-            value: id,
-            text: name
-          }))}
-          value={categoryId}
-          onValueChange={setCategoryId}
-          placeholder="Category"
+          {...register('sum', { required: true })}
+        />
+        <Controller
+          name="categoryId"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <AppSelect
+              className="mb-3"
+              options={categories
+                .filter(({ categoryType: type }) => type === categoryType)
+                .map(({ id, name }) => ({
+                  value: id,
+                  text: name
+                }))}
+              value={field.value}
+              onValueChange={field.onChange}
+              placeholder="Category"
+            />
+          )}
         />
         <TextInput
           className="mb-3"
           placeholder="Comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        ></TextInput>
-        <Button type="submit" disabled={!sum}>
-          Add Transaction
+          {...register('comment')}
+        />
+        <Button type="submit" disabled={!formState.isValid}>
+          Add {categoryType.toLowerCase()}
         </Button>
       </form>
     </Card>

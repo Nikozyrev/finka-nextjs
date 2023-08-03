@@ -1,15 +1,8 @@
 import { NextResponse } from 'next/server';
+import { Decimal } from '@prisma/client/runtime/library';
 import { getUserInfo } from '../../../services/user/get-user-info';
 import { addTransaction } from '../../../services/db/transactions/add-transaction';
-import { Decimal } from '@prisma/client/runtime';
-
-interface ITransactionBody {
-  date: Date;
-  sum: number;
-  cashAccountId: string;
-  categoryId: string;
-  comment?: string;
-}
+import { ITransactionBody } from '../../../models/transaction.model';
 
 export async function POST(req: Request) {
   const body: ITransactionBody = await req.json();
