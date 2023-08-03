@@ -30,7 +30,7 @@ export const getSumsByCategories = async (
     LEFT JOIN currencyrates AS R ON TO_DAYS(T.date) = TO_DAYS(R.date) AND A.currency_id = R.currency_id AND R.base_currency_id = ${baseCurrencyId}
     LEFT JOIN categories AS C ON T.category_id = C.id
     LEFT JOIN maincategories AS M ON C.main_category_id = M.id
-    WHERE T.user_id = '${userId}' AND YEAR(T.date) = '${year}'
+    WHERE T.user_id = '${userId}' AND YEAR(T.date) = '${year}' AND M.cash_flow_section <> 'null'
     GROUP BY year, month, M.id;`
     ])
   );

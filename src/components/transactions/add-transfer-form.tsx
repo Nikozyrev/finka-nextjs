@@ -2,9 +2,11 @@
 
 import { FC, useEffect } from 'react';
 import { Button, Card, DatePicker, TextInput } from '@tremor/react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IsSameCurrenciesAccounts } from '../../helpers/is-same-currencies-accounts';
 import AppSelect from '../ui/select';
+import { useTransfersApi } from '../../services/api/transfers';
+import { getUTCDate } from '../../helpers/get-utc-date';
 
 interface IAddTransferFormProps {
   cashAccounts: { id: string; name: string; currencyId: number }[];
@@ -16,11 +18,13 @@ interface IAddTransferFormInputs {
   toCashAccountId: string;
   fromSum: number;
   toSum: number;
+  comment: string;
 }
 
 export const AddTransferForm: FC<IAddTransferFormProps> = ({
   cashAccounts
 }) => {
+  const { addTransfer } = useTransfersApi();
   const { register, handleSubmit, watch, reset, formState, control, setValue } =
     useForm<IAddTransferFormInputs>({
       defaultValues: {
@@ -40,6 +44,29 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
     toCashAccountId
   );
 
+  const onSubmit: SubmitHandler<IAddTransferFormInputs> = async (formData) => {
+    const {
+      date,
+      fromCashAccountId,
+      fromSum,
+      toCashAccountId,
+      toSum,
+      comment
+    } = formData;
+    if (formState.isValid) {
+      await addTransfer({
+        date: getUTCDate(date),
+        fromCashAccountId,
+        toCashAccountId,
+        fromSum: -Math.abs(fromSum),
+        toSum: Math.abs(toSum),
+        comment
+      });
+      reset();
+      return;
+    }
+  };
+
   useEffect(() => {
     if (isSameCurrencies) {
       setValue('toSum', fromSum);
@@ -48,7 +75,7 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
 
   return (
     <Card>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="date"
           control={control}
@@ -112,6 +139,11 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
             {...register('toSum', { required: true })}
           />
         )}
+        <TextInput
+          className="mb-3"
+          placeholder="Comment"
+          {...register('comment')}
+        />
         <Button type="submit" disabled={!formState.isValid}>
           Add transfer
         </Button>
