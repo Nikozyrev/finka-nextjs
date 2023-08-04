@@ -1,5 +1,6 @@
 'use client';
 
+import { FC } from 'react';
 import { SearchSelect, SearchSelectItem } from '@tremor/react';
 
 interface ISelectOption {
@@ -15,13 +16,13 @@ interface IAppSelectProps {
   placeholder?: string;
 }
 
-export default function AppSelect({
+export const AppSelect: FC<IAppSelectProps> = ({
   options,
   value,
   onValueChange,
   className,
   placeholder
-}: IAppSelectProps) {
+}) => {
   return (
     <div className={className ?? ''}>
       <SearchSelect
@@ -37,4 +38,4 @@ export default function AppSelect({
       </SearchSelect>
     </div>
   );
-}
+};

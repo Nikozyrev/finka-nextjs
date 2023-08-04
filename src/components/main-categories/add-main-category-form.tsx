@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 import { Button, Card, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import AppSelect from '../ui/select';
+import { AppSelect } from '../ui/select';
 
 export default function AddMainCategoryForm() {
   const Router = useRouter();

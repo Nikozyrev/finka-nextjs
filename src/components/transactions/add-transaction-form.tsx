@@ -3,7 +3,7 @@
 import { CategoryType } from '@prisma/client';
 import { Button, Card, DatePicker, TextInput } from '@tremor/react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
-import AppSelect from '../ui/select';
+import { AppSelect } from '../ui/select';
 import { useTransactionsApi } from '../../services/api/transactions';
 import { getUTCDate } from '../../helpers/get-utc-date';
 import { getSumWithSign } from '../../helpers/get-sum-with-sign';
