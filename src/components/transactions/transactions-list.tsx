@@ -1,8 +1,8 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
 import { getTransactions } from '../../services/db/transactions/get-transactions';
-import DeleteTransactionButton from './delete-transaction-button';
+import { DeleteTransactionButton } from './delete-transaction-button';
 
-export default async function TransactionsList() {
+export const TransactionsList = async () => {
   const transactions = await getTransactions();
 
   return (
@@ -24,4 +24,4 @@ export default async function TransactionsList() {
       </List>
     </Card>
   );
-}
+};

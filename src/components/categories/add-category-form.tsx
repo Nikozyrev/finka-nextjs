@@ -1,15 +1,17 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { Button, Card, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
 import { AppSelect } from '../ui/select';
 
-export default function AddCategoryForm({
-  mainCategories
-}: {
+interface IAddCategoryFormProps {
   mainCategories: { id: string; name: string }[];
-}) {
+}
+
+export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
+  mainCategories
+}) => {
   const Router = useRouter();
   const [name, setName] = useState<string>('');
   const [mainCategoryId, setMainCategoryId] = useState<string>('');
@@ -54,4 +56,4 @@ export default function AddCategoryForm({
       </form>
     </Card>
   );
-}
+};

@@ -1,7 +1,7 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
 import { getCashAccountsWithBalances } from '../../services/cash-accounts-balances/get-cash-accounts-with-balances';
 
-export default async function CashAccountsList() {
+export const CashAccountsList = async () => {
   const accountsWithActualBalances = await getCashAccountsWithBalances();
 
   return (
@@ -21,4 +21,4 @@ export default async function CashAccountsList() {
       </List>
     </Card>
   );
-}
+};

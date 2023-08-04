@@ -1,5 +1,5 @@
 import { Title } from '@tremor/react';
-import AppButton from '../components/user/app-button';
+import { AppButton } from '../components/user/app-button';
 
 export const dynamic = 'force-dynamic';
 

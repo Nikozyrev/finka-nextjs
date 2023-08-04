@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import { Title } from '@tremor/react';
 import { getCurrencies } from '../../../services/db/currencies/get-currencies';
 import { getTransactionsYears } from '../../../services/db/transactions/get-years';
-import CashFlowTable from '../../../components/cash-flow/cash-flow-table';
-import CurrencySelect from '../../../components/cash-flow/currency-select';
-import YearSelect from '../../../components/cash-flow/year-select';
+import { CashFlowTable } from '../../../components/cash-flow/cash-flow-table';
+import { CurrencySelect } from '../../../components/cash-flow/currency-select';
+import { YearSelect } from '../../../components/cash-flow/year-select';
 
 interface ICashFlowPageProps {
   searchParams?: {
