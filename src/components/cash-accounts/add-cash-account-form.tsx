@@ -1,16 +1,14 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { Button, Card, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
 import { Currency } from '@prisma/client';
-import AppSelect from '../ui/select';
+import { AppSelect } from '../ui/select';
 
-export default function AddCashAccountForm({
-  currencies
-}: {
+export const AddCashAccountForm: FC<{
   currencies: Currency[];
-}) {
+}> = ({ currencies }) => {
   const Router = useRouter();
   const [name, setName] = useState<string>('');
   const [startBalance, setStartBalance] = useState<string>('');
@@ -63,4 +61,4 @@ export default function AddCashAccountForm({
       </form>
     </Card>
   );
-}
+};

@@ -1,9 +1,9 @@
 'use client';
 
 import { CategoryType } from '@prisma/client';
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@tremor/react';
-import AddTransactionForm from './add-transaction-form';
+import { AddTransactionForm } from './add-transaction-form';
 import { AddTransferForm } from './add-transfer-form';
 
 interface IAddTransactionTabsProps {
@@ -16,10 +16,10 @@ interface ITab {
   component: ReactNode;
 }
 
-export default function AddTransactionTabs({
+export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
   cashAccounts,
   categories
-}: IAddTransactionTabsProps) {
+}) => {
   const tabs: ITab[] = [
     {
       name: 'Income',
@@ -66,4 +66,4 @@ export default function AddTransactionTabs({
       </TabPanels>
     </TabGroup>
   );
-}
+};

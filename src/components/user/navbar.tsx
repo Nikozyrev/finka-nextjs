@@ -1,5 +1,6 @@
 'use client';
 
+import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ROUTES } from '../../constants/routes';
@@ -11,7 +12,7 @@ const routes = [
   { text: 'Categories', link: ROUTES.USER_CATEGORIES }
 ];
 
-export default function NavBar() {
+export const NavBar: FC = () => {
   const path = usePathname();
 
   return (
@@ -32,4 +33,4 @@ export default function NavBar() {
       </ul>
     </nav>
   );
-}
+};

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Title } from '@tremor/react';
-import CashAccountsList from '../../../components/cash-accounts/cash-accounts-list';
-import AddCashAccountForm from '../../../components/cash-accounts/add-cash-account-form';
+import { CashAccountsList } from '../../../components/cash-accounts/cash-accounts-list';
+import { AddCashAccountForm } from '../../../components/cash-accounts/add-cash-account-form';
 import { getCurrencies } from '../../../services/db/currencies/get-currencies';
 
 export default async function AccountsPage() {

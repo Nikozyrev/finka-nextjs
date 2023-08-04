@@ -1,16 +1,17 @@
+import { FC } from 'react';
 import { TableCell, TableRow } from '@tremor/react';
 import { ICashFlowTotals } from '../../models/cash-flow.model';
-import CashFlowTableRow from './cash-flow-table-row';
+import { CashFlowTableRow } from './cash-flow-table-row';
 
 interface ICashFlowTableTotalsProps {
   totals: ICashFlowTotals;
   months: number[];
 }
 
-export default function CashFlowTableTotals({
+export const CashFlowTableTotals: FC<ICashFlowTableTotalsProps> = ({
   months,
   totals
-}: ICashFlowTableTotalsProps) {
+}) => {
   return (
     <>
       <TableRow>
@@ -36,4 +37,4 @@ export default function CashFlowTableTotals({
       />
     </>
   );
-}
+};

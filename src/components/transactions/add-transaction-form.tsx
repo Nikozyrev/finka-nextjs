@@ -1,9 +1,10 @@
 'use client';
 
 import { CategoryType } from '@prisma/client';
+import { FC } from 'react';
 import { Button, Card, DatePicker, TextInput } from '@tremor/react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
-import AppSelect from '../ui/select';
+import { AppSelect } from '../ui/select';
 import { useTransactionsApi } from '../../services/api/transactions';
 import { getUTCDate } from '../../helpers/get-utc-date';
 import { getSumWithSign } from '../../helpers/get-sum-with-sign';
@@ -23,11 +24,11 @@ interface IAddTransactionFormInputs {
   comment: string;
 }
 
-export default function AddTransactionForm({
+export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
   cashAccounts,
   categories,
   categoryType
-}: IAddTransactionFormProps) {
+}) => {
   const { addTransaction } = useTransactionsApi();
   const { register, handleSubmit, reset, formState, control } =
     useForm<IAddTransactionFormInputs>({
@@ -119,4 +120,4 @@ export default function AddTransactionForm({
       </form>
     </Card>
   );
-}
+};

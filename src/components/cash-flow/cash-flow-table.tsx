@@ -8,19 +8,19 @@ import {
 } from '@tremor/react';
 import { CashFlowSection } from '@prisma/client';
 import { getCashFlowData } from '../../services/cash-flow/get-cash-flow-data';
-import CashFlowTableSection from './cash-flow-table-section';
-import CashFlowTableTotals from './cash-flow-table-totals';
-import AppError from '../ui/error';
+import { CashFlowTableSection } from './cash-flow-table-section';
+import { CashFlowTableTotals } from './cash-flow-table-totals';
+import { AppError } from '../ui/error';
 
 interface ICashFlowTableProps {
   year: number;
   currencyId: number;
 }
 
-export default async function CashFlowTable({
+export const CashFlowTable = async ({
   year,
   currencyId
-}: ICashFlowTableProps) {
+}: ICashFlowTableProps) => {
   try {
     const { categories, totals } = await getCashFlowData(year, currencyId);
 
@@ -61,4 +61,4 @@ export default async function CashFlowTable({
   } catch (error) {
     return <AppError error={error} />;
   }
-}
+};

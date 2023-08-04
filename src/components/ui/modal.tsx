@@ -1,11 +1,11 @@
 'use client';
 
-import { Fragment, ReactNode, useState } from 'react';
+import { FC, Fragment, ReactNode, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button, Icon } from '@tremor/react';
 import { PlusIcon } from '@heroicons/react/24/solid';
 
-export default function AppModal({ children }: { children: ReactNode }) {
+export const AppModal: FC<{ children: ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -63,4 +63,4 @@ export default function AppModal({ children }: { children: ReactNode }) {
       </Transition>
     </>
   );
-}
+};
