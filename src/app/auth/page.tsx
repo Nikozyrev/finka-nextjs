@@ -1,7 +1,7 @@
 import { Title } from '@tremor/react';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import GoogleSignInBtn from '../../components/auth/googleSignInBtn';
+import { GoogleSignInBtn } from '../../components/auth/googleSignInBtn';
 
 export default async function AuthPage() {
   const session = await getServerSession();
