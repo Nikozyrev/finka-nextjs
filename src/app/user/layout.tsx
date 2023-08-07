@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { NavBar } from '../../components/user/navbar';
 import { UserProfile } from '../../components/auth/profile';
+import { routes } from '../../constants/routes';
 
 export default async function UserLayout({
   children
@@ -12,7 +13,7 @@ export default async function UserLayout({
   return (
     <>
       <div className="flex w-full justify-between p-2">
-        <NavBar />
+        <NavBar routes={routes} />
         <UserProfile user={session?.user} />
       </div>
       {children}
