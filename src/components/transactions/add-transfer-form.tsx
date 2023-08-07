@@ -130,13 +130,21 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
         <TextInput
           className="mb-3"
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
-          {...register('fromSum', { required: true })}
+          {...register('fromSum', {
+            required: true,
+            valueAsNumber: true,
+            validate: (v) => !Number.isNaN(v)
+          })}
         />
         {!isSameCurrencies && (
           <TextInput
             className="mb-3"
             placeholder="Sum To"
-            {...register('toSum', { required: true })}
+            {...register('toSum', {
+              required: true,
+              valueAsNumber: true,
+              validate: (v) => !Number.isNaN(v)
+            })}
           />
         )}
         <TextInput

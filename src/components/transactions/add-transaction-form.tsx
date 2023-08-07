@@ -88,7 +88,11 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
         <TextInput
           className="mb-3"
           placeholder="Sum"
-          {...register('sum', { required: true })}
+          {...register('sum', {
+            required: true,
+            valueAsNumber: true,
+            validate: (v) => !Number.isNaN(v)
+          })}
         />
         <Controller
           name="categoryId"
