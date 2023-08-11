@@ -4,6 +4,7 @@ import { getCategories } from '../../../services/db/categories/get-categories';
 import { TransactionsList } from '../../../components/transactions/transactions-list';
 import { AppModal } from '../../../components/ui/modal';
 import { AddTransactionTabs } from '../../../components/transactions/add-transaction-tabs';
+import { AddTransactionButton } from '../../../components/transactions/add-transaction-button';
 
 export default async function TransactionsPage() {
   const cashAccounts = await getCashAccounts();
@@ -15,7 +16,7 @@ export default async function TransactionsPage() {
         {/* @ts-expect-error Server Component */}
         <TransactionsList />
       </Suspense>
-      <AppModal>
+      <AppModal RenderButton={AddTransactionButton}>
         <AddTransactionTabs
           cashAccounts={cashAccounts.map(
             ({ id, name, currency: { id: currencyId } }) => ({
