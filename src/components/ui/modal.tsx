@@ -1,28 +1,23 @@
 'use client';
 
-import { FC, Fragment, ReactNode, useState } from 'react';
+import { FC, Fragment, ReactElement, ReactNode, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Button, Icon } from '@tremor/react';
-import { PlusIcon } from '@heroicons/react/24/solid';
 
-export const AppModal: FC<{ children: ReactNode }> = ({ children }) => {
+export interface IAppModalButtonProps {
+  onClick?: () => void;
+}
+
+interface IAppModalProps {
+  RenderButton: (props: IAppModalButtonProps) => ReactElement | null;
+  children: ReactNode;
+}
+
+export const AppModal: FC<IAppModalProps> = ({ RenderButton, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <Button
-        className="p-1 fixed bottom-4 right-4 rounded-full"
-        onClick={() => setIsOpen(true)}
-        size="xs"
-      >
-        <Icon
-          icon={PlusIcon}
-          size="md"
-          variant="simple"
-          tooltip="Add"
-          color="amber"
-        />
-      </Button>
+      <RenderButton onClick={() => setIsOpen(true)} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
