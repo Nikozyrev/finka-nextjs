@@ -13,11 +13,11 @@ export default async function UserLayout({
 
   return (
     <>
-      <div className="flex w-full justify-between p-2">
+      <div className="flex w-full justify-between p-2 mb-2">
         <NavBar routes={routes} />
         <UserProfile user={session?.user} />
       </div>
-      {children}
+      <main className="px-4 md:px-8 mx-auto max-w-7xl">{children}</main>
       {/* @ts-expect-error Server Component */}
       <AddTransactionModal />
     </>
