@@ -16,7 +16,7 @@ export const AddTransactionButton: FC<IAppModalButtonProps> = ({ onClick }) => {
         icon={PlusIcon}
         size="md"
         variant="simple"
-        tooltip="Add"
+        tooltip="Add tx"
         color="amber"
       />
     </Button>
