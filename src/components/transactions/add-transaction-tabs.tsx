@@ -1,19 +1,14 @@
 'use client';
 
 import { CategoryType } from '@prisma/client';
-import { FC, ReactNode } from 'react';
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@tremor/react';
+import { FC } from 'react';
 import { AddTransactionForm } from './add-transaction-form';
 import { AddTransferForm } from './add-transfer-form';
+import { AppTabs, ITab } from '../ui/tabs';
 
 interface IAddTransactionTabsProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];
   cashAccounts: { id: string; name: string; currencyId: number }[];
-}
-
-interface ITab {
-  name: string;
-  component: ReactNode;
 }
 
 export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
@@ -47,23 +42,5 @@ export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
     }
   ];
 
-  return (
-    <TabGroup>
-      <TabList className="w-full justify-center" variant="solid">
-        {tabs.map((tab) => (
-          <Tab
-            className="flex-auto flex justify-center font-bold text-lg py-2"
-            key={tab.name}
-          >
-            {tab.name}
-          </Tab>
-        ))}
-      </TabList>
-      <TabPanels>
-        {tabs.map((tab) => (
-          <TabPanel key={tab.name}>{tab.component}</TabPanel>
-        ))}
-      </TabPanels>
-    </TabGroup>
-  );
+  return <AppTabs tabs={tabs} />;
 };
