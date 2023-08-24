@@ -8,9 +8,16 @@ export const CategoriesList = async () => {
     <Card>
       <Title className="mb-2">Categories</Title>
       <List>
-        {categories.map(({ id, name }) => (
-          <ListItem key={id}>{name}</ListItem>
-        ))}
+        {categories.map(
+          ({ id, name, mainCategoryName, categoryType, cashFlowSection }) => (
+            <ListItem key={id}>
+              <span>{name}</span>
+              <span>{mainCategoryName}</span>
+              <span>{categoryType}</span>
+              <span>{cashFlowSection}</span>
+            </ListItem>
+          )
+        )}
       </List>
     </Card>
   );
