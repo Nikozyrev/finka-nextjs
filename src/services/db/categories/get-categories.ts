@@ -11,14 +11,24 @@ export const getCategories = async () => {
     select: {
       id: true,
       name: true,
-      mainCategory: { select: { categoryType: true } }
+      mainCategory: {
+        select: { categoryType: true, name: true, cashFlowSection: true }
+      }
     },
     where: { userId }
   });
 
-  return data.map(({ id, name, mainCategory: { categoryType } }) => ({
-    id,
-    name,
-    categoryType
-  }));
+  return data.map(
+    ({
+      id,
+      name,
+      mainCategory: { categoryType, cashFlowSection, name: mainCategoryName }
+    }) => ({
+      id,
+      name,
+      mainCategoryName,
+      categoryType,
+      cashFlowSection
+    })
+  );
 };
