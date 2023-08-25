@@ -12,6 +12,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full bg-gray-50">
+      <head>
+        <link rel="manifest" href="/manifest.webmanifest" />
+      </head>
       <body className="h-full">{children}</body>
     </html>
   );
