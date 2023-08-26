@@ -4,9 +4,10 @@ import { FC } from 'react';
 import { AppTabs, ITab } from '../ui/tabs';
 import { AddCategoryForm } from './add-category-form';
 import { AddMainCategoryForm } from './add-main-category-form';
+import { IUserMainCategory } from '../../models/main-category.model';
 
 interface IAddCategoriesTabsProps {
-  mainCategories: { id: string; name: string }[];
+  mainCategories: IUserMainCategory[];
 }
 
 export const AddCategoriesTabs: FC<IAddCategoriesTabsProps> = ({
