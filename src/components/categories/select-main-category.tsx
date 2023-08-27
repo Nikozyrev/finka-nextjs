@@ -15,16 +15,12 @@ export const SelectMainCategory: FC<ISelectMainCategoryProps> = ({
   mainCategories,
   ...props
 }) => {
-  return (
-    <AppSelect
-      placeholder="Main Category"
-      options={mainCategories.map(
-        ({ id, name, cashFlowSection, categoryType }) => ({
-          value: id,
-          text: `${name} [${categoryType} (${cashFlowSection})]`
-        })
-      )}
-      {...props}
-    />
-  );
+  const options = [...mainCategories]
+    .sort((a, b) => b.categoryType.localeCompare(a.categoryType))
+    .map(({ id, name, cashFlowSection, categoryType }) => ({
+      value: id,
+      text: `${name} [${categoryType} (${cashFlowSection})]`
+    }));
+
+  return <AppSelect placeholder="Main Category" options={options} {...props} />;
 };
