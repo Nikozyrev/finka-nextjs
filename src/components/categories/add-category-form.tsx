@@ -1,12 +1,13 @@
 'use client';
 
 import { FC, FormEvent, useState } from 'react';
-import { Button, Card, TextInput, Title } from '@tremor/react';
+import { Button, Card, TextInput } from '@tremor/react';
 import { useRouter } from 'next/navigation';
-import { AppSelect } from '../ui/select';
+import { IUserMainCategory } from '../../models/main-category.model';
+import { SelectMainCategory } from './select-main-category';
 
 interface IAddCategoryFormProps {
-  mainCategories: { id: string; name: string }[];
+  mainCategories: IUserMainCategory[];
 }
 
 export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
@@ -27,29 +28,25 @@ export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
       })
     });
     Router.refresh();
+    setName('');
     return;
   };
 
   return (
     <Card>
-      <Title className="mb-3">Add category</Title>
       <form onSubmit={handleSubmit}>
         <TextInput
-          className="mb-3"
+          className="mb-2"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         ></TextInput>
-        <AppSelect
+        <SelectMainCategory
           className="mb-2"
-          placeholder="Main Category"
-          options={mainCategories.map(({ id, name }) => ({
-            value: id,
-            text: name
-          }))}
+          mainCategories={mainCategories}
           value={mainCategoryId}
           onValueChange={setMainCategoryId}
-        ></AppSelect>
+        />
         <Button type="submit" disabled={!name || !mainCategoryId}>
           Add Category
         </Button>
