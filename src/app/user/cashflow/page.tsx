@@ -13,7 +13,7 @@ interface ICashFlowPageProps {
 }
 
 export default async function CashFlowPage({
-  searchParams
+  searchParams,
 }: ICashFlowPageProps) {
   const currencies = await getCurrencies();
   const years = await getTransactionsYears();
@@ -28,7 +28,6 @@ export default async function CashFlowPage({
       <CurrencySelect currencies={currencies} currencyId={currencyId} />
       <YearSelect years={years} year={year} />
       <Suspense fallback={'Loading...'}>
-        {/* @ts-expect-error Server Component */}
         <CashFlowTable currencyId={currencyId} year={year} />
       </Suspense>
     </>
