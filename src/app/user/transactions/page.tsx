@@ -1,9 +1,12 @@
-import { Title } from '@tremor/react';
+import { Suspense } from 'react';
+import { TransactionsList } from '@/components/transactions/transactions-list';
 
 export default async function TransactionsPage() {
   return (
     <>
-      <Title>Transactions page</Title>
+      <Suspense fallback={'Suspense Loading...'}>
+        <TransactionsList />
+      </Suspense>
     </>
   );
 }
