@@ -1,5 +1,5 @@
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime';
+import { Decimal } from '@prisma/client/runtime/library';
 
 export interface ICashFlowSumsByMonths {
   [month: string]: Decimal | undefined;
