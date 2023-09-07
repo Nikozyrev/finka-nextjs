@@ -8,18 +8,15 @@ export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
-    })
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+    }),
   ],
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
   },
   callbacks: {
     session({ token, session }) {
       return { ...session, user: { ...session.user, id: token.sub } };
-    }
+    },
   },
-  pages: {
-    // signIn: '/auth'
-  }
 };

@@ -1,4 +1,4 @@
-import { Decimal } from '@prisma/client/runtime';
+import { Decimal } from '@prisma/client/runtime/library';
 import { CashFlowSection, CategoryType, Prisma } from '@prisma/client';
 import { prisma } from '../../../lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
@@ -31,7 +31,7 @@ export const getSumsByCategories = async (
     LEFT JOIN categories AS C ON T.category_id = C.id
     LEFT JOIN maincategories AS M ON C.main_category_id = M.id
     WHERE T.user_id = '${userId}' AND YEAR(T.date) = '${year}' AND M.cash_flow_section <> 'null'
-    GROUP BY year, month, M.id;`
+    GROUP BY year, month, M.id;`,
     ])
   );
 

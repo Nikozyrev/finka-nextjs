@@ -1,4 +1,4 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
 
 export const getTransactions = async () => {
@@ -14,10 +14,10 @@ export const getTransactions = async () => {
       sum: true,
       comment: true,
       cashAccount: true,
-      category: true
+      category: true,
     },
     where: { userId },
-    orderBy: { date: 'desc' }
+    orderBy: { date: 'desc' },
   });
 
   return data;

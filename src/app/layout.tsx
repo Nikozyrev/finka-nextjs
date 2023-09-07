@@ -1,12 +1,16 @@
-import '../styles/globals.css';
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-export const metadata = {
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
   title: 'Finka',
-  description: 'Best financial app'
+  description: 'Best financial app',
 };
 
-export default async function RootLayout({
-  children
+export default function RootLayout({
+  children,
 }: {
   children: React.ReactNode;
 }) {
@@ -15,7 +19,7 @@ export default async function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
-      <body className="h-full">{children}</body>
+      <body className={`${inter.className} h-full`}>{children}</body>
     </html>
   );
 }

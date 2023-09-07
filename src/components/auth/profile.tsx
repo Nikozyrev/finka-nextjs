@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IUser } from '../../models/user.model';
+import { IUser } from '@/models/user.model';
 import { SignOutBtn } from './signOutBtn';
 
 interface UserProfileProps {

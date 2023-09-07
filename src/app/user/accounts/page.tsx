@@ -14,7 +14,6 @@ export default async function AccountsPage() {
         <AddCashAccountForm currencies={currencies} />
       </AppModal>
       <Suspense fallback={'Loading...'}>
-        {/* @ts-expect-error Server Component */}
         <CashAccountsList />
       </Suspense>
     </>

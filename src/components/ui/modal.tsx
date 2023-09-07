@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, Fragment, ReactElement, ReactNode, useState } from 'react';
+import { FC, Fragment, ReactNode, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 export interface IAppModalButtonProps {
@@ -8,7 +8,7 @@ export interface IAppModalButtonProps {
 }
 
 interface IAppModalProps {
-  RenderButton: (props: IAppModalButtonProps) => ReactElement | null;
+  RenderButton: (props: IAppModalButtonProps) => ReactNode;
   children: ReactNode;
 }
 
