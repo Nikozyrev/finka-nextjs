@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth';
 import { UserProfile } from '@/components/auth/profile';
 import { NavBar } from '@/components/user/navbar';
 import { routes } from '@/constants/routes';
+import { AddTransactionModal } from '@/components/transactions/add-transaction-modal';
 
 export default async function UserLayout({
   children,
@@ -17,6 +18,7 @@ export default async function UserLayout({
         <UserProfile user={session?.user} />
       </div>
       <main className="px-4 md:px-8 mx-auto max-w-7xl">{children}</main>
+      <AddTransactionModal />
     </>
   );
 }
