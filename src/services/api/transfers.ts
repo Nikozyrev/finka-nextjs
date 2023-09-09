@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ITransferBody } from '../../models/transfer.model';
 
 export function useTransfersApi() {
+  const [isLoading, setIsLoading] = useState(false);
   const Router = useRouter();
   const endpoint = `/api/transfers`;
 
@@ -11,8 +13,9 @@ export function useTransfersApi() {
     toCashAccountId,
     fromSum,
     toSum,
-    comment
+    comment,
   }: ITransferBody) => {
+    setIsLoading(true);
     await fetch(endpoint, {
       method: 'POST',
       body: JSON.stringify({
@@ -21,11 +24,12 @@ export function useTransfersApi() {
         toCashAccountId,
         fromSum,
         toSum,
-        comment
-      })
+        comment,
+      }),
     });
     Router.refresh();
+    setIsLoading(false);
   };
 
-  return { addTransfer };
+  return { addTransfer, isLoading };
 }

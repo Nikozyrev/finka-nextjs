@@ -30,7 +30,7 @@ interface IAddTransferFormInputs {
 export const AddTransferForm: FC<IAddTransferFormProps> = ({
   cashAccounts,
 }) => {
-  const { addTransfer } = useTransfersApi();
+  const { addTransfer, isLoading } = useTransfersApi();
   const { register, handleSubmit, watch, reset, formState, control, setValue } =
     useForm<IAddTransferFormInputs>({
       defaultValues: {
@@ -160,7 +160,7 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
           placeholder="Comment"
           {...register('comment')}
         />
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
           Add transfer
         </Button>
       </form>

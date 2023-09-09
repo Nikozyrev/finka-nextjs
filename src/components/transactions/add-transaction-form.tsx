@@ -35,7 +35,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
   categories,
   categoryType,
 }) => {
-  const { addTransaction } = useTransactionsApi();
+  const { addTransaction, isLoading } = useTransactionsApi();
   const { register, handleSubmit, reset, formState, control } =
     useForm<IAddTransactionFormInputs>({
       defaultValues: { date: new Date(), cashAccountId: '', categoryId: '' },
@@ -125,7 +125,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
           placeholder="Comment"
           {...register('comment')}
         />
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
           Add {categoryType.toLowerCase()}
         </Button>
       </form>
