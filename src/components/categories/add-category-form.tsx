@@ -11,7 +11,7 @@ interface IAddCategoryFormProps {
 }
 
 export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
-  mainCategories
+  mainCategories,
 }) => {
   const Router = useRouter();
   const [name, setName] = useState<string>('');
@@ -24,8 +24,8 @@ export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
       method: 'POST',
       body: JSON.stringify({
         name,
-        mainCategoryId
-      })
+        mainCategoryId,
+      }),
     });
     Router.refresh();
     setName('');
@@ -34,7 +34,7 @@ export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
 
   return (
     <Card>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <TextInput
           className="mb-2"
           placeholder="Name"

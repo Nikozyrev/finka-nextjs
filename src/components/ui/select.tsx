@@ -21,21 +21,20 @@ export const AppSelect: FC<IAppSelectProps> = ({
   value,
   onValueChange,
   className,
-  placeholder
+  placeholder,
 }) => {
   return (
-    <div className={className ?? ''}>
-      <SearchSelect
-        value={value}
-        onValueChange={onValueChange}
-        placeholder={placeholder}
-      >
-        {options.map(({ text, value }) => (
-          <SearchSelectItem key={value} value={value}>
-            {text}
-          </SearchSelectItem>
-        ))}
-      </SearchSelect>
-    </div>
+    <SearchSelect
+      className={`${className ?? ''}`}
+      value={value}
+      onValueChange={onValueChange}
+      placeholder={placeholder}
+    >
+      {options.map(({ text, value }) => (
+        <SearchSelectItem key={value} value={value}>
+          {text}
+        </SearchSelectItem>
+      ))}
+    </SearchSelect>
   );
 };

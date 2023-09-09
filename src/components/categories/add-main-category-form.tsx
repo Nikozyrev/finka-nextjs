@@ -24,8 +24,8 @@ export const AddMainCategoryForm: FC = () => {
       body: JSON.stringify({
         name,
         categoryType,
-        cashFlowSection
-      })
+        cashFlowSection,
+      }),
     });
     Router.refresh();
     setName('');
@@ -34,7 +34,7 @@ export const AddMainCategoryForm: FC = () => {
 
   return (
     <Card>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <TextInput
           className="mb-2"
           placeholder="Name"
@@ -46,7 +46,7 @@ export const AddMainCategoryForm: FC = () => {
           placeholder="Category Type"
           options={Object.entries(CategoryType).map(([_, type]) => ({
             text: type,
-            value: type
+            value: type,
           }))}
           value={categoryType}
           onValueChange={(v) => setCategoryType(v as CategoryType)}
@@ -56,7 +56,7 @@ export const AddMainCategoryForm: FC = () => {
           placeholder="Cash Flow Section"
           options={Object.entries(CashFlowSection).map(([_, type]) => ({
             text: type,
-            value: type
+            value: type,
           }))}
           value={cashFlowSection}
           onValueChange={(v) => setCashFlowSection(v as CashFlowSection)}

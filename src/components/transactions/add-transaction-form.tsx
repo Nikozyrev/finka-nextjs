@@ -2,7 +2,13 @@
 
 import { CategoryType } from '@prisma/client';
 import { FC } from 'react';
-import { Button, Card, DatePicker, TextInput } from '@tremor/react';
+import {
+  Button,
+  Card,
+  DatePicker,
+  NumberInput,
+  TextInput,
+} from '@tremor/react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { AppSelect } from '../ui/select';
 import { useTransactionsApi } from '../../services/api/transactions';
@@ -27,12 +33,12 @@ interface IAddTransactionFormInputs {
 export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
   cashAccounts,
   categories,
-  categoryType
+  categoryType,
 }) => {
   const { addTransaction } = useTransactionsApi();
   const { register, handleSubmit, reset, formState, control } =
     useForm<IAddTransactionFormInputs>({
-      defaultValues: { date: new Date(), cashAccountId: '', categoryId: '' }
+      defaultValues: { date: new Date(), cashAccountId: '', categoryId: '' },
     });
 
   const onSubmit: SubmitHandler<IAddTransactionFormInputs> = async (
@@ -45,7 +51,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
         sum: getSumWithSign(categoryType, sum),
         cashAccountId,
         categoryId,
-        comment
+        comment,
       });
       reset();
       return;
@@ -54,7 +60,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
 
   return (
     <Card>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Controller
           name="date"
           control={control}
@@ -77,7 +83,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
               className="mb-3"
               options={cashAccounts.map(({ id, name }) => ({
                 value: id,
-                text: name
+                text: name,
               }))}
               value={field.value}
               onValueChange={field.onChange}
@@ -85,13 +91,14 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
             />
           )}
         />
-        <TextInput
+        <NumberInput
+          enableStepper={false}
           className="mb-3"
           placeholder="Sum"
           {...register('sum', {
             required: true,
             valueAsNumber: true,
-            validate: (v) => !Number.isNaN(v)
+            validate: (v) => !Number.isNaN(v),
           })}
         />
         <Controller
@@ -105,7 +112,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
                 .filter(({ categoryType: type }) => type === categoryType)
                 .map(({ id, name }) => ({
                   value: id,
-                  text: name
+                  text: name,
                 }))}
               value={field.value}
               onValueChange={field.onChange}
