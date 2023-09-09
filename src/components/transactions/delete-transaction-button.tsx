@@ -6,15 +6,27 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useTransactionsApi } from '../../services/api/transactions';
 
 export const DeleteTransactionButton: FC<{ id: string }> = ({ id }) => {
-  const { deleteTransaction } = useTransactionsApi();
+  const { deleteTransaction, isLoading } = useTransactionsApi();
 
   const handleClick = async () => {
     await deleteTransaction(id);
   };
 
   return (
-    <Button className="p-0" size="xs" color="amber" onClick={handleClick}>
-      <Icon icon={XMarkIcon} variant="simple" size="md" color="red"></Icon>
+    <Button
+      className="p-0"
+      size="xs"
+      color="amber"
+      onClick={handleClick}
+      disabled={isLoading}
+    >
+      <Icon
+        className="p-1"
+        icon={XMarkIcon}
+        variant="simple"
+        size="md"
+        color="red"
+      />
     </Button>
   );
 };
