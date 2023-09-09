@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, FormEvent, useState } from 'react';
-import { Button, Card, TextInput, Title } from '@tremor/react';
+import { Button, Card, NumberInput, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
 import { Currency } from '@prisma/client';
 import { AppSelect } from '../ui/select';
@@ -22,8 +22,8 @@ export const AddCashAccountForm: FC<{
       body: JSON.stringify({
         name,
         startBalance: Number.isNaN(startBalance) ? 0 : startBalance,
-        currencyId: Number(currencyId)
-      })
+        currencyId: Number(currencyId),
+      }),
     });
     Router.refresh();
     return;
@@ -32,29 +32,30 @@ export const AddCashAccountForm: FC<{
   return (
     <Card>
       <Title className="mb-3">Add cash account</Title>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <TextInput
           className="mb-3"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-        ></TextInput>
-        <TextInput
+        />
+        <NumberInput
+          enableStepper={false}
           className="mb-3"
           placeholder="Start Balance"
           value={startBalance}
           onChange={(e) => setStartBalance(e.target.value)}
-        ></TextInput>
+        />
         <AppSelect
-          className="mb-2"
+          className="mb-3"
           options={currencies.map(({ id, name, symbol }) => ({
             text: `${name} (${symbol})`,
-            value: id.toString()
+            value: id.toString(),
           }))}
           value={currencyId}
           onValueChange={setCurrencyId}
           placeholder="Currency"
-        ></AppSelect>
+        />
         <Button type="submit" disabled={!name}>
           Add Account
         </Button>
