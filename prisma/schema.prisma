@@ -11,7 +11,11 @@ datasource db {
 enum CategoryType {
   INCOME
   EXPENSE
-  TRANSFER
+}
+
+enum TransactionType {
+  EXTERNAL
+  INTERNAL
 }
 
 enum CashFlowSection {
@@ -95,7 +99,7 @@ model MainCategory {
   id              String           @id @default(cuid())
   name            String
   categoryType    CategoryType     @map("category_type")
-  cashFlowSection CashFlowSection? @map("cash_flow_section")
+  cashFlowSection CashFlowSection  @map("cash_flow_section")
   userId          String           @map("user_id")
   user            User             @relation(fields: [userId], references: [id])
   categories      Category[]
@@ -121,19 +125,20 @@ model CashAccount {
 }
 
 model Transaction {
-  id            String       @id @default(cuid())
-  date          DateTime     @db.Date
+  id            String          @id @default(cuid())
+  date          DateTime        @db.Date
+  type          TransactionType
   sum           Decimal
   comment       String?
-  transferId    String?      @unique @map("transfer_id")
-  transferFrom  Transaction? @relation("transfer", fields: [transferId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  transferTo    Transaction? @relation("transfer")
-  cashAccountId String       @map("cash_account_id")
-  cashAccount   CashAccount  @relation(fields: [cashAccountId], references: [id])
-  categoryId    String       @map("category_id")
-  category      Category     @relation(fields: [categoryId], references: [id])
-  userId        String       @map("user_id")
-  user          User         @relation(fields: [userId], references: [id])
+  transferId    String?         @unique @map("transfer_id")
+  transferFrom  Transaction?    @relation("transfer", fields: [transferId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  transferTo    Transaction?    @relation("transfer")
+  cashAccountId String          @map("cash_account_id")
+  cashAccount   CashAccount     @relation(fields: [cashAccountId], references: [id])
+  categoryId    String?         @map("category_id")
+  category      Category?       @relation(fields: [categoryId], references: [id])
+  userId        String          @map("user_id")
+  user          User            @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([cashAccountId])

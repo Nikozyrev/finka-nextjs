@@ -1,3 +1,4 @@
+import { TransactionType } from '@prisma/client';
 import { prisma } from '../../../lib/prisma';
 import { ITransaction } from '../../../models/transaction.model';
 
@@ -7,12 +8,13 @@ export const addTransaction = async (transaction: ITransaction) => {
 
   return prisma.transaction.create({
     data: {
+      type: TransactionType.EXTERNAL,
       date,
       sum,
       categoryId,
       cashAccountId,
       userId,
-      comment
-    }
+      comment,
+    },
   });
 };

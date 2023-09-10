@@ -1,3 +1,4 @@
+import { TransactionType } from '@prisma/client';
 import { prisma } from '../../../lib/prisma';
 import { ITransfer } from '../../../models/transfer.model';
 
@@ -9,39 +10,39 @@ export const addTransfer = async (transfer: ITransfer) => {
     fromSum,
     toSum,
     userId,
-    comment
+    comment,
   } = transfer;
-  const categoryId = 'TRANSFER';
+  const type = TransactionType.INTERNAL;
 
   const transaction1 = await prisma.transaction.create({
     data: {
       date,
+      type,
       cashAccountId: fromCashAccountId,
       sum: fromSum,
       userId,
       comment,
-      categoryId
-    }
+    },
   });
 
   const transaction2 = await prisma.transaction.create({
     data: {
       date,
+      type,
       cashAccountId: toCashAccountId,
       sum: toSum,
       userId,
       comment,
-      categoryId
-    }
+    },
   });
 
   await prisma.transaction.update({
     where: { id: transaction1.id },
-    data: { transferId: transaction2.id }
+    data: { transferId: transaction2.id },
   });
 
   await prisma.transaction.update({
     where: { id: transaction2.id },
-    data: { transferId: transaction1.id }
+    data: { transferId: transaction1.id },
   });
 };

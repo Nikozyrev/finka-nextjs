@@ -11,6 +11,7 @@ export const getTransactions = async () => {
     select: {
       id: true,
       date: true,
+      type: true,
       sum: true,
       comment: true,
       cashAccount: true,
