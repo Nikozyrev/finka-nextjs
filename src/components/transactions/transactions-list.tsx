@@ -10,11 +10,11 @@ export const TransactionsList = async () => {
       <Title className="mb-2">Transactions</Title>
       <List>
         {transactions.map(
-          ({ id, date, sum, cashAccount, category, comment }) => (
+          ({ id, date, sum, cashAccount, category, comment, type }) => (
             <ListItem key={id}>
-              <span>{date.toDateString()}</span>
+              <span>{date.toLocaleDateString()}</span>
               <span>{sum.toString()}</span>
-              <span>{category.name}</span>
+              <span>{category ? category.name : '-'}</span>
               <span>{cashAccount.name}</span>
               <span>{comment}</span>
               <DeleteTransactionButton id={id} />

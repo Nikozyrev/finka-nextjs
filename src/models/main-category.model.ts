@@ -4,7 +4,7 @@ export interface IMainCategory {
   id?: string;
   name: string;
   categoryType: CategoryType;
-  cashFlowSection: CashFlowSection | null;
+  cashFlowSection: CashFlowSection;
   userId: string;
 }
 
