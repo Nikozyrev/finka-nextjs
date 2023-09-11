@@ -93,6 +93,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
         />
         <NumberInput
           enableStepper={false}
+          step={'0.01'}
           className="mb-3"
           placeholder="Sum"
           {...register('sum', {

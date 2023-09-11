@@ -135,6 +135,7 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
         />
         <NumberInput
           enableStepper={false}
+          step={'0.01'}
           className="mb-3"
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
           {...register('fromSum', {
@@ -146,6 +147,7 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
         {!isSameCurrencies && (
           <NumberInput
             enableStepper={false}
+            step={'0.01'}
             className="mb-3"
             placeholder="Sum To"
             {...register('toSum', {
