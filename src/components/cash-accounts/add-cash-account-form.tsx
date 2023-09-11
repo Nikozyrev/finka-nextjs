@@ -41,6 +41,7 @@ export const AddCashAccountForm: FC<{
         />
         <NumberInput
           enableStepper={false}
+          step={'0.01'}
           className="mb-3"
           placeholder="Start Balance"
           value={startBalance}
