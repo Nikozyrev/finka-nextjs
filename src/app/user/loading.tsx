@@ -1,9 +1,9 @@
-import { Title } from '@tremor/react';
+import { Spinner } from '@/components/ui/spinner';
 
 export default function Loading() {
   return (
-    <Title className="p-4 md:p-10 mx-auto max-w-7xl text-center">
-      User Loading...
-    </Title>
+    <div className="p-4 md:p-10 mx-auto max-w-7xl text-center">
+      <Spinner size="medium" />
+    </div>
   );
 }

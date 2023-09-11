@@ -1,9 +1,9 @@
-import { Title } from '@tremor/react';
+import { Spinner } from '@/components/ui/spinner';
 
 export default function Loading() {
   return (
     <div className="flex justify-center items-center h-full">
-      <Title>Loading...</Title>;
+      <Spinner size="large" />
     </div>
   );
 }
