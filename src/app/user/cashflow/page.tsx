@@ -4,6 +4,7 @@ import { getTransactionsYears } from '../../../services/db/transactions/get-year
 import { CashFlowTable } from '../../../components/cash-flow/cash-flow-table';
 import { CurrencySelect } from '../../../components/cash-flow/currency-select';
 import { YearSelect } from '../../../components/cash-flow/year-select';
+import { Spinner } from '@/components/ui/spinner';
 
 interface ICashFlowPageProps {
   searchParams?: {
@@ -25,9 +26,11 @@ export default async function CashFlowPage({
 
   return (
     <>
-      <CurrencySelect currencies={currencies} currencyId={currencyId} />
-      <YearSelect years={years} year={year} />
-      <Suspense fallback={'Loading...'}>
+      <div className="flex w-fit mb-2 gap-1">
+        <CurrencySelect currencies={currencies} currencyId={currencyId} />
+        <YearSelect years={years} year={year} />
+      </div>
+      <Suspense fallback={<Spinner />}>
         <CashFlowTable currencyId={currencyId} year={year} />
       </Suspense>
     </>

@@ -4,6 +4,7 @@ import { AppModal } from '@/components/ui/modal';
 import { AddCategoriesTabs } from '@/components/categories/add-categories-tabs';
 import { CategoriesList } from '@/components/categories/categories-list';
 import { AddCategoriesButton } from '@/components/categories/add-categories-button';
+import { Spinner } from '@/components/ui/spinner';
 
 export default async function CategoriesPage() {
   const mainCategories = await getMainCategories();
@@ -13,7 +14,7 @@ export default async function CategoriesPage() {
       <AppModal RenderButton={AddCategoriesButton}>
         <AddCategoriesTabs mainCategories={mainCategories} />
       </AppModal>
-      <Suspense fallback={'Loading...'}>
+      <Suspense fallback={<Spinner />}>
         <CategoriesList />
       </Suspense>
     </>

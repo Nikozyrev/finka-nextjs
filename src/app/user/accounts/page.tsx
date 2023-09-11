@@ -4,6 +4,7 @@ import { AddCashAccountForm } from '../../../components/cash-accounts/add-cash-a
 import { getCurrencies } from '../../../services/db/currencies/get-currencies';
 import { AppModal } from '../../../components/ui/modal';
 import { AddCashAccountButton } from '../../../components/cash-accounts/add-cash-account-button';
+import { Spinner } from '@/components/ui/spinner';
 
 export default async function AccountsPage() {
   const currencies = await getCurrencies();
@@ -13,7 +14,7 @@ export default async function AccountsPage() {
       <AppModal RenderButton={AddCashAccountButton}>
         <AddCashAccountForm currencies={currencies} />
       </AppModal>
-      <Suspense fallback={'Loading...'}>
+      <Suspense fallback={<Spinner />}>
         <CashAccountsList />
       </Suspense>
     </>
