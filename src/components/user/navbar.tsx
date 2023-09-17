@@ -47,6 +47,7 @@ export const NavBar: FC<INavBarProps> = ({ routes }) => {
                   <div className="relative grid gap-8 bg-white p-7">
                     {routes.map(({ link, text }) => (
                       <Link
+                        prefetch
                         key={link}
                         href={link}
                         onClick={close}
