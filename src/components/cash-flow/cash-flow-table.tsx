@@ -26,12 +26,15 @@ export const CashFlowTable = async ({
   const tableColumns = ['Category', ...months, 'YTD'];
 
   return (
-    <Card className="p-4">
-      <Table>
-        <TableHead>
+    <Card className="p-4 h-full">
+      <Table className="h-full">
+        <TableHead className="">
           <TableRow>
             {tableColumns.map((v) => (
-              <TableHeaderCell className="text-center font-bold" key={v}>
+              <TableHeaderCell
+                className="py-2 text-center font-bold bg-white"
+                key={v}
+              >
                 {v}
               </TableHeaderCell>
             ))}

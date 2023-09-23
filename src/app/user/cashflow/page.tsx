@@ -5,6 +5,7 @@ import { CashFlowTable } from '../../../components/cash-flow/cash-flow-table';
 import { CurrencySelect } from '../../../components/cash-flow/currency-select';
 import { YearSelect } from '../../../components/cash-flow/year-select';
 import { Spinner } from '@/components/ui/spinner';
+import styles from './page.module.css';
 
 interface ICashFlowPageProps {
   searchParams?: {
@@ -25,7 +26,7 @@ export default async function CashFlowPage({
   const currencyId = Number(searchParams?.currency) || defaultCurrencyId;
 
   return (
-    <>
+    <div className={`h-full w-full ${styles.gridRow}`}>
       <div className="flex w-fit mb-2 gap-1">
         <CurrencySelect currencies={currencies} currencyId={currencyId} />
         <YearSelect years={years} year={year} />
@@ -33,6 +34,6 @@ export default async function CashFlowPage({
       <Suspense fallback={<Spinner />}>
         <CashFlowTable currencyId={currencyId} year={year} />
       </Suspense>
-    </>
+    </div>
   );
 }
