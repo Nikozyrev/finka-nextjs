@@ -7,10 +7,10 @@ export const TransactionsTable = async () => {
   const transactions = await getUserTransactions();
 
   return (
-    <Card className="p-4">
-      <Table>
+    <Card className="p-4 h-full">
+      <Table className="h-full">
         <TransactionsTableHead />
-        <TableBody>
+        <TableBody className="">
           {transactions.map((tr) => (
             <TransactionsTableRow key={tr.id} tr={tr} />
           ))}

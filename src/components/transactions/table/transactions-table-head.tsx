@@ -12,9 +12,9 @@ export const TransactionsTableHead = () => {
   ];
 
   return (
-    <TableHead>
+    <TableHead className="bg-white">
       {columns.map((column) => (
-        <TableHeaderCell key={column} className="p-2 text-base">
+        <TableHeaderCell key={column} className="bg-white p-2 text-base">
           {column}
         </TableHeaderCell>
       ))}
