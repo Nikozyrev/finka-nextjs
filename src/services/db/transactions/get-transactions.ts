@@ -1,12 +1,6 @@
 import { prisma } from '@/lib/prisma';
-import { getUserInfo } from '../../user/get-user-info';
 
-export const getTransactions = async () => {
-  const user = await getUserInfo();
-  const userId = user?.id;
-
-  if (!userId) return [];
-
+export const getTransactions = async ({ userId }: { userId: string }) => {
   const data = await prisma.transaction.findMany({
     select: {
       id: true,

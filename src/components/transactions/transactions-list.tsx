@@ -1,9 +1,9 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
-import { getTransactions } from '@/services/db/transactions/get-transactions';
+import { getUserTransactions } from '@/services/user/transactions/get-user-transactions';
 import { DeleteTransactionButton } from './delete-transaction-button';
 
 export const TransactionsList = async () => {
-  const transactions = await getTransactions();
+  const transactions = await getUserTransactions();
 
   return (
     <Card>
