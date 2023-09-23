@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
-import { TransactionsList } from '@/components/transactions/transactions-list';
 import { Spinner } from '@/components/ui/spinner';
+import { TransactionsTable } from '@/components/transactions/table/transactions-table';
 
 export default async function TransactionsPage() {
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <TransactionsList />
+        <TransactionsTable />
       </Suspense>
     </>
   );
