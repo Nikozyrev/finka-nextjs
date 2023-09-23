@@ -1,4 +1,4 @@
-import { TableHead, TableHeaderCell } from '@tremor/react';
+import { TableHead, TableHeaderCell, TableRow } from '@tremor/react';
 
 export const TransactionsTableHead = () => {
   const columns = [
@@ -13,11 +13,13 @@ export const TransactionsTableHead = () => {
 
   return (
     <TableHead className="bg-white">
-      {columns.map((column) => (
-        <TableHeaderCell key={column} className="bg-white p-2 text-base">
-          {column}
-        </TableHeaderCell>
-      ))}
+      <TableRow>
+        {columns.map((column) => (
+          <TableHeaderCell key={column} className="bg-white p-2 text-base">
+            {column}
+          </TableHeaderCell>
+        ))}
+      </TableRow>
     </TableHead>
   );
 };
