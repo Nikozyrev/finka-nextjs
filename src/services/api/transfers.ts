@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ITransferBody } from '../../models/transfer.model';
+import { ITransferBody } from '@/entities/transfer';
 
 export function useTransfersApi() {
   const [isLoading, setIsLoading] = useState(false);

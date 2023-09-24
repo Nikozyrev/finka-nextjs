@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Decimal } from '@prisma/client/runtime/library';
 import { getUserInfo } from '@/entities/user';
-import { ITransferBody } from '../../../models/transfer.model';
-import { addTransfer } from '../../../services/db/transfers/add-transfer';
+import { ITransferBody } from '@/entities/transfer';
+import { addTransfer } from '@/entities/transfer';
 
 export async function POST(req: Request) {
   const body: ITransferBody = await req.json();
