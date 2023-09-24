@@ -1,5 +1,5 @@
 import { Currency } from '@prisma/client';
-import { ICurrencyRate } from '../../models/currency-rate.model';
+import { ICurrencyRate } from '@/entities/currency-rate';
 import { ICurrencyRateResponse } from './rate-response.model';
 
 export const calculateRatesOnDate = (
@@ -15,7 +15,7 @@ export const calculateRatesOnDate = (
     if (symbol === 'BYN')
       return [
         ...acc,
-        { date, rate: 1, currencyId: id, source, baseCurrencyId }
+        { date, rate: 1, currencyId: id, source, baseCurrencyId },
       ];
 
     const rateData = ratesData.find(
@@ -34,7 +34,7 @@ export const calculateRatesOnDate = (
         ...val,
         rate: val.rate / rate,
         currencyId: val.currencyId,
-        baseCurrencyId: currencyId
+        baseCurrencyId: currencyId,
       });
     });
     return acc;

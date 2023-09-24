@@ -1,6 +1,6 @@
 import { getRatesOnDate } from './get-rates-on-date';
 import { getCurrencies } from '@/entities/currency';
-import { addCurrencyRates } from '../db/currency-rates/add-currency-rates';
+import { addCurrencyRates } from '@/entities/currency-rate';
 import { calculateRatesOnDate } from './calculate-rates-on-date';
 
 export const saveRatesOnDate = async (date: Date) => {
