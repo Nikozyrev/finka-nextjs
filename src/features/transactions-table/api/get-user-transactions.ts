@@ -1,6 +1,6 @@
-import { getTransactions } from '@/services/db/transactions/get-transactions';
 import { getUserInfo } from '@/entities/user';
-import { IUserTransaction } from '@/models/transaction.model';
+import { IUserTransaction } from '@/entities/transaction';
+import { getTransactions } from '@/entities/transaction';
 
 export const getUserTransactions = async (): Promise<IUserTransaction[]> => {
   const user = await getUserInfo();

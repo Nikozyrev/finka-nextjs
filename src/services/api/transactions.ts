@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ITransactionBody } from '../../models/transaction.model';
+import { ITransactionBody } from '@/entities/transaction';
 
 export function useTransactionsApi() {
   const [isLoading, setIsLoading] = useState(false);
