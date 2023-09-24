@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '../../user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 
 export const getCategories = async () => {
   const user = await getUserInfo();

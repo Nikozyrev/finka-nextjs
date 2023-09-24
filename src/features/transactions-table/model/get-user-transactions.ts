@@ -1,5 +1,5 @@
 import { getTransactions } from '@/services/db/transactions/get-transactions';
-import { getUserInfo } from '@/services/user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 import { IUserTransaction } from '@/models/transaction.model';
 
 export const getUserTransactions = async (): Promise<IUserTransaction[]> => {

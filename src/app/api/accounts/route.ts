@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserInfo } from '../../../services/user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 import { addCashAccount } from '../../../services/db/cash-accounts/add-cash-account';
 
 export async function POST(req: Request) {
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     name,
     userId,
     startBalance,
-    currencyId
+    currencyId,
   });
 
   return NextResponse.json({ dbRes });

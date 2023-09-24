@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { getUserInfo } from '../../../services/user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 import { addMainCategory } from '../../../services/db/main-categories/add-main-category';
 
 export async function POST(req: Request) {
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       name,
       categoryType,
       cashFlowSection,
-      userId
+      userId,
     });
     return NextResponse.json(dbRes);
   } catch (error) {
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       message = error.message;
     }
     return new Response(JSON.stringify({ error: message }), {
-      status: 400
+      status: 400,
     });
   }
 }

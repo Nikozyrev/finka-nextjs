@@ -1,6 +1,6 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '../../user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 
 export const getSumsByAccount = async () => {
   const user = await getUserInfo();

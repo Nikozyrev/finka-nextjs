@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { UserProfile } from '../auth/profile';
+import { UserProfile } from '@/entities/user';
 import { Sidebar } from '@/shared/ui/sidebar';
 import { SignOutBtn } from '../auth/signOutBtn';
 import { Spinner } from '@/shared/ui/spinner';
@@ -15,7 +15,7 @@ export const AppSidebar = () => {
       }
       contentBottom={
         <>
-          <Suspense fallback={<Spinner size="small"></Spinner>}>
+          <Suspense fallback={<Spinner size="small" />}>
             <UserProfile />
           </Suspense>
           <SignOutBtn />

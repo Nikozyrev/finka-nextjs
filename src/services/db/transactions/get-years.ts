@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '../../user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 
 export const getTransactionsYears = async () => {
   const user = await getUserInfo();

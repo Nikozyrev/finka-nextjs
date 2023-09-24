@@ -1,7 +1,7 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { CashFlowSection, CategoryType, Prisma } from '@prisma/client';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '../../user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 
 export interface ISumsByCategories {
   year: number;

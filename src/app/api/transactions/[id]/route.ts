@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserInfo } from '../../../../services/user/get-user-info';
+import { getUserInfo } from '@/entities/user';
 import { deleteTransaction } from '../../../../services/db/transactions/delete-transaction';
 
 export async function DELETE(
