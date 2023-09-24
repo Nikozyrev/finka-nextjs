@@ -1,5 +1,5 @@
 import { Card, Table, TableBody } from '@tremor/react';
-import { getUserTransactions } from '../model/get-user-transactions';
+import { getUserTransactions } from '../api/get-user-transactions';
 import { TransactionsTableHead } from './transactions-table-head';
 import { TransactionsTableRow } from './transactions-table-row';
 
