@@ -1,7 +1,7 @@
 import { TransactionType } from '@prisma/client';
 import { TableCell, TableRow } from '@tremor/react';
 import { IUserTransaction } from '@/models/transaction.model';
-import { DeleteTransactionButton } from '../delete-transaction-button';
+import { DeleteTransactionButton } from '@/components/transactions/delete-transaction-button';
 
 export const TransactionsTableRow = ({
   tr: { id, date, sum, cashAccount, category, comment, type },
