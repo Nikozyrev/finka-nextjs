@@ -1,5 +1,5 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
-import { getCashAccountsWithBalances } from '../../services/cash-accounts-balances/get-cash-accounts-with-balances';
+import { getCashAccountsWithBalances } from '../api/get-cash-accounts-with-balances';
 
 export const CashAccountsList = async () => {
   const accountsWithActualBalances = await getCashAccountsWithBalances();
