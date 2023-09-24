@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { routes } from '@/constants/routes';
+import { routes } from '@/shared/constants/routes';
 import { DashboardIcon } from '@/shared/ui/icons/dashboard-icon';
 
 export const NavBar = () => {

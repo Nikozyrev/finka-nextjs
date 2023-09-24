@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { useAppSearchParams } from '../../hooks/search-params';
+import { useAppSearchParams } from '@/shared/hooks/search-params';
 import { AppSelect } from '@/shared/ui/select';
 
 interface IYearSelectProps {

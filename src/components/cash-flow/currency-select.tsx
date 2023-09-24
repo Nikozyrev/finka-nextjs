@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { Currency } from '@prisma/client';
 import { AppSelect } from '@/shared/ui/select';
-import { useAppSearchParams } from '../../hooks/search-params';
+import { useAppSearchParams } from '@/shared/hooks/search-params';
 
 interface ICurrencySelectProps {
   currencies: Currency[];
