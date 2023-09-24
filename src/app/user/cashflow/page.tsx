@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
+import { Col, Flex, Grid } from '@tremor/react';
 import { getCurrencies } from '../../../services/db/currencies/get-currencies';
 import { getTransactionsYears } from '../../../services/db/transactions/get-years';
 import { CashFlowTable } from '../../../components/cash-flow/cash-flow-table';
 import { CurrencySelect } from '../../../components/cash-flow/currency-select';
 import { YearSelect } from '../../../components/cash-flow/year-select';
 import { Spinner } from '@/components/ui/spinner';
-import styles from './page.module.css';
 
 interface ICashFlowPageProps {
   searchParams?: {
@@ -26,14 +26,18 @@ export default async function CashFlowPage({
   const currencyId = Number(searchParams?.currency) || defaultCurrencyId;
 
   return (
-    <div className={`h-full w-full ${styles.gridRow}`}>
-      <div className="flex w-fit mb-2 gap-1">
-        <CurrencySelect currencies={currencies} currencyId={currencyId} />
-        <YearSelect years={years} year={year} />
-      </div>
-      <Suspense fallback={<Spinner />}>
-        <CashFlowTable currencyId={currencyId} year={year} />
-      </Suspense>
-    </div>
+    <Grid className="h-full gap-2 grid-rows-[auto,minmax(0,1fr)]">
+      <Col>
+        <Flex className="w-fit gap-2">
+          <CurrencySelect currencies={currencies} currencyId={currencyId} />
+          <YearSelect years={years} year={year} />
+        </Flex>
+      </Col>
+      <Col>
+        <Suspense fallback={<Spinner />}>
+          <CashFlowTable currencyId={currencyId} year={year} />
+        </Suspense>
+      </Col>
+    </Grid>
   );
 }
