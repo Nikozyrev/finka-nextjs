@@ -5,7 +5,7 @@ import { getTransactionsYears } from '../../../services/db/transactions/get-year
 import { CashFlowTable } from '../../../components/cash-flow/cash-flow-table';
 import { CurrencySelect } from '../../../components/cash-flow/currency-select';
 import { YearSelect } from '../../../components/cash-flow/year-select';
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner } from '@/shared/ui/spinner';
 
 interface ICashFlowPageProps {
   searchParams?: {

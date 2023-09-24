@@ -1,5 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 
 export const getCurrencies = unstable_cache(
   async () => {

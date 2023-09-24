@@ -1,4 +1,4 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
 
 export const getCashAccounts = async () => {
@@ -9,7 +9,7 @@ export const getCashAccounts = async () => {
 
   const data = await prisma.cashAccount.findMany({
     select: { id: true, name: true, startBalance: true, currency: true },
-    where: { userId }
+    where: { userId },
   });
 
   return data;

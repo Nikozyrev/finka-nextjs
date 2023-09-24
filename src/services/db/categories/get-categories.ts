@@ -1,4 +1,4 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
 
 export const getCategories = async () => {
@@ -12,23 +12,23 @@ export const getCategories = async () => {
       id: true,
       name: true,
       mainCategory: {
-        select: { categoryType: true, name: true, cashFlowSection: true }
-      }
+        select: { categoryType: true, name: true, cashFlowSection: true },
+      },
     },
-    where: { userId }
+    where: { userId },
   });
 
   return data.map(
     ({
       id,
       name,
-      mainCategory: { categoryType, cashFlowSection, name: mainCategoryName }
+      mainCategory: { categoryType, cashFlowSection, name: mainCategoryName },
     }) => ({
       id,
       name,
       mainCategoryName,
       categoryType,
-      cashFlowSection
+      cashFlowSection,
     })
   );
 };

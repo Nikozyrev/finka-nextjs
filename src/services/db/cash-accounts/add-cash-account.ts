@@ -1,4 +1,4 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { ICashAccount } from '../../../models/cash-account.model';
 
 export const addCashAccount = async (account: ICashAccount) => {
@@ -6,6 +6,6 @@ export const addCashAccount = async (account: ICashAccount) => {
   if (!name || !userId) return;
 
   return prisma.cashAccount.create({
-    data: { name, userId, startBalance, currencyId }
+    data: { name, userId, startBalance, currencyId },
   });
 };

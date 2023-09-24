@@ -4,7 +4,7 @@ import { CategoryType } from '@prisma/client';
 import { FC } from 'react';
 import { AddTransactionForm } from './add-transaction-form';
 import { AddTransferForm } from './add-transfer-form';
-import { AppTabs, ITab } from '../ui/tabs';
+import { AppTabs, ITab } from '@/shared/ui/tabs';
 
 interface IAddTransactionTabsProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];
@@ -13,7 +13,7 @@ interface IAddTransactionTabsProps {
 
 export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
   cashAccounts,
-  categories
+  categories,
 }) => {
   const tabs: ITab[] = [
     {
@@ -24,7 +24,7 @@ export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
           categories={categories}
           categoryType="INCOME"
         />
-      )
+      ),
     },
     {
       name: 'Expenses',
@@ -34,12 +34,12 @@ export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
           categories={categories}
           categoryType="EXPENSE"
         />
-      )
+      ),
     },
     {
       name: 'Transfer',
-      component: <AddTransferForm cashAccounts={cashAccounts} />
-    }
+      component: <AddTransferForm cashAccounts={cashAccounts} />,
+    },
   ];
 
   return <AppTabs tabs={tabs} />;

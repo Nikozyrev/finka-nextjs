@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
 
 export const getTransactionsYears = async () => {
@@ -13,7 +13,7 @@ export const getTransactionsYears = async () => {
       `SELECT YEAR(date) AS year
       FROM transactions
       WHERE user_id = '${userId}'
-      GROUP BY year;`
+      GROUP BY year;`,
     ])
   );
 

@@ -4,7 +4,7 @@ import { FC, FormEvent, useState } from 'react';
 import { Button, Card, NumberInput, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
 import { Currency } from '@prisma/client';
-import { AppSelect } from '../ui/select';
+import { AppSelect } from '@/shared/ui/select';
 
 export const AddCashAccountForm: FC<{
   currencies: Currency[];

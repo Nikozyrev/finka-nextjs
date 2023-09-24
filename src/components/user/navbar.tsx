@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { routes } from '@/constants/routes';
-import { DashboardIcon } from '../ui/icons/dashboard-icon';
+import { DashboardIcon } from '@/shared/ui/icons/dashboard-icon';
 
 export const NavBar = () => {
   const path = usePathname();

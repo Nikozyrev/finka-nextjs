@@ -1,10 +1,10 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { ICategory } from '../../../models/category.model';
 
 export const addCategory = async ({
   userId,
   name,
-  mainCategoryId
+  mainCategoryId,
 }: ICategory) => {
   if (!name || !mainCategoryId || !userId) return;
 

@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { Button, Icon } from '@tremor/react';
 import { PlusIcon } from '@heroicons/react/24/solid';
-import { IAppModalButtonProps } from '../ui/modal';
+import { IAppModalButtonProps } from '@/shared/ui/modal';
 
 export const AddTransactionButton: FC<IAppModalButtonProps> = ({ onClick }) => {
   return (

@@ -1,4 +1,4 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { IUserMainCategory } from '../../../models/main-category.model';
 import { getUserInfo } from '../../user/get-user-info';
 
@@ -10,7 +10,7 @@ export const getMainCategories = async (): Promise<IUserMainCategory[]> => {
 
   const data = await prisma.mainCategory.findMany({
     select: { id: true, name: true, categoryType: true, cashFlowSection: true },
-    where: { userId }
+    where: { userId },
   });
 
   return data;

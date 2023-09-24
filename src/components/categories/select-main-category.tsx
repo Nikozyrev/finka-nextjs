@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { AppSelect } from '../ui/select';
+import { AppSelect } from '@/shared/ui/select';
 import { IUserMainCategory } from '../../models/main-category.model';
 
 interface ISelectMainCategoryProps {
@@ -19,7 +19,7 @@ export const SelectMainCategory: FC<ISelectMainCategoryProps> = ({
     .sort((a, b) => b.categoryType.localeCompare(a.categoryType))
     .map(({ id, name, cashFlowSection, categoryType }) => ({
       value: id,
-      text: `${name} [${categoryType} (${cashFlowSection})]`
+      text: `${name} [${categoryType} (${cashFlowSection})]`,
     }));
 
   return <AppSelect placeholder="Main Category" options={options} {...props} />;

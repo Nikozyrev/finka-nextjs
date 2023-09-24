@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { Currency } from '@prisma/client';
-import { AppSelect } from '../ui/select';
+import { AppSelect } from '@/shared/ui/select';
 import { useAppSearchParams } from '../../hooks/search-params';
 
 interface ICurrencySelectProps {
@@ -12,7 +12,7 @@ interface ICurrencySelectProps {
 
 export const CurrencySelect: FC<ICurrencySelectProps> = ({
   currencies,
-  currencyId
+  currencyId,
 }) => {
   const { setSearchParam } = useAppSearchParams();
 
@@ -20,7 +20,7 @@ export const CurrencySelect: FC<ICurrencySelectProps> = ({
     <AppSelect
       options={currencies.map(({ id, symbol }) => ({
         text: symbol,
-        value: `${id}`
+        value: `${id}`,
       }))}
       value={`${currencyId}`}
       onValueChange={(v) => setSearchParam('currency', v)}

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { AppTabs, ITab } from '../ui/tabs';
+import { AppTabs, ITab } from '@/shared/ui/tabs';
 import { AddCategoryForm } from './add-category-form';
 import { AddMainCategoryForm } from './add-main-category-form';
 import { IUserMainCategory } from '../../models/main-category.model';
@@ -11,17 +11,17 @@ interface IAddCategoriesTabsProps {
 }
 
 export const AddCategoriesTabs: FC<IAddCategoriesTabsProps> = ({
-  mainCategories
+  mainCategories,
 }) => {
   const tabs: ITab[] = [
     {
       name: 'Category',
-      component: <AddCategoryForm mainCategories={mainCategories} />
+      component: <AddCategoryForm mainCategories={mainCategories} />,
     },
     {
       name: 'Main Category',
-      component: <AddMainCategoryForm />
-    }
+      component: <AddMainCategoryForm />,
+    },
   ];
 
   return <AppTabs tabs={tabs} />;

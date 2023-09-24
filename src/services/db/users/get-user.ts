@@ -1,4 +1,4 @@
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 
 export const getUserByEmail = async (email: string) => {
   if (!email) return;

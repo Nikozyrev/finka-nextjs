@@ -1,6 +1,6 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { CashFlowSection, CategoryType, Prisma } from '@prisma/client';
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { getUserInfo } from '../../user/get-user-info';
 
 export interface ISumsByCategories {

@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import { UserProfile } from '../auth/profile';
-import { Sidebar } from '../ui/sidebar';
+import { Sidebar } from '@/shared/ui/sidebar';
 import { SignOutBtn } from '../auth/signOutBtn';
-import { Spinner } from '../ui/spinner';
+import { Spinner } from '@/shared/ui/spinner';
 import { NavBar } from './navbar';
 
 export const AppSidebar = () => {

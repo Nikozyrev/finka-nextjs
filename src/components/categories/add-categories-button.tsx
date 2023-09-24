@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { Button } from '@tremor/react';
-import { IAppModalButtonProps } from '../ui/modal';
+import { IAppModalButtonProps } from '@/shared/ui/modal';
 
 export const AddCategoriesButton: FC<IAppModalButtonProps> = ({ onClick }) => {
   return (

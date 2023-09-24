@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { useAppSearchParams } from '../../hooks/search-params';
-import { AppSelect } from '../ui/select';
+import { AppSelect } from '@/shared/ui/select';
 
 interface IYearSelectProps {
   years: number[];
@@ -16,7 +16,7 @@ export const YearSelect: FC<IYearSelectProps> = ({ years, year }) => {
     <AppSelect
       options={years.map((year) => ({
         text: `${year}`,
-        value: `${year}`
+        value: `${year}`,
       }))}
       value={`${year}`}
       onValueChange={(v) => setSearchParam('year', v)}

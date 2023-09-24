@@ -1,5 +1,5 @@
 import { TransactionType } from '@prisma/client';
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '@/shared/lib/prisma';
 import { ITransfer } from '../../../models/transfer.model';
 
 export const addTransfer = async (transfer: ITransfer) => {
