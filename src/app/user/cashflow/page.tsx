@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Col, Flex, Grid } from '@tremor/react';
-import { getCurrencies } from '../../../services/db/currencies/get-currencies';
+import { getCurrencies } from '@/entities/currency';
 import { getTransactionsYears } from '../../../services/db/transactions/get-years';
 import { CashFlowTable } from '../../../components/cash-flow/cash-flow-table';
 import { CurrencySelect } from '../../../components/cash-flow/currency-select';

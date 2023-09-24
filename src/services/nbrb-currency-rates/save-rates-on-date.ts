@@ -1,5 +1,5 @@
 import { getRatesOnDate } from './get-rates-on-date';
-import { getCurrencies } from '../db/currencies/get-currencies';
+import { getCurrencies } from '@/entities/currency';
 import { addCurrencyRates } from '../db/currency-rates/add-currency-rates';
 import { calculateRatesOnDate } from './calculate-rates-on-date';
 
