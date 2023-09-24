@@ -1,5 +1,5 @@
 import { Card, List, ListItem, Title } from '@tremor/react';
-import { getCategories } from '../../services/db/categories/get-categories';
+import { getCategories } from '@/entities/category';
 
 export const CategoriesList = async () => {
   const categories = await getCategories();

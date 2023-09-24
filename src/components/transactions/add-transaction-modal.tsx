@@ -1,5 +1,5 @@
 import { getCashAccounts } from '../../services/db/cash-accounts/get-cash-accounts';
-import { getCategories } from '../../services/db/categories/get-categories';
+import { getCategories } from '@/entities/category';
 import { AppModal } from '@/shared/ui/modal';
 import { AddTransactionTabs } from '../../components/transactions/add-transaction-tabs';
 import { AddTransactionButton } from '../../components/transactions/add-transaction-button';

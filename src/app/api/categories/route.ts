@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { addCategory } from '../../../services/db/categories/add-category';
 import { getUserInfo } from '@/entities/user';
+import { addCategory } from '@/entities/category';
 
 export async function POST(req: Request) {
   const body = await req.json();

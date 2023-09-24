@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma';
-import { ICategory } from '../../../models/category.model';
+import { ICategory } from '@/entities/category';
 
 export const addCategory = async ({
   userId,
