@@ -1,4 +1,4 @@
-import { getCashAccounts } from '../db/cash-accounts/get-cash-accounts';
+import { getCashAccounts } from '@/entities/cash-account';
 import { getSumsByAccount } from '../db/transactions/get-sums-by-account';
 
 export const getCashAccountsWithBalances = async () => {
@@ -7,6 +7,8 @@ export const getCashAccountsWithBalances = async () => {
 
   return cashAccounts.map((account) => ({
     ...account,
-    currentBalance: account.startBalance.add(accountsMovements[account.id] || 0)
+    currentBalance: account.startBalance.add(
+      accountsMovements[account.id] || 0
+    ),
   }));
 };

@@ -1,4 +1,4 @@
-import { getCashAccounts } from '../../services/db/cash-accounts/get-cash-accounts';
+import { getCashAccounts } from '@/entities/cash-account';
 import { getCategories } from '@/entities/category';
 import { AppModal } from '@/shared/ui/modal';
 import { AddTransactionTabs } from '../../components/transactions/add-transaction-tabs';

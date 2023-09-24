@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma';
-import { ICashAccount } from '../../../models/cash-account.model';
+import { ICashAccount } from '../model/cash-account.model';
 
 export const addCashAccount = async (account: ICashAccount) => {
   const { name, startBalance, userId, currencyId } = account;

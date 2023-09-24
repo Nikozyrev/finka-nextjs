@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getUserInfo } from '@/entities/user';
-import { addCashAccount } from '../../../services/db/cash-accounts/add-cash-account';
+import { addCashAccount } from '@/entities/cash-account';
 
 export async function POST(req: Request) {
   const body = await req.json();
