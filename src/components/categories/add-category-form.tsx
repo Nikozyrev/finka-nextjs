@@ -3,7 +3,7 @@
 import { FC, FormEvent, useState } from 'react';
 import { Button, Card, TextInput } from '@tremor/react';
 import { useRouter } from 'next/navigation';
-import { IUserMainCategory } from '../../models/main-category.model';
+import { IUserMainCategory } from '@/entities/main-category';
 import { SelectMainCategory } from './select-main-category';
 
 interface IAddCategoryFormProps {

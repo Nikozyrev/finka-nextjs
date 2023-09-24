@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { AppSelect } from '@/shared/ui/select';
-import { IUserMainCategory } from '../../models/main-category.model';
+import { IUserMainCategory } from '@/entities/main-category';
 
 interface ISelectMainCategoryProps {
   mainCategories: IUserMainCategory[];

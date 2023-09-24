@@ -1,4 +1,4 @@
-import { IAddCategoryType } from '../models/main-category.model';
+import { IAddCategoryType } from '@/entities/main-category';
 
 export const getSumWithSign = (categoryType: IAddCategoryType, sum: number) => {
   const abs = Math.abs(sum);

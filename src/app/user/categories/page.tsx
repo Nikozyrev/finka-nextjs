@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getMainCategories } from '@/services/db/main-categories/get-main-categories';
+import { getMainCategories } from '@/entities/main-category';
 import { AppModal } from '@/shared/ui/modal';
 import { AddCategoriesTabs } from '@/components/categories/add-categories-tabs';
 import { CategoriesList } from '@/components/categories/categories-list';

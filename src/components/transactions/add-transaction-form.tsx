@@ -14,7 +14,7 @@ import { AppSelect } from '@/shared/ui/select';
 import { useTransactionsApi } from '../../services/api/transactions';
 import { getUTCDate } from '../../helpers/get-utc-date';
 import { getSumWithSign } from '../../helpers/get-sum-with-sign';
-import { IAddCategoryType } from '../../models/main-category.model';
+import { IAddCategoryType } from '@/entities/main-category/';
 
 interface IAddTransactionFormProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];

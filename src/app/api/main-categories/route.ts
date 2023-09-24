@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CashFlowSection, CategoryType } from '@prisma/client';
 import { getUserInfo } from '@/entities/user';
-import { addMainCategory } from '../../../services/db/main-categories/add-main-category';
+import { addMainCategory } from '@/entities/main-category';
 
 export async function POST(req: Request) {
   const body = await req.json();
