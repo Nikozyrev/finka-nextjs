@@ -11,7 +11,7 @@ import {
 } from '@tremor/react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { AppSelect } from '@/shared/ui/select';
-import { useTransactionsApi } from '../api/transactions';
+import { useAddTransaction } from '../api/use-add-transaction';
 import { getUTCDate } from '../lib/get-utc-date';
 import { getSumWithSign } from '../lib/get-sum-with-sign';
 import { IAddCategoryType } from '@/entities/main-category/';
@@ -35,7 +35,7 @@ export const AddTransactionForm: FC<IAddTransactionFormProps> = ({
   categories,
   categoryType,
 }) => {
-  const { addTransaction, isLoading } = useTransactionsApi();
+  const { addTransaction, isLoading } = useAddTransaction();
   const { register, handleSubmit, reset, formState, control } =
     useForm<IAddTransactionFormInputs>({
       defaultValues: { date: new Date(), cashAccountId: '', categoryId: '' },

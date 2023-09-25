@@ -1,29 +1,27 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ITransferBody } from '@/entities/transfer';
+import { ITransactionBody } from '@/entities/transaction';
 
-export function useTransfersApi() {
+export function useAddTransaction() {
   const [isLoading, setIsLoading] = useState(false);
   const Router = useRouter();
-  const endpoint = `/api/transfers`;
+  const endpoint = `/api/transactions`;
 
-  const addTransfer = async ({
+  const addTransaction = async ({
     date,
-    fromCashAccountId,
-    toCashAccountId,
-    fromSum,
-    toSum,
+    sum,
+    cashAccountId,
+    categoryId,
     comment,
-  }: ITransferBody) => {
+  }: ITransactionBody) => {
     setIsLoading(true);
     await fetch(endpoint, {
       method: 'POST',
       body: JSON.stringify({
         date,
-        fromCashAccountId,
-        toCashAccountId,
-        fromSum,
-        toSum,
+        sum: Number.isNaN(sum) ? 0 : sum,
+        cashAccountId,
+        categoryId,
         comment,
       }),
     });
@@ -31,5 +29,5 @@ export function useTransfersApi() {
     setIsLoading(false);
   };
 
-  return { addTransfer, isLoading };
+  return { addTransaction, isLoading };
 }

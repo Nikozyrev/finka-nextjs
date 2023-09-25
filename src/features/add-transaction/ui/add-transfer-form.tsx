@@ -10,7 +10,7 @@ import {
 } from '@tremor/react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { AppSelect } from '@/shared/ui/select';
-import { useTransfersApi } from '../api/transfers';
+import { useAddTransfer } from '../api/use-add-transfer';
 import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
 import { getUTCDate } from '../lib/get-utc-date';
 
@@ -30,7 +30,7 @@ interface IAddTransferFormInputs {
 export const AddTransferForm: FC<IAddTransferFormProps> = ({
   cashAccounts,
 }) => {
-  const { addTransfer, isLoading } = useTransfersApi();
+  const { addTransfer, isLoading } = useAddTransfer();
   const { register, handleSubmit, watch, reset, formState, control, setValue } =
     useForm<IAddTransferFormInputs>({
       defaultValues: {
