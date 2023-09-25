@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getUserInfo } from '@/entities/user';
 import { deleteTransaction } from '@/entities/transaction';
+import { revalidateTag } from 'next/cache';
 
 export async function DELETE(
   req: Request,
@@ -20,6 +21,8 @@ export async function DELETE(
   }
 
   const dbRes = await deleteTransaction(id);
+
+  revalidateTag('user_tr_count');
 
   return NextResponse.json({ dbRes });
 }

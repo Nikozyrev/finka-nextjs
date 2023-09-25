@@ -8,5 +8,5 @@ export const getTransactionsCount = unstable_cache(
     return count;
   },
   ['user_tr_count'],
-  { revalidate: 60 }
+  { tags: ['user_tr_count'] }
 );
