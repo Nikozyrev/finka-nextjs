@@ -1,9 +1,8 @@
 'use client';
 
-import { FC } from 'react';
 import { Button } from '@tremor/react';
 import { signOut } from 'next-auth/react';
 
-export const SignOutBtn: FC = () => {
+export const SignOutBtn = () => {
   return <Button onClick={() => signOut()}>Sign Out</Button>;
 };

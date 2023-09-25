@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { UserProfile } from '@/entities/user';
 import { Sidebar } from '@/shared/ui/sidebar';
-import { SignOutBtn } from '../auth/signOutBtn';
+import { SignOutBtn } from '@/features/auth';
 import { Spinner } from '@/shared/ui/spinner';
 import { NavBar } from './navbar';
 
