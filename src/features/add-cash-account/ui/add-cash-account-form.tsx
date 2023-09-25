@@ -5,6 +5,7 @@ import { Button, Card, NumberInput, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
 import { Currency } from '@prisma/client';
 import { AppSelect } from '@/shared/ui/select';
+import { addCashAccount } from '../api/add-cash-account';
 
 export const AddCashAccountForm: FC<{
   currencies: Currency[];
@@ -17,14 +18,7 @@ export const AddCashAccountForm: FC<{
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name || !currencyId) return;
-    await fetch('/api/accounts', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        startBalance: Number.isNaN(startBalance) ? 0 : startBalance,
-        currencyId: Number(currencyId),
-      }),
-    });
+    await addCashAccount({ name, startBalance, currencyId });
     Router.refresh();
     return;
   };
