@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getUserInfo } from '../../../services/user/get-user-info';
-import { addCashAccount } from '../../../services/db/cash-accounts/add-cash-account';
+import { getUserInfo } from '@/entities/user';
+import { addCashAccount } from '@/entities/cash-account';
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     name,
     userId,
     startBalance,
-    currencyId
+    currencyId,
   });
 
   return NextResponse.json({ dbRes });

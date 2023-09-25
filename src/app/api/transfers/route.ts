@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Decimal } from '@prisma/client/runtime/library';
-import { getUserInfo } from '../../../services/user/get-user-info';
-import { ITransferBody } from '../../../models/transfer.model';
-import { addTransfer } from '../../../services/db/transfers/add-transfer';
+import { getUserInfo } from '@/entities/user';
+import { ITransferBody } from '@/entities/transfer';
+import { addTransfer } from '@/entities/transfer';
 
 export async function POST(req: Request) {
   const body: ITransferBody = await req.json();
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     fromSum: new Decimal(fromSum),
     toSum: new Decimal(toSum),
     comment,
-    userId
+    userId,
   });
 
   return NextResponse.json({ status: 'OK' });

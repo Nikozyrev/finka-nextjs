@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getUserInfo } from '../../../../services/user/get-user-info';
-import { deleteTransaction } from '../../../../services/db/transactions/delete-transaction';
+import { getUserInfo } from '@/entities/user';
+import { deleteTransaction } from '@/entities/transaction';
 
 export async function DELETE(
   req: Request,

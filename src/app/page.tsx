@@ -1,5 +1,5 @@
-import { AppButton } from '@/components/user/app-button';
 import { Title } from '@tremor/react';
+import { AppButton } from '@/features/navigation';
 
 export default function Home() {
   return (

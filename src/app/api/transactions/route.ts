@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Decimal } from '@prisma/client/runtime/library';
-import { getUserInfo } from '../../../services/user/get-user-info';
-import { addTransaction } from '../../../services/db/transactions/add-transaction';
-import { ITransactionBody } from '../../../models/transaction.model';
+import { getUserInfo } from '@/entities/user';
+import { addTransaction } from '@/entities/transaction';
+import { ITransactionBody } from '@/entities/transaction';
 
 export async function POST(req: Request) {
   const body: ITransactionBody = await req.json();
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     cashAccountId,
     categoryId,
     comment: comment || undefined,
-    userId
+    userId,
   });
 
   return NextResponse.json({ dbRes });
