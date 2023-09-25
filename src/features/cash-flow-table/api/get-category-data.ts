@@ -1,9 +1,9 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import {
   ICashFlowCategory,
-  ICashFlowSumsByMonths
-} from '../../models/cash-flow.model';
-import { ISumsByCategories } from '../db/transactions/get-sums-by-categories';
+  ICashFlowSumsByMonths,
+} from '../model/cash-flow.model';
+import { ISumsByCategories } from './get-sums-by-categories';
 
 export const getCategoryData = (
   sumsByCategories: ISumsByCategories[],
@@ -31,6 +31,6 @@ export const getCategoryData = (
     name: categoryTransactions[0].main_category_name,
     categoryType: categoryTransactions[0].category_type,
     cashFlowSection: categoryTransactions[0].cash_flow_section,
-    sumsByMonths
+    sumsByMonths,
   };
 };

@@ -7,19 +7,16 @@ import {
   TableRow,
 } from '@tremor/react';
 import { CashFlowSection } from '@prisma/client';
-import { getCashFlowData } from '../../services/cash-flow/get-cash-flow-data';
-import { CashFlowTableSection } from './cash-flow-table-section';
-import { CashFlowTableTotals } from './cash-flow-table-totals';
+import { getCashFlowData } from '../api/get-cash-flow-data';
+import { CashFlowTableSection } from '../ui/cash-flow-table-section';
+import { CashFlowTableTotals } from '../ui/cash-flow-table-totals';
 
-interface ICashFlowTableProps {
-  year: number;
-  currencyId: number;
-}
-
-export const CashFlowTable = async ({
-  year,
-  currencyId,
-}: ICashFlowTableProps) => {
+export const CashFlowTable = async (props: {
+  year?: number;
+  currencyId?: number;
+}) => {
+  const year = props.year || new Date().getFullYear();
+  const currencyId = props.currencyId || 1;
   const { categories, totals } = await getCashFlowData(year, currencyId);
 
   const months = Array.from(new Array(12), (_, i) => i + 1);

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { TableCell, TableRow } from '@tremor/react';
-import { ICashFlowSumsByMonths } from '../../models/cash-flow.model';
+import { ICashFlowSumsByMonths } from '../model/cash-flow.model';
 
 interface ICashFlowTableRowProps {
   name: string;
@@ -13,7 +13,7 @@ export const CashFlowTableRow: FC<ICashFlowTableRowProps> = ({
   name,
   months,
   sumsByMonths,
-  className
+  className,
 }) => {
   return (
     <TableRow>

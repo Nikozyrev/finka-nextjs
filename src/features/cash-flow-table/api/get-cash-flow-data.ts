@@ -1,4 +1,4 @@
-import { getSumsByCategories } from '../db/transactions/get-sums-by-categories';
+import { getSumsByCategories } from './get-sums-by-categories';
 import { getCashFlowTotals } from './get-cash-flow-totals';
 import { getCategoryData } from './get-category-data';
 

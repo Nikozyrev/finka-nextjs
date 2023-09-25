@@ -1,25 +1,25 @@
 import { CategoryType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
-import { ICashFlowTotals } from '../../models/cash-flow.model';
-import { ISumsByCategories } from '../db/transactions/get-sums-by-categories';
+import { ICashFlowTotals } from '../model/cash-flow.model';
+import { ISumsByCategories } from './get-sums-by-categories';
 
 export const getCashFlowTotals = (categories: ISumsByCategories[]) => {
   const initial: ICashFlowTotals = {
     OPERATIONAL: {
       cashFlowIn: { totalYear: new Decimal(0) },
       cashFlowOut: { totalYear: new Decimal(0) },
-      cashFlow: { totalYear: new Decimal(0) }
+      cashFlow: { totalYear: new Decimal(0) },
     },
     INVESTMENTS: {
       cashFlowIn: { totalYear: new Decimal(0) },
       cashFlowOut: { totalYear: new Decimal(0) },
-      cashFlow: { totalYear: new Decimal(0) }
+      cashFlow: { totalYear: new Decimal(0) },
     },
     grandTotal: {
       cashFlowIn: { totalYear: new Decimal(0) },
       cashFlowOut: { totalYear: new Decimal(0) },
-      cashFlow: { totalYear: new Decimal(0) }
-    }
+      cashFlow: { totalYear: new Decimal(0) },
+    },
   };
 
   const totals = categories.reduce(
