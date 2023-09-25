@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { Button, Icon } from '@tremor/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import { useTransactionsApi } from '../../services/api/transactions';
+import { useTransactionsApi } from '../../features/add-transaction/api/transactions';
 
 export const DeleteTransactionButton: FC<{ id: string }> = ({ id }) => {
   const { deleteTransaction, isLoading } = useTransactionsApi();

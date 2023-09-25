@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/user/app-sidebar';
-import { AddTransactionModal } from '@/components/transactions/add-transaction-modal';
+import { AddTransaction } from '@/features/add-transaction';
 
 export default async function UserLayout({
   children,
@@ -14,7 +14,7 @@ export default async function UserLayout({
           {children}
         </main>
       </div>
-      <AddTransactionModal />
+      <AddTransaction />
     </>
   );
 }

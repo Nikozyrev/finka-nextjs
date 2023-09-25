@@ -1,7 +1,8 @@
+import { cache } from 'react';
 import { prisma } from '@/shared/lib/prisma';
 import { getUserInfo } from '@/entities/user';
 
-export const getCashAccounts = async () => {
+export const getCashAccounts = cache(async () => {
   const user = await getUserInfo();
   const userId = user?.id;
 
@@ -13,4 +14,4 @@ export const getCashAccounts = async () => {
   });
 
   return data;
-};
+});

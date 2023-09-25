@@ -9,10 +9,10 @@ import {
   TextInput,
 } from '@tremor/react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { IsSameCurrenciesAccounts } from '../../helpers/is-same-currencies-accounts';
 import { AppSelect } from '@/shared/ui/select';
-import { useTransfersApi } from '../../services/api/transfers';
-import { getUTCDate } from '../../helpers/get-utc-date';
+import { useTransfersApi } from '../api/transfers';
+import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
+import { getUTCDate } from '../lib/get-utc-date';
 
 interface IAddTransferFormProps {
   cashAccounts: { id: string; name: string; currencyId: number }[];

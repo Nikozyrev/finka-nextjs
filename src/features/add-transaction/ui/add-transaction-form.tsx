@@ -11,9 +11,9 @@ import {
 } from '@tremor/react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { AppSelect } from '@/shared/ui/select';
-import { useTransactionsApi } from '../../services/api/transactions';
-import { getUTCDate } from '../../helpers/get-utc-date';
-import { getSumWithSign } from '../../helpers/get-sum-with-sign';
+import { useTransactionsApi } from '../api/transactions';
+import { getUTCDate } from '../lib/get-utc-date';
+import { getSumWithSign } from '../lib/get-sum-with-sign';
 import { IAddCategoryType } from '@/entities/main-category/';
 
 interface IAddTransactionFormProps {

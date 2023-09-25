@@ -1,7 +1,8 @@
+import { cache } from 'react';
 import { prisma } from '@/shared/lib/prisma';
 import { getUserInfo } from '@/entities/user';
 
-export const getCategories = async () => {
+export const getCategories = cache(async () => {
   const user = await getUserInfo();
   const userId = user?.id;
 
@@ -31,4 +32,4 @@ export const getCategories = async () => {
       cashFlowSection,
     })
   );
-};
+});
