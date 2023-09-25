@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { saveRatesOnDate } from '../../../services/nbrb-currency-rates/save-rates-on-date';
+import { saveRatesOnDate } from '@/features/get-currency-rates';
 
 const saveTodayRates = async () => {
   try {
@@ -11,7 +11,7 @@ const saveTodayRates = async () => {
       message = error.message;
     }
     return new Response(JSON.stringify({ error: message }), {
-      status: 400
+      status: 400,
     });
   }
 };

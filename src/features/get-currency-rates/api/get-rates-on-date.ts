@@ -1,4 +1,4 @@
-import { ICurrencyRateResponse } from './rate-response.model';
+import { ICurrencyRateResponse } from '../model/rate-response.model';
 
 export const getRatesOnDate = async (date: Date) => {
   const baseUrl = 'https://api.nbrb.by/exrates/rates/';

@@ -1,6 +1,6 @@
 import { Currency } from '@prisma/client';
 import { ICurrencyRate } from '@/entities/currency-rate';
-import { ICurrencyRateResponse } from './rate-response.model';
+import { ICurrencyRateResponse } from '../model/rate-response.model';
 
 export const calculateRatesOnDate = (
   date: Date,
