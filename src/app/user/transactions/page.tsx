@@ -1,9 +1,15 @@
 import { TransactionsTable } from '@/features/transactions-table/';
 
-export default async function TransactionsPage() {
+export default async function TransactionsPage({
+  searchParams: { page },
+}: {
+  searchParams: { page?: string };
+}) {
+  const pageNum = Number(page);
+
   return (
     <>
-      <TransactionsTable />
+      <TransactionsTable page={pageNum} />
     </>
   );
 }

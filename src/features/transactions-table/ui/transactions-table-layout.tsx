@@ -3,8 +3,8 @@ import { getUserTransactions } from '../api/get-user-transactions';
 import { TransactionsTableHead } from './transactions-table-head';
 import { TransactionsTableRow } from './transactions-table-row';
 
-export const TransactionsTableLayout = async () => {
-  const transactions = await getUserTransactions();
+export const TransactionsTableLayout = async ({ page }: { page?: number }) => {
+  const transactions = await getUserTransactions({ page });
 
   return (
     <Card className="p-4 h-full">

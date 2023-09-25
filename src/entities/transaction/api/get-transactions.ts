@@ -1,6 +1,14 @@
 import { prisma } from '@/shared/lib/prisma';
 
-export const getTransactions = async ({ userId }: { userId: string }) => {
+export const getTransactions = async ({
+  skip,
+  take,
+  userId,
+}: {
+  take?: number;
+  skip?: number;
+  userId: string;
+}) => {
   const data = await prisma.transaction.findMany({
     select: {
       id: true,
@@ -11,6 +19,8 @@ export const getTransactions = async ({ userId }: { userId: string }) => {
       cashAccount: true,
       category: true,
     },
+    skip,
+    take,
     where: { userId },
     orderBy: { date: 'desc' },
   });
