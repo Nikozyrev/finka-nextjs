@@ -1,18 +1,14 @@
 import { Suspense } from 'react';
 import { UserProfile } from '@/entities/user';
-import { Sidebar } from '@/shared/ui/sidebar';
 import { SignOutBtn } from '@/features/auth';
-import { Spinner } from '@/shared/ui/spinner';
 import { NavBar } from '@/features/navigation';
+import { Sidebar } from '@/shared/ui/sidebar';
+import { Spinner } from '@/shared/ui/spinner';
 
 export const AppSidebar = () => {
   return (
     <Sidebar
-      contentTop={
-        <>
-          <NavBar />
-        </>
-      }
+      contentTop={<NavBar />}
       contentBottom={
         <>
           <Suspense fallback={<Spinner size="small" />}>

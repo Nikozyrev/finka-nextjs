@@ -1,4 +1,4 @@
-import { AppSidebar } from '@/components/user/app-sidebar';
+import { AppSidebar } from '@/widgets/sidebar';
 import { AddTransaction } from '@/features/add-transaction';
 
 export default async function UserLayout({
