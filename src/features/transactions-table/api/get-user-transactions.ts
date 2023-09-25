@@ -2,15 +2,17 @@ import { getUserInfo } from '@/entities/user';
 import { IUserTransaction, getTransactions } from '@/entities/transaction';
 
 export const getUserTransactions = async ({
+  perPage,
   page,
 }: {
-  page?: number | undefined;
+  perPage: number;
+  page?: number;
 }): Promise<IUserTransaction[]> => {
   const user = await getUserInfo();
 
   if (!user) throw new Error('Not Authorized');
 
-  const take = 10;
+  const take = perPage;
   const pageNum = page || 0;
   const skip = (pageNum < 0 ? 0 : pageNum) * take;
 
