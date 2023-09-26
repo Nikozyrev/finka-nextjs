@@ -1,3 +1,4 @@
+import { Flex } from '@tremor/react';
 import { SetPagePagination } from '@/shared/ui/set-page-pagination';
 import { getUserTransactionsCount } from '../api/get-user-transactions-count';
 
@@ -12,5 +13,9 @@ export async function TransactionsTablePagination({
   const count = await getUserTransactionsCount();
   const pagesNum = Math.ceil(count / take);
 
-  return <SetPagePagination pagesNum={pagesNum} currentPage={currentPage} />;
+  return (
+    <Flex justifyContent="center">
+      <SetPagePagination pagesNum={pagesNum} currentPage={currentPage} />
+    </Flex>
+  );
 }

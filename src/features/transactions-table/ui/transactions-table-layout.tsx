@@ -13,7 +13,7 @@ export const TransactionsTableLayout = async ({
   const transactions = await getUserTransactions({ page, perPage });
 
   return (
-    <Card className="p-4 h-full">
+    <Card className="px-3 py-1 h-full">
       <Table className="h-full">
         <TransactionsTableHead />
         <TableBody>
