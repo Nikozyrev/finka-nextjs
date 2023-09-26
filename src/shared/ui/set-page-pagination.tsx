@@ -13,7 +13,7 @@ export function SetPagePagination({
   const { setSearchParam } = useAppSearchParams();
 
   const setPage = (page: number) => {
-    if (page >= 0 && page <= pagesNum - 1) {
+    if (page >= 1 && page <= pagesNum) {
       setSearchParam('page', page.toString());
     }
   };
@@ -21,7 +21,7 @@ export function SetPagePagination({
   return (
     <AppPagination
       setPage={setPage}
-      pagesNum={pagesNum}
+      pagesCount={pagesNum}
       currentPage={currentPage}
     />
   );

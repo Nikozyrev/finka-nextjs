@@ -13,7 +13,7 @@ export const getUserTransactions = async ({
   if (!user) throw new Error('Not Authorized');
 
   const take = perPage;
-  const pageNum = page || 0;
+  const pageNum = page ? page - 1 : 0;
   const skip = (pageNum < 0 ? 0 : pageNum) * take;
 
   const transactions = await getTransactions({ skip, take, userId: user.id });

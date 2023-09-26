@@ -1,13 +1,15 @@
 'use client';
 
+import { usePagination } from '../hooks/use-pagination';
+
 export function AppPagination(props: {
-  pagesNum: number;
+  pagesCount: number;
   currentPage: number;
   setPage?: (pageNum: number) => void;
 }) {
-  const pages = Array.from(new Array(props.pagesNum), (_, i) => i);
-  const currentPage = props.currentPage || 0;
-  const { setPage } = props;
+  const currentPage = props.currentPage || 1;
+  const { pagesCount, setPage } = props;
+  const pages = usePagination({ currentPage, pagesCount });
 
   return (
     <div>
@@ -37,13 +39,18 @@ export function AppPagination(props: {
         </li>
 
         {pages.map((page) => (
-          <li key={page} onClick={setPage && (() => setPage(page))}>
+          <li
+            key={page}
+            onClick={
+              setPage && (() => typeof page === 'number' && setPage(page))
+            }
+          >
             <span
               className={`${
                 page === currentPage ? 'text-blue-500' : 'text-gray-500'
               } flex items-center justify-center px-3 h-8 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer`}
             >
-              {page + 1}
+              {typeof page === 'number' ? page : '...'}
             </span>
           </li>
         ))}
