@@ -3,6 +3,7 @@ import { Decimal } from '@prisma/client/runtime/library';
 import { getUserInfo } from '@/entities/user';
 import { addTransaction } from '@/entities/transaction';
 import { ITransactionBody } from '@/entities/transaction';
+import { revalidateTag } from 'next/cache';
 
 export async function POST(req: Request) {
   const body: ITransactionBody = await req.json();
@@ -27,6 +28,8 @@ export async function POST(req: Request) {
     comment: comment || undefined,
     userId,
   });
+
+  revalidateTag('user_tr_count');
 
   return NextResponse.json({ dbRes });
 }

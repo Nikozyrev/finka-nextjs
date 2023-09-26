@@ -3,11 +3,17 @@ import { getUserTransactions } from '../api/get-user-transactions';
 import { TransactionsTableHead } from './transactions-table-head';
 import { TransactionsTableRow } from './transactions-table-row';
 
-export const TransactionsTableLayout = async () => {
-  const transactions = await getUserTransactions();
+export const TransactionsTableLayout = async ({
+  page,
+  perPage,
+}: {
+  perPage: number;
+  page?: number;
+}) => {
+  const transactions = await getUserTransactions({ page, perPage });
 
   return (
-    <Card className="p-4 h-full">
+    <Card className="px-3 py-1 h-full">
       <Table className="h-full">
         <TransactionsTableHead />
         <TableBody>

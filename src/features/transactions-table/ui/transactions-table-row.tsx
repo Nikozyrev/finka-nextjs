@@ -17,7 +17,9 @@ export const TransactionsTableRow = ({
   return (
     <TableRow>
       <TableCell className={classes}>{date.toLocaleDateString()}</TableCell>
-      <TableCell className={classes}>{sum.toString()}</TableCell>
+      <TableCell className={`${classes} text-right`}>
+        {sum.toString()}
+      </TableCell>
       <TableCell className={classes}>{cashAccount.name}</TableCell>
       <TableCell className={classes}>{types[type]}</TableCell>
       <TableCell className={classes}>

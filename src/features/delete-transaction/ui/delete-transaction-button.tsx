@@ -21,10 +21,10 @@ export const DeleteTransactionButton: FC<{ id: string }> = ({ id }) => {
       disabled={isLoading}
     >
       <Icon
-        className="p-1"
+        className="p-2"
         icon={XMarkIcon}
         variant="simple"
-        size="md"
+        size="xs"
         color="red"
       />
     </Button>
