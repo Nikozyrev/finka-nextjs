@@ -22,7 +22,7 @@ export const getTransactions = async ({
     skip,
     take,
     where: { userId },
-    orderBy: { date: 'desc' },
+    orderBy: [{ date: 'desc' }, { createdAt: 'desc' }],
   });
 
   return data;
