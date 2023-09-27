@@ -112,7 +112,7 @@ model MainCategory {
 model CashAccount {
   id           String        @id @default(cuid())
   name         String
-  startBalance Decimal       @default(0.00) @map("start_balance")
+  startBalance Decimal       @default(0.00) @db.Decimal(65, 4) @map("start_balance")
   currencyId   Int           @map("currency_id")
   currency     Currency      @relation(fields: [currencyId], references: [id])
   userId       String        @map("user_id")
@@ -127,8 +127,9 @@ model CashAccount {
 model Transaction {
   id            String          @id @default(cuid())
   date          DateTime        @db.Date
+  createdAt     DateTime        @default(now()) @map("created_at")
   type          TransactionType
-  sum           Decimal
+  sum           Decimal         @db.Decimal(65, 4)
   comment       String?
   transferId    String?         @unique @map("transfer_id")
   transferFrom  Transaction?    @relation("transfer", fields: [transferId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -158,7 +159,7 @@ model Currency {
 model CurrencyRate {
   id             Int      @id @default(autoincrement())
   date           DateTime
-  rate           Decimal
+  rate           Decimal  @db.Decimal(65, 4)
   source         String?
   currencyId     Int      @map("currency_id")
   baseCurrencyId Int      @map("base_currency_id")
