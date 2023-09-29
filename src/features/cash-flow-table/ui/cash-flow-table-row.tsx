@@ -17,7 +17,11 @@ export const CashFlowTableRow: FC<ICashFlowTableRowProps> = ({
 }) => {
   return (
     <TableRow>
-      <TableCell className={`text-left p-1 ${className ?? ''}`}>
+      <TableCell
+        className={`text-left p-1 sticky top-0 left-0 bg-white ${
+          className ?? ''
+        }`}
+      >
         {name}
       </TableCell>
       {months.map((m) => {

@@ -15,7 +15,9 @@ export const CashFlowTableTotals: FC<ICashFlowTableTotalsProps> = ({
   return (
     <>
       <TableRow>
-        <TableCell className="italic font-semibold p-2">TOTALS</TableCell>
+        <TableCell className="italic font-semibold p-2 sticky top-0 left-0 bg-white">
+          TOTALS
+        </TableCell>
       </TableRow>
       <CashFlowTableRow
         className="font-bold text-base"
