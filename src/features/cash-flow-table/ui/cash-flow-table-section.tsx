@@ -32,7 +32,9 @@ export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
   return (
     <>
       <TableRow>
-        <TableCell className="italic font-semibold p-2">{section}</TableCell>
+        <TableCell className="italic font-semibold p-2 sticky top-0 left-0 bg-white">
+          {section}
+        </TableCell>
       </TableRow>
       {incomeCategories.map((category) => (
         <CashFlowTableRow

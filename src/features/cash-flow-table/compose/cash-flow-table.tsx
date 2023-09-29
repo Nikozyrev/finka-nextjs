@@ -24,12 +24,15 @@ export const CashFlowTable = async (props: {
 
   return (
     <Card className="p-4 h-full">
-      <Table className="h-full">
+      <Table className="h-full relative">
         <TableHead className="">
           <TableRow>
-            {tableColumns.map((v) => (
+            {tableColumns.map((v, i) => (
               <TableHeaderCell
-                className="py-2 text-center font-bold bg-white"
+                className={
+                  'py-2 text-center font-bold bg-white' +
+                  (i === 0 ? ' sticky top-0 left-0 z-10' : '')
+                }
                 key={v}
               >
                 {v}
