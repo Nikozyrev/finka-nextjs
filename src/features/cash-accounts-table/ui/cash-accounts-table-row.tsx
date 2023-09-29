@@ -1,6 +1,7 @@
 import { Currency } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import { TableRow, TableCell } from '@tremor/react';
+import { CurrencyBadge } from '@/entities/currency';
 
 export function CashAccountsTableRow({
   name,
@@ -15,7 +16,9 @@ export function CashAccountsTableRow({
   return (
     <TableRow>
       <TableCell className={`${classes}`}>{name}</TableCell>
-      <TableCell className={`${classes}`}>{currency.symbol}</TableCell>
+      <TableCell className={`${classes}`}>
+        <CurrencyBadge symbol={currency.symbol} />
+      </TableCell>
       <TableCell className={`${classes}`}>
         {currentBalance.toString()}
       </TableCell>
