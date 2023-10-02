@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserInfo } from '@/entities/user';
+import { getUserInfo } from '@/shared/utils/get-user-info';
 import { deleteTransaction } from '@/entities/transaction';
 import { revalidateTag } from 'next/cache';
 

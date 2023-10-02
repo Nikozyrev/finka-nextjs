@@ -1,5 +1,5 @@
 import { Flex } from '@tremor/react';
-import { getUserCashAccount } from '../api/get-user-cash-account';
+import { getUserCashAccount } from '@/entities/cash-account/';
 
 export async function CashAccountInfo({ id }: { id: string }) {
   const account = await getUserCashAccount(id);
@@ -8,7 +8,7 @@ export async function CashAccountInfo({ id }: { id: string }) {
     <Flex>
       <div>{account.name}</div>
       <div>{account.currency.symbol}</div>
-      <div>{account.startBalance.toNumber()}</div>
+      <div>{account.startBalance}</div>
     </Flex>
   );
 }

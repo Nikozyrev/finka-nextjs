@@ -1,14 +1,19 @@
-import { AppModal } from '@/shared/ui/modal';
-import { AddCategoriesButton } from '../ui/add-categories-button';
-import { AddCategoriesTabs } from '../ui/add-categories-tabs';
-import { getMainCategories } from '@/entities/main-category';
+'use client';
 
-export async function AddCategoriesModal() {
-  const mainCategories = await getMainCategories();
+import { ReactNode, useState } from 'react';
+import { AppModal } from '@/shared/ui/modal';
+import { AddCategoriesButton } from './add-categories-button';
+
+export function AddCategoriesModal({ tabs }: { tabs: ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <AppModal RenderButton={AddCategoriesButton}>
-      <AddCategoriesTabs mainCategories={mainCategories} />
-    </AppModal>
+    <>
+      <AddCategoriesButton onClick={() => setIsOpen(true)} />
+
+      <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
+        {tabs}
+      </AppModal>
+    </>
   );
 }

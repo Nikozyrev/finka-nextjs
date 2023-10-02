@@ -31,7 +31,7 @@ export const CashFlowTable = async (props: {
               <TableHeaderCell
                 className={
                   'py-2 text-center font-bold bg-white' +
-                  (i === 0 ? ' sticky top-0 left-0 z-10' : '')
+                  (i === 0 ? ' sticky top-0 left-0 z-[1]' : '')
                 }
                 key={v}
               >

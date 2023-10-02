@@ -14,7 +14,7 @@ export function CashAccountsTableRow({
   id: string;
   name: string;
   currency: Currency;
-  currentBalance: Decimal;
+  currentBalance: number;
 }) {
   const classes = `p-2 sm:px-3`;
   return (
@@ -27,9 +27,7 @@ export function CashAccountsTableRow({
       <TableCell className={`${classes}`}>
         <CurrencyBadge symbol={currency.symbol} />
       </TableCell>
-      <TableCell className={`${classes}`}>
-        {currentBalance.toString()}
-      </TableCell>
+      <TableCell className={`${classes}`}>{currentBalance}</TableCell>
     </TableRow>
   );
 }

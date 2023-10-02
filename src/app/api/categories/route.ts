@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserInfo } from '@/entities/user';
+import { getUserInfo } from '@/shared/utils/get-user-info';
 import { addCategory } from '@/entities/category';
 
 export async function POST(req: Request) {

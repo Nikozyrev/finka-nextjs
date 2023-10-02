@@ -1,12 +1,9 @@
 import { cache } from 'react';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export const getCategories = cache(async () => {
-  const user = await getUserInfo();
-  const userId = user?.id;
-
-  if (!userId) return [];
+  const userId = await getUserId();
 
   const data = await prisma.category.findMany({
     select: {

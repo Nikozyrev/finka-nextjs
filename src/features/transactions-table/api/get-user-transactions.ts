@@ -1,4 +1,4 @@
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 import { IUserTransaction, getTransactions } from '@/entities/transaction';
 
 export const getUserTransactions = async ({
@@ -8,15 +8,13 @@ export const getUserTransactions = async ({
   perPage: number;
   page?: number;
 }): Promise<IUserTransaction[]> => {
-  const user = await getUserInfo();
-
-  if (!user) throw new Error('Not Authorized');
+  const userId = await getUserId();
 
   const take = perPage;
   const pageNum = page ? page - 1 : 0;
   const skip = (pageNum < 0 ? 0 : pageNum) * take;
 
-  const transactions = await getTransactions({ skip, take, userId: user.id });
+  const transactions = await getTransactions({ skip, take, userId });
 
   return transactions;
 };

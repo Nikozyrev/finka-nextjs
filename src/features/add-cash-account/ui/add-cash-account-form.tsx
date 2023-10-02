@@ -1,15 +1,12 @@
 'use client';
 
-import { FC, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button, Card, NumberInput, TextInput, Title } from '@tremor/react';
 import { useRouter } from 'next/navigation';
-import { Currency } from '@prisma/client';
-import { AppSelect } from '@/shared/ui/select';
 import { addCashAccount } from '../api/add-cash-account';
+import { CurrencySelect } from '@/entities/currency';
 
-export const AddCashAccountForm: FC<{
-  currencies: Currency[];
-}> = ({ currencies }) => {
+export function AddCashAccountForm() {
   const Router = useRouter();
   const [name, setName] = useState<string>('');
   const [startBalance, setStartBalance] = useState<string>('');
@@ -41,15 +38,10 @@ export const AddCashAccountForm: FC<{
           value={startBalance}
           onChange={(e) => setStartBalance(e.target.value)}
         />
-        <AppSelect
+        <CurrencySelect
           className="mb-3"
-          options={currencies.map(({ id, name, symbol }) => ({
-            text: `${name} (${symbol})`,
-            value: id.toString(),
-          }))}
           value={currencyId}
           onValueChange={setCurrencyId}
-          placeholder="Currency"
         />
         <Button type="submit" disabled={!name}>
           Add Account
@@ -57,4 +49,4 @@ export const AddCashAccountForm: FC<{
       </form>
     </Card>
   );
-};
+}
