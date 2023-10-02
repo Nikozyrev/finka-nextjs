@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Decimal } from '@prisma/client/runtime/library';
-import { getUserInfo } from '@/entities/user';
+import { getUserInfo } from '@/shared/utils/get-user-info';
 import { ITransferBody } from '@/entities/transfer';
 import { addTransfer } from '@/entities/transfer';
 import { revalidateTag } from 'next/cache';

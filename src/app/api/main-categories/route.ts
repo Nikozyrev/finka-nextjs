@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { getUserInfo } from '@/entities/user';
+import { getUserInfo } from '@/shared/utils/get-user-info';
 import { addMainCategory } from '@/entities/main-category';
 
 export async function POST(req: Request) {
