@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import { unstable_cache } from 'next/cache';
 import { prisma } from '@/shared/lib/prisma';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export const getCashAccount = cache(
   unstable_cache(
@@ -18,3 +19,13 @@ export const getCashAccount = cache(
     { tags: ['accounts'] }
   )
 );
+
+export const getUserCashAccount = async (id: string) => {
+  const userId = await getUserId();
+
+  const account = await getCashAccount(userId, id);
+
+  if (!account) throw new Error('Account not found');
+
+  return account;
+};
