@@ -7,3 +7,11 @@ export interface ICashAccount {
   currencyId: number;
   userId: string;
 }
+
+export interface ICashAccountData {
+  id: string;
+  name: string;
+  currencyId: number;
+  startBalance: number;
+  userId: string;
+}
