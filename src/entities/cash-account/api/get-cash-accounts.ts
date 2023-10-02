@@ -1,17 +1,18 @@
-import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '@/entities/user';
 
-export const getCashAccounts = cache(async () => {
-  const user = await getUserInfo();
-  const userId = user?.id;
+export const getCashAccounts = unstable_cache(
+  async (userId: string) => {
+    const data = await prisma.cashAccount.findMany({
+      select: { id: true, name: true, startBalance: true, currency: true },
+      where: { userId },
+    });
 
-  if (!userId) return [];
-
-  const data = await prisma.cashAccount.findMany({
-    select: { id: true, name: true, startBalance: true, currency: true },
-    where: { userId },
-  });
-
-  return data;
-});
+    return data.map((account) => ({
+      ...account,
+      startBalance: account.startBalance.toNumber(),
+    }));
+  },
+  ['user_accounts'],
+  { tags: ['accounts'] }
+);

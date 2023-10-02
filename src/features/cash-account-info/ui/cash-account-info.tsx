@@ -8,7 +8,7 @@ export async function CashAccountInfo({ id }: { id: string }) {
     <Flex>
       <div>{account.name}</div>
       <div>{account.currency.symbol}</div>
-      <div>{account.startBalance.toNumber()}</div>
+      <div>{account.startBalance}</div>
     </Flex>
   );
 }
