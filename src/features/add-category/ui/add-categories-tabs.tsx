@@ -1,18 +1,11 @@
-'use client';
-
-import { FC } from 'react';
 import { AppTabs, ITab } from '@/shared/ui/tabs';
 import { AddCategoryForm } from './add-category-form';
 import { AddMainCategoryForm } from './add-main-category-form';
-import { IUserMainCategory } from '@/entities/main-category';
+import { getMainCategories } from '@/entities/main-category';
 
-interface IAddCategoriesTabsProps {
-  mainCategories: IUserMainCategory[];
-}
+export async function AddCategoriesTabs() {
+  const mainCategories = await getMainCategories();
 
-export const AddCategoriesTabs: FC<IAddCategoriesTabsProps> = ({
-  mainCategories,
-}) => {
   const tabs: ITab[] = [
     {
       name: 'Category',
@@ -25,4 +18,4 @@ export const AddCategoriesTabs: FC<IAddCategoriesTabsProps> = ({
   ];
 
   return <AppTabs tabs={tabs} />;
-};
+}

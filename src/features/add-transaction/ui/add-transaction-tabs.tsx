@@ -1,20 +1,13 @@
-'use client';
-
-import { CategoryType } from '@prisma/client';
-import { FC } from 'react';
+import { getUserCashAccounts } from '@/entities/cash-account';
 import { AddTransactionForm } from './add-transaction-form';
 import { AddTransferForm } from './add-transfer-form';
 import { AppTabs, ITab } from '@/shared/ui/tabs';
+import { getCategories } from '@/entities/category';
 
-interface IAddTransactionTabsProps {
-  categories: { id: string; name: string; categoryType: CategoryType }[];
-  cashAccounts: { id: string; name: string; currencyId: number }[];
-}
+export const AddTransactionTabs = async () => {
+  const cashAccounts = await getUserCashAccounts();
+  const categories = await getCategories();
 
-export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
-  cashAccounts,
-  categories,
-}) => {
   const tabs: ITab[] = [
     {
       name: 'Income',
@@ -38,7 +31,17 @@ export const AddTransactionTabs: FC<IAddTransactionTabsProps> = ({
     },
     {
       name: 'Transfer',
-      component: <AddTransferForm cashAccounts={cashAccounts} />,
+      component: (
+        <AddTransferForm
+          cashAccounts={cashAccounts.map(
+            ({ id, name, currency: { id: currencyId } }) => ({
+              id,
+              name,
+              currencyId,
+            })
+          )}
+        />
+      ),
     },
   ];
 

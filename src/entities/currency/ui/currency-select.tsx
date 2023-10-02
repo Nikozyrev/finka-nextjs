@@ -3,7 +3,7 @@
 import { AppSelect } from '@/shared/ui/select';
 import { useCurrencies } from '../model/currency-context';
 
-export async function CurrencySelect({
+export function CurrencySelect({
   name,
   value,
   onValueChange,

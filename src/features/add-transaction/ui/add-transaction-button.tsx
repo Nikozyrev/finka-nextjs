@@ -1,11 +1,9 @@
 'use client';
 
-import { FC } from 'react';
 import { Button, Icon } from '@tremor/react';
 import { PlusIcon } from '@heroicons/react/24/solid';
-import { IAppModalButtonProps } from '@/shared/ui/modal';
 
-export const AddTransactionButton: FC<IAppModalButtonProps> = ({ onClick }) => {
+export const AddTransactionButton = ({ onClick }: { onClick?: () => void }) => {
   return (
     <Button
       className="p-1 fixed bottom-4 right-4 rounded-full"

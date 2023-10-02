@@ -1,24 +1,17 @@
 'use client';
 
-import { FC, Fragment, ReactNode, useState } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-export interface IAppModalButtonProps {
-  onClick?: () => void;
-}
-
 interface IAppModalProps {
-  RenderButton: (props: IAppModalButtonProps) => ReactNode;
+  isOpen: boolean;
+  setIsOpen: (v: boolean) => void;
   children: ReactNode;
 }
 
-export const AppModal: FC<IAppModalProps> = ({ RenderButton, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+export const AppModal = ({ isOpen, setIsOpen, children }: IAppModalProps) => {
   return (
     <>
-      <RenderButton onClick={() => setIsOpen(true)} />
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
