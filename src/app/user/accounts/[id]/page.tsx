@@ -1,4 +1,5 @@
 import { CashAccountInfoContainer } from '@/features/cash-account-info';
+import { UpdateCashAccountForm } from '@/features/update-cash-account';
 
 export default async function AccountPage({
   params: { id },
@@ -8,6 +9,7 @@ export default async function AccountPage({
   return (
     <>
       <CashAccountInfoContainer id={id} />
+      <UpdateCashAccountForm id={id} />
     </>
   );
 }
