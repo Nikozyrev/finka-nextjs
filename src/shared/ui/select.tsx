@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SearchSelect, SearchSelectItem } from '@tremor/react';
 
 interface ISelectOption {
@@ -10,10 +10,11 @@ interface ISelectOption {
 
 interface IAppSelectProps {
   options: ISelectOption[];
-  value: string;
-  onValueChange: (value: string) => void;
+  value?: string;
+  onValueChange?: (value: string) => void;
   className?: string;
   placeholder?: string;
+  name?: string;
 }
 
 export const AppSelect: FC<IAppSelectProps> = ({
@@ -22,19 +23,28 @@ export const AppSelect: FC<IAppSelectProps> = ({
   onValueChange,
   className,
   placeholder,
+  name,
 }) => {
+  const [innerValue, setInnerValue] = useState(value);
+
   return (
-    <SearchSelect
-      className={`${className ?? ''}`}
-      value={value}
-      onValueChange={onValueChange}
-      placeholder={placeholder}
-    >
-      {options.map(({ text, value }) => (
-        <SearchSelectItem key={value} value={value}>
-          {text}
-        </SearchSelectItem>
-      ))}
-    </SearchSelect>
+    <>
+      <SearchSelect
+        className={`${className ?? ''}`}
+        value={innerValue}
+        onValueChange={(v) => {
+          setInnerValue(v);
+          onValueChange && onValueChange(v);
+        }}
+        placeholder={placeholder}
+      >
+        {options.map(({ text, value }) => (
+          <SearchSelectItem key={value} value={value}>
+            {text}
+          </SearchSelectItem>
+        ))}
+      </SearchSelect>
+      <input hidden readOnly name={name} value={innerValue} />
+    </>
   );
 };
