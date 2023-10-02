@@ -1,12 +1,10 @@
 import { getCashAccount } from '@/entities/cash-account';
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export const getUserCashAccount = async (id: string) => {
-  const user = await getUserInfo();
+  const userId = await getUserId();
 
-  if (!user) throw new Error('Not authorized');
-
-  const account = await getCashAccount(user.id, id);
+  const account = await getCashAccount(userId, id);
 
   if (!account) throw new Error('Account not found');
 

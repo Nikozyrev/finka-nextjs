@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { getUserId } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 import { updateCashAccount } from '@/entities/cash-account';
 import { formFields } from '../model/update-cash-account.model';
 

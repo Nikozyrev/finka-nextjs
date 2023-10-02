@@ -1,12 +1,10 @@
 import { getTransactionsCount } from '@/entities/transaction';
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export const getUserTransactionsCount = async () => {
-  const user = await getUserInfo();
+  const userId = await getUserId();
 
-  if (!user) throw new Error('Not Authorized');
-
-  const count = await getTransactionsCount(user.id);
+  const count = await getTransactionsCount(userId);
 
   return count;
 };

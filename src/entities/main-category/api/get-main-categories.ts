@@ -1,6 +1,6 @@
 import { prisma } from '@/shared/lib/prisma';
 import { IUserMainCategory } from '../model/main-category.model';
-import { getUserInfo } from '@/entities/user';
+import { getUserInfo } from '@/shared/utils/get-user-info';
 
 export const getMainCategories = async (): Promise<IUserMainCategory[]> => {
   const user = await getUserInfo();

@@ -1,14 +1,13 @@
 import { getCashAccounts } from '@/entities/cash-account';
 import { getSumsByAccount } from './get-sums-by-account';
 import { ICashAccountFromDb } from '../model/cash-account.mode';
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export const getCashAccountsWithBalances = async (): Promise<
   ICashAccountFromDb[]
 > => {
-  const user = await getUserInfo();
-  if (!user) throw new Error('Not authorized');
-  const cashAccounts = await getCashAccounts(user.id);
+  const userId = await getUserId();
+  const cashAccounts = await getCashAccounts(userId);
   const accountsMovements = await getSumsByAccount();
 
   return cashAccounts.map((account) => ({

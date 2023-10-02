@@ -1,5 +1,5 @@
 import { Flex } from '@tremor/react';
-import { getUserCashAccount } from '../api/get-user-cash-account';
+import { getUserCashAccount } from '@/entities/cash-account/';
 
 export async function CashAccountInfo({ id }: { id: string }) {
   const account = await getUserCashAccount(id);

@@ -1,12 +1,9 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export const getSumsByAccount = async () => {
-  const user = await getUserInfo();
-  const userId = user?.id;
-
-  if (!userId) throw new Error('Not Authorized');
+  const userId = await getUserId();
 
   const data = await prisma.transaction.groupBy({
     by: ['cashAccountId'],

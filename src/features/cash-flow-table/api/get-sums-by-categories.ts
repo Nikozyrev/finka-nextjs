@@ -1,7 +1,7 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { CashFlowSection, CategoryType, Prisma } from '@prisma/client';
 import { prisma } from '@/shared/lib/prisma';
-import { getUserInfo } from '@/entities/user';
+import { getUserId } from '@/shared/utils/get-user-info';
 
 export interface ISumsByCategories {
   year: number;
@@ -17,10 +17,7 @@ export const getSumsByCategories = async (
   year: number,
   baseCurrencyId: number
 ) => {
-  const user = await getUserInfo();
-  const userId = user?.id;
-
-  if (!userId) return [];
+  const userId = await getUserId();
 
   const data = await prisma.$queryRaw<ISumsByCategories[]>(
     Prisma.sql([

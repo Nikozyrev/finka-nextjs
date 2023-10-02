@@ -5,12 +5,10 @@ import { formFields } from '../model/update-cash-account.model';
 import { AppButton } from '@/shared/ui/button';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { AppTextInput } from '@/shared/ui/form/text-input';
-import { getCashAccount } from '@/entities/cash-account';
-import { getUserId } from '@/entities/user';
+import { getUserCashAccount } from '@/entities/cash-account';
 
 export async function UpdateCashAccountForm({ id }: { id: string }) {
-  const userId = await getUserId();
-  const account = await getCashAccount(userId, id);
+  const account = await getUserCashAccount(id);
 
   return (
     <Card>
