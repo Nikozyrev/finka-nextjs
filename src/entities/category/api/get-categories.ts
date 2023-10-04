@@ -15,6 +15,7 @@ export const getCategories = cache(async () => {
     },
     where: { userId },
   });
+  console.log('categories', data.length);
 
   return data.map(
     ({

@@ -24,6 +24,7 @@ export const getTransactions = async ({
     where: { userId },
     orderBy: [{ date: 'desc' }, { createdAt: 'desc' }],
   });
+  console.log('get transactions', data.length);
 
   return data;
 };

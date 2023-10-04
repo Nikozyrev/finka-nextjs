@@ -12,6 +12,7 @@ export const getMainCategories = async (): Promise<IUserMainCategory[]> => {
     select: { id: true, name: true, categoryType: true, cashFlowSection: true },
     where: { userId },
   });
+  console.log('main categories', data.length);
 
   return data;
 };
