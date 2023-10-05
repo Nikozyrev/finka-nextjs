@@ -2,11 +2,11 @@ import { getUserCashAccounts } from '@/entities/cash-account';
 import { AddTransactionForm } from './add-transaction-form';
 import { AddTransferForm } from './add-transfer-form';
 import { AppTabs, ITab } from '@/shared/ui/tabs';
-import { getCategories } from '@/entities/category';
+import { getUserCategories } from '@/entities/category';
 
 export const AddTransactionTabs = async () => {
   const cashAccounts = await getUserCashAccounts();
-  const categories = await getCategories();
+  const categories = await getUserCategories();
 
   const tabs: ITab[] = [
     {
