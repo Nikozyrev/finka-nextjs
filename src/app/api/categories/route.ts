@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { getUserInfo } from '@/shared/utils/get-user-info';
 import { addCategory } from '@/entities/category';
@@ -23,6 +24,8 @@ export async function POST(req: Request) {
     mainCategoryId,
     userId,
   });
+
+  revalidateTag('categories');
 
   return NextResponse.json({ dbRes });
 }

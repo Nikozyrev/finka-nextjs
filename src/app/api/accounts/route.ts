@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { getUserInfo } from '@/shared/utils/get-user-info';
 import { addCashAccount } from '@/entities/cash-account';
@@ -25,6 +26,8 @@ export async function POST(req: Request) {
     startBalance,
     currencyId,
   });
+
+  revalidateTag('accounts');
 
   return NextResponse.json({ dbRes });
 }

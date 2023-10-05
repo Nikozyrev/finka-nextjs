@@ -4,6 +4,8 @@ import { prisma } from '@/shared/lib/prisma';
 export const getCurrencies = unstable_cache(
   async () => {
     const data = await prisma.currency.findMany();
+    console.log('currencies', data.length);
+
     return data;
   },
   ['cache-key'],

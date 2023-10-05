@@ -1,18 +1,31 @@
+import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/shared/lib/prisma';
+import { getUserId } from '@/shared/utils/get-user-info';
 import { IUserMainCategory } from '../model/main-category.model';
-import { getUserInfo } from '@/shared/utils/get-user-info';
 
-export const getMainCategories = async (): Promise<IUserMainCategory[]> => {
-  const user = await getUserInfo();
-  const userId = user?.id;
+export const getMainCategories = cache(
+  unstable_cache(
+    async (userId: string): Promise<IUserMainCategory[]> => {
+      const data = await prisma.mainCategory.findMany({
+        select: {
+          id: true,
+          name: true,
+          categoryType: true,
+          cashFlowSection: true,
+        },
+        where: { userId },
+      });
+      console.log('main categories', data.length);
 
-  if (!userId) return [];
+      return data;
+    },
+    ['user_main_categories'],
+    { tags: ['main_categories'] }
+  )
+);
 
-  const data = await prisma.mainCategory.findMany({
-    select: { id: true, name: true, categoryType: true, cashFlowSection: true },
-    where: { userId },
-  });
-  console.log('main categories', data.length);
-
-  return data;
+export const getUserMainCategories = async () => {
+  const userId = await getUserId();
+  return getMainCategories(userId);
 };
