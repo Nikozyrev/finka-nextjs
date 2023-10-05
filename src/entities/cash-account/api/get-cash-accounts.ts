@@ -10,6 +10,7 @@ export const getCashAccounts = cache(
         select: { id: true, name: true, startBalance: true, currency: true },
         where: { userId },
       });
+      console.log('cash accounts', data.length);
 
       return data.map((account) => ({
         ...account,

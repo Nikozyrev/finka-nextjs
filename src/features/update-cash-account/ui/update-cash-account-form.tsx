@@ -2,9 +2,9 @@ import { Card } from '@tremor/react';
 import { CurrencySelect } from '@/entities/currency';
 import { updateCashAccountAction } from '../api/update-cash-account';
 import { formFields } from '../model/update-cash-account.model';
-import { AppButton } from '@/shared/ui/button';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { AppTextInput } from '@/shared/ui/form/text-input';
+import { SubmitButton } from '@/shared/ui/form/submit-button';
 import { getUserCashAccount } from '@/entities/cash-account';
 
 export async function UpdateCashAccountForm({ id }: { id: string }) {
@@ -22,6 +22,7 @@ export async function UpdateCashAccountForm({ id }: { id: string }) {
           name={formFields.name}
           placeholder="Name"
           defaultValue={account?.name}
+          required
         />
         <AppNumberInput
           name={formFields.startBalance}
@@ -32,7 +33,7 @@ export async function UpdateCashAccountForm({ id }: { id: string }) {
           name={formFields.currencyId}
           value={account?.currency.id.toString()}
         />
-        <AppButton>Update</AppButton>
+        <SubmitButton label="Update" />
       </form>
     </Card>
   );
