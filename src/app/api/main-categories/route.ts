@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { CashFlowSection, CategoryType } from '@prisma/client';
 import { getUserInfo } from '@/shared/utils/get-user-info';
@@ -35,6 +36,9 @@ export async function POST(req: Request) {
       cashFlowSection,
       userId,
     });
+
+    revalidateTag('main_categories');
+
     return NextResponse.json(dbRes);
   } catch (error) {
     let message = '';
