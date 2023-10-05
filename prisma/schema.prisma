@@ -158,7 +158,7 @@ model Currency {
 
 model CurrencyRate {
   id             Int      @id @default(autoincrement())
-  date           DateTime
+  date           DateTime @db.Date
   rate           Decimal  @db.Decimal(65, 4)
   source         String?
   currencyId     Int      @map("currency_id")
