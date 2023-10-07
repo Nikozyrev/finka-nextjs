@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
-import { CategoriesList } from '../ui/categories-list';
+import { CategoriesTableLayout } from '../ui/categories-table-layout';
 import { CategoriesTableLoading } from '../ui/categories-table-loading';
 
 export function CategoriesTable() {
   return (
     <Suspense fallback={<CategoriesTableLoading />}>
-      <CategoriesList />
+      <CategoriesTableLayout />
     </Suspense>
   );
 }

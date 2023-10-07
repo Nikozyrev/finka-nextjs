@@ -1,12 +1,12 @@
 import { getUserCashAccounts } from '@/entities/cash-account';
-import { getSumsByAccount } from './get-sums-by-account';
+import { getUserSumsByAccount } from './get-sums-by-account';
 import { ICashAccountFromDb } from '../model/cash-account.mode';
 
 export const getCashAccountsWithBalances = async (): Promise<
   ICashAccountFromDb[]
 > => {
   const cashAccounts = await getUserCashAccounts();
-  const accountsMovements = await getSumsByAccount();
+  const accountsMovements = await getUserSumsByAccount();
 
   return cashAccounts.map((account) => ({
     ...account,

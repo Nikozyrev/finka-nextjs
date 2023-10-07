@@ -10,7 +10,7 @@ export function AddCategoriesButton({
   loading?: boolean;
 }) {
   return (
-    <Button className="p-2 mb-2" onClick={onClick} loading={loading}>
+    <Button className="p-2 mb-2 w-fit" onClick={onClick} loading={loading}>
       Add Categories
     </Button>
   );
