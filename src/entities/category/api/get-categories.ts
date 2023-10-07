@@ -15,6 +15,11 @@ export const getCategories = cache(
           },
         },
         where: { userId },
+        orderBy: [
+          { mainCategory: { cashFlowSection: 'asc' } },
+          { mainCategory: { categoryType: 'asc' } },
+          { mainCategory: { name: 'asc' } },
+        ],
       });
       console.log('categories', data.length);
 
