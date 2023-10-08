@@ -3,7 +3,8 @@ export const IsSameCurrenciesAccounts = (
   fromAccountId: string,
   toAccountId: string
 ) => {
-  if (fromAccountId && fromAccountId === toAccountId) return true;
+  if (!fromAccountId || !toAccountId || fromAccountId === toAccountId)
+    return true;
 
   const [account1, account2] = cashAccounts.filter(
     ({ id }) => id === fromAccountId || id === toAccountId
