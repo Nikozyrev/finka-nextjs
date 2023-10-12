@@ -1,94 +1,43 @@
 'use client';
 
-import { FC, useEffect } from 'react';
-import {
-  Button,
-  Card,
-  DatePicker,
-  NumberInput,
-  TextInput,
-} from '@tremor/react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Button, Card, DatePicker, TextInput } from '@tremor/react';
+import { Controller } from 'react-hook-form';
 import { AppSelect } from '@/shared/ui/select';
-import { useAddTransfer } from '../api/use-add-transfer';
-import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
-import { getUTCDate } from '../lib/get-utc-date';
+import { useAddTransferForm } from '../model/use-add-transfer-form';
+import { AppNumberInput } from '@/shared/ui/form/number-input';
 
 interface IAddTransferFormProps {
   cashAccounts: { id: string; name: string; currencyId: number }[];
 }
 
-interface IAddTransferFormInputs {
-  date: Date;
-  fromCashAccountId: string;
-  toCashAccountId: string;
-  fromSum: number;
-  toSum: number;
-  comment: string;
-}
-
-export const AddTransferForm: FC<IAddTransferFormProps> = ({
-  cashAccounts,
-}) => {
-  const { addTransfer, isLoading } = useAddTransfer();
-  const { register, handleSubmit, watch, reset, formState, control, setValue } =
-    useForm<IAddTransferFormInputs>({
-      defaultValues: {
-        date: new Date(),
-        fromCashAccountId: '',
-        toCashAccountId: '',
-      },
-    });
-
-  const fromCashAccountId = watch('fromCashAccountId');
-  const toCashAccountId = watch('toCashAccountId');
-  const fromSum = watch('fromSum');
-
-  const isSameCurrencies = IsSameCurrenciesAccounts(
-    cashAccounts,
+export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
+  const {
+    register,
+    handleSubmit,
+    isLoading,
+    control,
+    isValid,
+    isSameCurrencies,
     fromCashAccountId,
-    toCashAccountId
-  );
-
-  const onSubmit: SubmitHandler<IAddTransferFormInputs> = async (formData) => {
-    const {
-      date,
-      fromCashAccountId,
-      fromSum,
-      toCashAccountId,
-      toSum,
-      comment,
-    } = formData;
-    if (formState.isValid) {
-      await addTransfer({
-        date: getUTCDate(date),
-        fromCashAccountId,
-        toCashAccountId,
-        fromSum: -Math.abs(fromSum),
-        toSum: Math.abs(toSum),
-        comment,
-      });
-      reset();
-      return;
-    }
-  };
-
-  useEffect(() => {
-    if (isSameCurrencies) {
-      setValue('toSum', fromSum);
-    }
-  }, [fromSum, isSameCurrencies, setValue, watch]);
+    toCashAccountId,
+  } = useAddTransferForm({
+    cashAccounts,
+  });
+  console.log(register('date', { required: true }));
 
   return (
     <Card>
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
         <Controller
           name="date"
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              className="mb-3"
               value={field.value}
               onValueChange={field.onChange}
               enableClear={false}
@@ -101,7 +50,6 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
           rules={{ required: true }}
           render={({ field }) => (
             <AppSelect
-              className="mb-3"
               options={cashAccounts
                 .filter(({ id }) => id !== toCashAccountId)
                 .map(({ id, name }) => ({
@@ -120,7 +68,6 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
           rules={{ required: true }}
           render={({ field }) => (
             <AppSelect
-              className="mb-3"
               options={cashAccounts
                 .filter(({ id }) => id !== fromCashAccountId)
                 .map(({ id, name }) => ({
@@ -133,10 +80,7 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
             />
           )}
         />
-        <NumberInput
-          enableStepper={false}
-          step={'0.01'}
-          className="mb-3"
+        <AppNumberInput
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
           {...register('fromSum', {
             required: true,
@@ -145,10 +89,7 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
           })}
         />
         {!isSameCurrencies && (
-          <NumberInput
-            enableStepper={false}
-            step={'0.01'}
-            className="mb-3"
+          <AppNumberInput
             placeholder="Sum To"
             {...register('toSum', {
               required: true,
@@ -157,15 +98,16 @@ export const AddTransferForm: FC<IAddTransferFormProps> = ({
             })}
           />
         )}
-        <TextInput
-          className="mb-3"
-          placeholder="Comment"
-          {...register('comment')}
-        />
-        <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
+        <TextInput placeholder="Comment" {...register('comment')} />
+        <Button
+          className="w-fit"
+          type="submit"
+          disabled={!isValid}
+          loading={isLoading}
+        >
           Add transfer
         </Button>
       </form>
     </Card>
   );
-};
+}
