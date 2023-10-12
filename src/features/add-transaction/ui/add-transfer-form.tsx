@@ -23,7 +23,6 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
   } = useAddTransferForm({
     cashAccounts,
   });
-  console.log(register('date', { required: true }));
 
   return (
     <Card>
