@@ -1,49 +1,36 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import { Button, Card, NumberInput, TextInput, Title } from '@tremor/react';
-import { useRouter } from 'next/navigation';
-import { addCashAccount } from '../api/add-cash-account';
+import { Button, Card, TextInput, Title } from '@tremor/react';
 import { CurrencySelect } from '@/entities/currency';
+import { useAddCashAccountForm } from '../model/use-add-cash-account-form';
+import { AppNumberInput } from '@/shared/ui/form/number-input';
 
 export function AddCashAccountForm() {
-  const Router = useRouter();
-  const [name, setName] = useState<string>('');
-  const [startBalance, setStartBalance] = useState<string>('');
-  const [currencyId, setCurrencyId] = useState<string>('');
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!name || !currencyId) return;
-    await addCashAccount({ name, startBalance, currencyId });
-    Router.refresh();
-    return;
-  };
+  const { handleSubmit, state, update, isValid } = useAddCashAccountForm();
 
   return (
     <Card>
       <Title className="mb-3">Add cash account</Title>
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
         <TextInput
-          className="mb-3"
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={state.name}
+          onChange={(e) => update('name', e.target.value)}
         />
-        <NumberInput
-          enableStepper={false}
-          step={'0.01'}
-          className="mb-3"
+        <AppNumberInput
           placeholder="Start Balance"
-          value={startBalance}
-          onChange={(e) => setStartBalance(e.target.value)}
+          value={state.startBalance}
+          onChange={(e) => update('startBalance', e.target.value)}
         />
         <CurrencySelect
-          className="mb-3"
-          value={currencyId}
-          onValueChange={setCurrencyId}
+          value={state.currencyId}
+          onValueChange={(v) => update('currencyId', v)}
         />
-        <Button type="submit" disabled={!name}>
+        <Button className="w-fit" type="submit" disabled={!isValid}>
           Add Account
         </Button>
       </form>
