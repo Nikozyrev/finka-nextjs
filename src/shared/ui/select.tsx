@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SearchSelect, SearchSelectItem } from '@tremor/react';
 
 interface ISelectOption {
@@ -26,6 +26,10 @@ export const AppSelect: FC<IAppSelectProps> = ({
   name,
 }) => {
   const [innerValue, setInnerValue] = useState(value);
+
+  useEffect(() => {
+    setInnerValue(value);
+  }, [value]);
 
   return (
     <>
