@@ -1,56 +1,38 @@
 'use client';
 
-import { FC, FormEvent, useState } from 'react';
 import { Button, Card, TextInput } from '@tremor/react';
-import { useRouter } from 'next/navigation';
 import { IUserMainCategory } from '@/entities/main-category';
 import { SelectMainCategory } from './select-main-category';
+import { useAddCategoryForm } from '../model/use-add-category-form';
 
-interface IAddCategoryFormProps {
-  mainCategories: IUserMainCategory[];
-}
-
-export const AddCategoryForm: FC<IAddCategoryFormProps> = ({
+export function AddCategoryForm({
   mainCategories,
-}) => {
-  const Router = useRouter();
-  const [name, setName] = useState<string>('');
-  const [mainCategoryId, setMainCategoryId] = useState<string>('');
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!name || !mainCategoryId) return;
-    await fetch('/api/categories', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        mainCategoryId,
-      }),
-    });
-    Router.refresh();
-    setName('');
-    return;
-  };
+}: {
+  mainCategories: IUserMainCategory[];
+}) {
+  const { handleSubmit, fields, update, isValid } = useAddCategoryForm();
 
   return (
     <Card>
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
         <TextInput
-          className="mb-2"
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></TextInput>
-        <SelectMainCategory
-          className="mb-2"
-          mainCategories={mainCategories}
-          value={mainCategoryId}
-          onValueChange={setMainCategoryId}
+          value={fields.name.value}
+          onChange={(e) => update('name', e.target.value)}
         />
-        <Button type="submit" disabled={!name || !mainCategoryId}>
+        <SelectMainCategory
+          mainCategories={mainCategories}
+          value={fields.mainCategoryId.value}
+          onValueChange={(v) => update('mainCategoryId', v)}
+        />
+        <Button className="w-fit" type="submit" disabled={!isValid}>
           Add Category
         </Button>
       </form>
     </Card>
   );
-};
+}
