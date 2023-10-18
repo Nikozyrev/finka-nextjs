@@ -1,29 +1,33 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { addCashAccount } from '../api/add-cash-account';
-import { useFormState } from '@/shared/hooks/form/use-form-state';
-
-const initialState = {
-  name: '',
-  startBalance: '',
-  currencyId: '',
-};
+import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
+import { required } from '@/shared/hooks/form/validators';
 
 export function useAddCashAccountForm() {
   const Router = useRouter();
-  const { state, update, reset } = useFormState({ initialState });
 
-  const isValid = !!(state.name && state.currencyId);
+  const form = useValidatedForm({
+    initialState: {
+      name: '',
+      startBalance: '',
+      currencyId: '',
+    },
+    validators: {
+      name: [required],
+      currencyId: [required],
+    },
+  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, currencyId, startBalance } = state;
+    const { name, currencyId, startBalance } = form.getState();
 
     if (!name || !currencyId) return;
     await addCashAccount({ name, startBalance, currencyId });
-    reset();
+    form.reset();
     Router.refresh();
   };
 
-  return { state, handleSubmit, update, isValid };
+  return { handleSubmit, ...form };
 }

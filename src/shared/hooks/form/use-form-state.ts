@@ -16,7 +16,7 @@ export function useFormState<S extends object>({
       type: ActionTypes;
       payload?: {
         inputName: keyof S;
-        value: string;
+        value: S[keyof S];
       };
     }
   > = useCallback(
@@ -41,7 +41,7 @@ export function useFormState<S extends object>({
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const update = (inputName: keyof S, value: string) => {
+  const update = <T extends keyof S>(inputName: T, value: S[T]) => {
     dispatch({
       type: ActionTypes.UPDATE,
       payload: {

@@ -6,7 +6,7 @@ import { useAddCashAccountForm } from '../model/use-add-cash-account-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
 
 export function AddCashAccountForm() {
-  const { handleSubmit, state, update, isValid } = useAddCashAccountForm();
+  const { handleSubmit, fields, update, isValid } = useAddCashAccountForm();
 
   return (
     <Card>
@@ -18,16 +18,16 @@ export function AddCashAccountForm() {
       >
         <TextInput
           placeholder="Name"
-          value={state.name}
+          value={fields.name.value}
           onChange={(e) => update('name', e.target.value)}
         />
         <AppNumberInput
           placeholder="Start Balance"
-          value={state.startBalance}
+          value={fields.startBalance.value}
           onChange={(e) => update('startBalance', e.target.value)}
         />
         <CurrencySelect
-          value={state.currencyId}
+          value={fields.currencyId.value}
           onValueChange={(v) => update('currencyId', v)}
         />
         <Button className="w-fit" type="submit" disabled={!isValid}>
