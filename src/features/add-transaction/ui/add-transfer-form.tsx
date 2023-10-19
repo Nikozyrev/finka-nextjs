@@ -1,171 +1,88 @@
 'use client';
 
-import { FC, useEffect } from 'react';
-import {
-  Button,
-  Card,
-  DatePicker,
-  NumberInput,
-  TextInput,
-} from '@tremor/react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Button, Card, DatePicker, TextInput } from '@tremor/react';
 import { AppSelect } from '@/shared/ui/select';
-import { useAddTransfer } from '../api/use-add-transfer';
-import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
-import { getUTCDate } from '../lib/get-utc-date';
+import { useAddTransferForm } from '../model/use-add-transfer-form';
+import { AppNumberInput } from '@/shared/ui/form/number-input';
 
 interface IAddTransferFormProps {
   cashAccounts: { id: string; name: string; currencyId: number }[];
 }
 
-interface IAddTransferFormInputs {
-  date: Date;
-  fromCashAccountId: string;
-  toCashAccountId: string;
-  fromSum: number;
-  toSum: number;
-  comment: string;
-}
-
-export const AddTransferForm: FC<IAddTransferFormProps> = ({
-  cashAccounts,
-}) => {
-  const { addTransfer, isLoading } = useAddTransfer();
-  const { register, handleSubmit, watch, reset, formState, control, setValue } =
-    useForm<IAddTransferFormInputs>({
-      defaultValues: {
-        date: new Date(),
-        fromCashAccountId: '',
-        toCashAccountId: '',
-      },
-    });
-
-  const fromCashAccountId = watch('fromCashAccountId');
-  const toCashAccountId = watch('toCashAccountId');
-  const fromSum = watch('fromSum');
-
-  const isSameCurrencies = IsSameCurrenciesAccounts(
-    cashAccounts,
+export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
+  const {
+    fields,
+    update,
+    handleSubmit,
+    isLoading,
+    isValid,
+    isSameCurrencies,
     fromCashAccountId,
-    toCashAccountId
-  );
-
-  const onSubmit: SubmitHandler<IAddTransferFormInputs> = async (formData) => {
-    const {
-      date,
-      fromCashAccountId,
-      fromSum,
-      toCashAccountId,
-      toSum,
-      comment,
-    } = formData;
-    if (formState.isValid) {
-      await addTransfer({
-        date: getUTCDate(date),
-        fromCashAccountId,
-        toCashAccountId,
-        fromSum: -Math.abs(fromSum),
-        toSum: Math.abs(toSum),
-        comment,
-      });
-      reset();
-      return;
-    }
-  };
-
-  useEffect(() => {
-    if (isSameCurrencies) {
-      setValue('toSum', fromSum);
-    }
-  }, [fromSum, isSameCurrencies, setValue, watch]);
+    toCashAccountId,
+  } = useAddTransferForm({
+    cashAccounts,
+  });
 
   return (
     <Card>
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <Controller
-          name="date"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <DatePicker
-              className="mb-3"
-              value={field.value}
-              onValueChange={field.onChange}
-              enableClear={false}
-            />
-          )}
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
+        <DatePicker
+          value={fields.date.value}
+          onValueChange={(v) => update('date', v)}
+          enableClear={false}
         />
-        <Controller
-          name="fromCashAccountId"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <AppSelect
-              className="mb-3"
-              options={cashAccounts
-                .filter(({ id }) => id !== toCashAccountId)
-                .map(({ id, name }) => ({
-                  value: id,
-                  text: name,
-                }))}
-              value={field.value}
-              onValueChange={field.onChange}
-              placeholder="From Account"
-            />
-          )}
+        <AppSelect
+          options={cashAccounts
+            .filter(({ id }) => id !== toCashAccountId)
+            .map(({ id, name }) => ({
+              value: id,
+              text: name,
+            }))}
+          value={fields.fromCashAccountId.value}
+          onValueChange={(v) => update('fromCashAccountId', v)}
+          placeholder="From Account"
         />
-        <Controller
-          name="toCashAccountId"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <AppSelect
-              className="mb-3"
-              options={cashAccounts
-                .filter(({ id }) => id !== fromCashAccountId)
-                .map(({ id, name }) => ({
-                  value: id,
-                  text: name,
-                }))}
-              value={field.value}
-              onValueChange={field.onChange}
-              placeholder="To Account"
-            />
-          )}
+        <AppSelect
+          options={cashAccounts
+            .filter(({ id }) => id !== fromCashAccountId)
+            .map(({ id, name }) => ({
+              value: id,
+              text: name,
+            }))}
+          value={fields.toCashAccountId.value}
+          onValueChange={(v) => update('toCashAccountId', v)}
+          placeholder="To Account"
         />
-        <NumberInput
-          enableStepper={false}
-          step={'0.01'}
-          className="mb-3"
+        <AppNumberInput
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
-          {...register('fromSum', {
-            required: true,
-            valueAsNumber: true,
-            validate: (v) => !Number.isNaN(v),
-          })}
+          value={fields.fromSum.value}
+          onValueChange={(v) => update('fromSum', v)}
         />
         {!isSameCurrencies && (
-          <NumberInput
-            enableStepper={false}
-            step={'0.01'}
-            className="mb-3"
+          <AppNumberInput
             placeholder="Sum To"
-            {...register('toSum', {
-              required: true,
-              valueAsNumber: true,
-              validate: (v) => !Number.isNaN(v),
-            })}
+            value={fields.toSum.value}
+            onValueChange={(v) => update('toSum', v)}
           />
         )}
         <TextInput
-          className="mb-3"
           placeholder="Comment"
-          {...register('comment')}
+          value={fields.comment.value}
+          onChange={(e) => update('comment', e.target.value)}
         />
-        <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
+        <Button
+          className="w-fit"
+          type="submit"
+          disabled={!isValid}
+          loading={isLoading}
+        >
           Add transfer
         </Button>
       </form>
     </Card>
   );
-};
+}
