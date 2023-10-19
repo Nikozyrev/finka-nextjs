@@ -1,11 +1,12 @@
 'use client';
 
 import { CategoryType } from '@prisma/client';
-import { Button, Card, DatePicker, TextInput } from '@tremor/react';
+import { Button, Card, TextInput } from '@tremor/react';
 import { AppSelect } from '@/shared/ui/select';
 import { IAddCategoryType } from '@/entities/main-category/';
 import { useAddTransactionForm } from '../model/use-add-transaction-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
+import { AppDatePicker } from '@/shared/ui/form/date-picker';
 
 interface IAddTransactionFormProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];
@@ -28,10 +29,9 @@ export function AddTransactionForm({
         onSubmit={handleSubmit}
         autoComplete="off"
       >
-        <DatePicker
+        <AppDatePicker
           value={fields.date.value}
           onValueChange={(v) => update('date', v)}
-          enableClear={false}
         />
         <AppSelect
           options={cashAccounts.map(({ id, name }) => ({
