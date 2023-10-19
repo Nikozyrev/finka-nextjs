@@ -1,11 +1,13 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FormEventHandler } from 'react';
+import { IAddCategoryType } from '@/entities/main-category';
+import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
+import { required } from '@/shared/hooks/form/validators';
 import { getSumWithSign } from '../lib/get-sum-with-sign';
 import { getUTCDate } from '../lib/get-utc-date';
 import { useAddTransaction } from '../api/use-add-transaction';
-import { IAddCategoryType } from '@/entities/main-category';
 
 interface IAddTransactionFormInputs {
-  date: Date;
+  date: Date | undefined;
   sum: number;
   cashAccountId: string;
   categoryId: string;
@@ -18,33 +20,40 @@ export function useAddTransactionForm({
   categoryType: IAddCategoryType;
 }) {
   const { addTransaction, isLoading } = useAddTransaction();
-  const { register, handleSubmit, reset, formState, control } =
-    useForm<IAddTransactionFormInputs>({
-      defaultValues: { date: new Date() },
-    });
+  const form = useValidatedForm<IAddTransactionFormInputs>({
+    initialState: {
+      date: new Date(),
+      sum: NaN,
+      cashAccountId: '',
+      categoryId: '',
+      comment: '',
+    },
+    validators: {
+      date: [required],
+      sum: [required],
+      cashAccountId: [required],
+      categoryId: [required],
+    },
+  });
 
-  const onSubmit: SubmitHandler<IAddTransactionFormInputs> = async (
-    formData
-  ) => {
-    const { date, sum, cashAccountId, categoryId, comment } = formData;
-    if (formState.isValid) {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    const { date, sum, cashAccountId, categoryId, comment } = form.getState();
+    if (form.isValid) {
       await addTransaction({
-        date: getUTCDate(date),
+        date: getUTCDate(date!),
         sum: getSumWithSign(categoryType, sum),
         cashAccountId,
         categoryId,
         comment,
       });
-      reset();
-      return;
+      form.reset();
     }
   };
 
   return {
-    register,
-    handleSubmit: handleSubmit(onSubmit),
+    handleSubmit,
     isLoading,
-    control,
-    isValid: formState.isValid,
+    ...form,
   };
 }

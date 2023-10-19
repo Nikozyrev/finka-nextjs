@@ -2,7 +2,6 @@
 
 import { CategoryType } from '@prisma/client';
 import { Button, Card, DatePicker, TextInput } from '@tremor/react';
-import { Controller } from 'react-hook-form';
 import { AppSelect } from '@/shared/ui/select';
 import { IAddCategoryType } from '@/entities/main-category/';
 import { useAddTransactionForm } from '../model/use-add-transaction-form';
@@ -19,7 +18,7 @@ export function AddTransactionForm({
   categories,
   categoryType,
 }: IAddTransactionFormProps) {
-  const { register, handleSubmit, control, isLoading, isValid } =
+  const { handleSubmit, isLoading, isValid, fields, update } =
     useAddTransactionForm({ categoryType });
 
   return (
@@ -29,61 +28,41 @@ export function AddTransactionForm({
         onSubmit={handleSubmit}
         autoComplete="off"
       >
-        <Controller
-          name="date"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <DatePicker
-              value={field.value}
-              onValueChange={field.onChange}
-              enableClear={false}
-            />
-          )}
+        <DatePicker
+          value={fields.date.value}
+          onValueChange={(v) => update('date', v)}
+          enableClear={false}
         />
-        <Controller
-          name="cashAccountId"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <AppSelect
-              options={cashAccounts.map(({ id, name }) => ({
-                value: id,
-                text: name,
-              }))}
-              value={field.value}
-              onValueChange={field.onChange}
-              placeholder="Account"
-            />
-          )}
+        <AppSelect
+          options={cashAccounts.map(({ id, name }) => ({
+            value: id,
+            text: name,
+          }))}
+          value={fields.cashAccountId.value}
+          onValueChange={(v) => update('cashAccountId', v)}
+          placeholder="Account"
         />
         <AppNumberInput
           placeholder="Sum"
-          {...register('sum', {
-            required: true,
-            valueAsNumber: true,
-            validate: (v) => !Number.isNaN(v),
-          })}
+          value={fields.sum.value}
+          onValueChange={(v) => update('sum', v)}
         />
-        <Controller
-          name="categoryId"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <AppSelect
-              options={categories
-                .filter(({ categoryType: type }) => type === categoryType)
-                .map(({ id, name }) => ({
-                  value: id,
-                  text: name,
-                }))}
-              value={field.value}
-              onValueChange={field.onChange}
-              placeholder="Category"
-            />
-          )}
+        <AppSelect
+          options={categories
+            .filter(({ categoryType: type }) => type === categoryType)
+            .map(({ id, name }) => ({
+              value: id,
+              text: name,
+            }))}
+          value={fields.categoryId.value}
+          onValueChange={(v) => update('categoryId', v)}
+          placeholder="Category"
         />
-        <TextInput placeholder="Comment" {...register('comment')} />
+        <TextInput
+          placeholder="Comment"
+          value={fields.comment.value}
+          onChange={(e) => update('comment', e.target.value)}
+        />
         <Button
           className="w-fit"
           type="submit"
