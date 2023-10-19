@@ -1,7 +1,6 @@
 'use client';
 
 import { Button, Card, DatePicker, TextInput } from '@tremor/react';
-import { Controller } from 'react-hook-form';
 import { AppSelect } from '@/shared/ui/select';
 import { useAddTransferForm } from '../model/use-add-transfer-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
@@ -12,10 +11,10 @@ interface IAddTransferFormProps {
 
 export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
   const {
-    register,
+    fields,
+    update,
     handleSubmit,
     isLoading,
-    control,
     isValid,
     isSameCurrencies,
     fromCashAccountId,
@@ -31,73 +30,50 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         onSubmit={handleSubmit}
         autoComplete="off"
       >
-        <Controller
-          name="date"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <DatePicker
-              value={field.value}
-              onValueChange={field.onChange}
-              enableClear={false}
-            />
-          )}
+        <DatePicker
+          value={fields.date.value}
+          onValueChange={(v) => update('date', v)}
+          enableClear={false}
         />
-        <Controller
-          name="fromCashAccountId"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <AppSelect
-              options={cashAccounts
-                .filter(({ id }) => id !== toCashAccountId)
-                .map(({ id, name }) => ({
-                  value: id,
-                  text: name,
-                }))}
-              value={field.value}
-              onValueChange={field.onChange}
-              placeholder="From Account"
-            />
-          )}
+        <AppSelect
+          options={cashAccounts
+            .filter(({ id }) => id !== toCashAccountId)
+            .map(({ id, name }) => ({
+              value: id,
+              text: name,
+            }))}
+          value={fields.fromCashAccountId.value}
+          onValueChange={(v) => update('fromCashAccountId', v)}
+          placeholder="From Account"
         />
-        <Controller
-          name="toCashAccountId"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <AppSelect
-              options={cashAccounts
-                .filter(({ id }) => id !== fromCashAccountId)
-                .map(({ id, name }) => ({
-                  value: id,
-                  text: name,
-                }))}
-              value={field.value}
-              onValueChange={field.onChange}
-              placeholder="To Account"
-            />
-          )}
+        <AppSelect
+          options={cashAccounts
+            .filter(({ id }) => id !== fromCashAccountId)
+            .map(({ id, name }) => ({
+              value: id,
+              text: name,
+            }))}
+          value={fields.toCashAccountId.value}
+          onValueChange={(v) => update('toCashAccountId', v)}
+          placeholder="To Account"
         />
         <AppNumberInput
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
-          {...register('fromSum', {
-            required: true,
-            valueAsNumber: true,
-            validate: (v) => !Number.isNaN(v),
-          })}
+          value={fields.fromSum.value}
+          onValueChange={(v) => update('fromSum', v)}
         />
         {!isSameCurrencies && (
           <AppNumberInput
             placeholder="Sum To"
-            {...register('toSum', {
-              required: true,
-              valueAsNumber: true,
-              validate: (v) => !Number.isNaN(v),
-            })}
+            value={fields.toSum.value}
+            onValueChange={(v) => update('toSum', v)}
           />
         )}
-        <TextInput placeholder="Comment" {...register('comment')} />
+        <TextInput
+          placeholder="Comment"
+          value={fields.comment.value}
+          onChange={(e) => update('comment', e.target.value)}
+        />
         <Button
           className="w-fit"
           type="submit"

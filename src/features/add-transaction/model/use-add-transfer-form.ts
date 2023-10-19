@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FormEventHandler, useEffect } from 'react';
+import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
+import { required } from '@/shared/hooks/form/validators';
 import { useAddTransfer } from '../api/use-add-transfer';
 import { getUTCDate } from '../lib/get-utc-date';
 import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
 
 interface IAddTransferFormInputs {
-  date: Date;
+  date: Date | undefined;
   fromCashAccountId: string;
   toCashAccountId: string;
   fromSum: number;
@@ -19,18 +20,25 @@ export function useAddTransferForm({
   cashAccounts: { id: string; name: string; currencyId: number }[];
 }) {
   const { addTransfer, isLoading } = useAddTransfer();
-  const { register, handleSubmit, watch, reset, formState, control, setValue } =
-    useForm<IAddTransferFormInputs>({
-      defaultValues: {
-        date: new Date(),
-        fromCashAccountId: '',
-        toCashAccountId: '',
-      },
-    });
+  const form = useValidatedForm<IAddTransferFormInputs>({
+    initialState: {
+      date: new Date(),
+      fromCashAccountId: '',
+      toCashAccountId: '',
+      fromSum: NaN,
+      toSum: NaN,
+      comment: '',
+    },
+    validators: {
+      date: [required],
+      fromSum: [required],
+      toSum: [required],
+      fromCashAccountId: [required],
+      toCashAccountId: [required],
+    },
+  });
 
-  const fromCashAccountId = watch('fromCashAccountId');
-  const toCashAccountId = watch('toCashAccountId');
-  const fromSum = watch('fromSum');
+  const { fromCashAccountId, toCashAccountId, fromSum } = form.getState();
 
   const isSameCurrencies = IsSameCurrenciesAccounts(
     cashAccounts,
@@ -38,7 +46,15 @@ export function useAddTransferForm({
     toCashAccountId
   );
 
-  const onSubmit: SubmitHandler<IAddTransferFormInputs> = async (formData) => {
+  useEffect(() => {
+    if (isSameCurrencies) {
+      form.update('toSum', fromSum);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fromSum, isSameCurrencies]);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
     const {
       date,
       fromCashAccountId,
@@ -46,33 +62,24 @@ export function useAddTransferForm({
       toCashAccountId,
       toSum,
       comment,
-    } = formData;
-    if (formState.isValid) {
+    } = form.getState();
+    if (form.isValid) {
       await addTransfer({
-        date: getUTCDate(date),
+        date: getUTCDate(date!),
         fromCashAccountId,
         toCashAccountId,
         fromSum: -Math.abs(fromSum),
         toSum: Math.abs(toSum),
         comment,
       });
-      reset();
-      return;
+      form.reset();
     }
   };
 
-  useEffect(() => {
-    if (isSameCurrencies) {
-      setValue('toSum', fromSum);
-    }
-  }, [fromSum, isSameCurrencies, setValue, watch]);
-
   return {
-    register,
-    handleSubmit: handleSubmit(onSubmit),
+    ...form,
+    handleSubmit,
     isLoading,
-    isValid: formState.isValid,
-    control,
     isSameCurrencies,
     fromCashAccountId,
     toCashAccountId,
