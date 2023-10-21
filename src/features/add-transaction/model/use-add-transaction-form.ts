@@ -8,7 +8,7 @@ import { useAddTransaction } from '../api/use-add-transaction';
 
 interface IAddTransactionFormInputs {
   date: Date | undefined;
-  sum: number;
+  sum: string;
   cashAccountId: string;
   categoryId: string;
   comment: string;
@@ -23,14 +23,14 @@ export function useAddTransactionForm({
   const form = useValidatedForm<IAddTransactionFormInputs>({
     initialState: {
       date: new Date(),
-      sum: NaN,
+      sum: '',
       cashAccountId: '',
       categoryId: '',
       comment: '',
     },
     validators: {
       date: [required],
-      sum: [required],
+      sum: [required, (v) => !isNaN(Number(v))],
       cashAccountId: [required],
       categoryId: [required],
     },
@@ -42,7 +42,7 @@ export function useAddTransactionForm({
     if (form.isValid) {
       await addTransaction({
         date: getUTCDate(date!),
-        sum: getSumWithSign(categoryType, sum),
+        sum: getSumWithSign(categoryType, Number(sum)),
         cashAccountId,
         categoryId,
         comment,

@@ -1,9 +1,10 @@
 'use client';
 
-import { Button, Card, DatePicker, TextInput } from '@tremor/react';
+import { Button, Card, TextInput } from '@tremor/react';
 import { AppSelect } from '@/shared/ui/select';
 import { useAddTransferForm } from '../model/use-add-transfer-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
+import { AppDatePicker } from '@/shared/ui/form/date-picker';
 
 interface IAddTransferFormProps {
   cashAccounts: { id: string; name: string; currencyId: number }[];
@@ -30,10 +31,9 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         onSubmit={handleSubmit}
         autoComplete="off"
       >
-        <DatePicker
+        <AppDatePicker
           value={fields.date.value}
           onValueChange={(v) => update('date', v)}
-          enableClear={false}
         />
         <AppSelect
           options={cashAccounts
@@ -60,13 +60,13 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         <AppNumberInput
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
           value={fields.fromSum.value}
-          onValueChange={(v) => update('fromSum', v)}
+          onChange={(e) => update('fromSum', e.target.value)}
         />
         {!isSameCurrencies && (
           <AppNumberInput
             placeholder="Sum To"
             value={fields.toSum.value}
-            onValueChange={(v) => update('toSum', v)}
+            onChange={(e) => update('toSum', e.target.value)}
           />
         )}
         <TextInput
