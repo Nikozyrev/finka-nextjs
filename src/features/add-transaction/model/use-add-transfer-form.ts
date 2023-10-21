@@ -9,8 +9,8 @@ interface IAddTransferFormInputs {
   date: Date | undefined;
   fromCashAccountId: string;
   toCashAccountId: string;
-  fromSum: number;
-  toSum: number;
+  fromSum: string;
+  toSum: string;
   comment: string;
 }
 
@@ -25,14 +25,14 @@ export function useAddTransferForm({
       date: new Date(),
       fromCashAccountId: '',
       toCashAccountId: '',
-      fromSum: NaN,
-      toSum: NaN,
+      fromSum: '',
+      toSum: '',
       comment: '',
     },
     validators: {
       date: [required],
-      fromSum: [required],
-      toSum: [required],
+      fromSum: [required, (v) => !isNaN(Number(v))],
+      toSum: [required, (v) => !isNaN(Number(v))],
       fromCashAccountId: [required],
       toCashAccountId: [required],
     },
@@ -68,8 +68,8 @@ export function useAddTransferForm({
         date: getUTCDate(date!),
         fromCashAccountId,
         toCashAccountId,
-        fromSum: -Math.abs(fromSum),
-        toSum: Math.abs(toSum),
+        fromSum: -Math.abs(Number(fromSum)),
+        toSum: Math.abs(Number(toSum)),
         comment,
       });
       form.reset();

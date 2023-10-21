@@ -60,13 +60,13 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         <AppNumberInput
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
           value={fields.fromSum.value}
-          onValueChange={(v) => update('fromSum', v)}
+          onChange={(e) => update('fromSum', e.target.value)}
         />
         {!isSameCurrencies && (
           <AppNumberInput
             placeholder="Sum To"
             value={fields.toSum.value}
-            onValueChange={(v) => update('toSum', v)}
+            onChange={(e) => update('toSum', e.target.value)}
           />
         )}
         <TextInput

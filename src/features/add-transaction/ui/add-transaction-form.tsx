@@ -45,7 +45,7 @@ export function AddTransactionForm({
         <AppNumberInput
           placeholder="Sum"
           value={fields.sum.value}
-          onValueChange={(v) => update('sum', v)}
+          onChange={(e) => update('sum', e.target.value)}
         />
         <AppSelect
           options={categories
