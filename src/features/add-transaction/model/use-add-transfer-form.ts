@@ -1,6 +1,6 @@
 import { FormEventHandler, useEffect } from 'react';
-import { useValidatedForm } from '@nikozyrev/relidate';
-import { notNaN, required } from '@nikozyrev/relidate/validators';
+import { useValidatedForm } from 'relidate';
+import { notNaN, required } from 'relidate/validators';
 import { useAddTransfer } from '../api/use-add-transfer';
 import { getUTCDate } from '../lib/get-utc-date';
 import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';

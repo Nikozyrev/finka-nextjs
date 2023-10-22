@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import { useValidatedForm } from '@nikozyrev/relidate';
-import { required } from '@nikozyrev/relidate/validators';
+import { useValidatedForm } from 'relidate';
+import { required } from 'relidate/validators';
 import { addCategory } from '../api/add-category';
 
 export function useAddCategoryForm() {

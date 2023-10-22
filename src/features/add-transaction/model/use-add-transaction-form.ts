@@ -1,6 +1,6 @@
 import { FormEventHandler } from 'react';
-import { useValidatedForm } from '@nikozyrev/relidate';
-import { notNaN, required } from '@nikozyrev/relidate/validators';
+import { useValidatedForm } from 'relidate';
+import { notNaN, required } from 'relidate/validators';
 import { IAddCategoryType } from '@/entities/main-category';
 import { getSumWithSign } from '../lib/get-sum-with-sign';
 import { getUTCDate } from '../lib/get-utc-date';
