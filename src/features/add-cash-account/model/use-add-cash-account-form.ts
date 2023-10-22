@@ -1,7 +1,7 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useValidatedForm } from '@nikozyrev/relidate';
-import { notNaN, required } from '@nikozyrev/relidate/validators';
+import { required } from '@nikozyrev/relidate/validators';
 import { addCashAccount } from '../api/add-cash-account';
 
 export function useAddCashAccountForm() {
