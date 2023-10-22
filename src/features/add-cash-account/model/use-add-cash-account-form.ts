@@ -1,8 +1,8 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { useValidatedForm } from '@nikozyrev/relidate';
+import { notNaN, required } from '@nikozyrev/relidate/validators';
 import { addCashAccount } from '../api/add-cash-account';
-import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
-import { required } from '@/shared/hooks/form/validators';
 
 export function useAddCashAccountForm() {
   const Router = useRouter();

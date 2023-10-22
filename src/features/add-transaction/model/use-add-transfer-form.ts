@@ -1,18 +1,18 @@
 import { FormEventHandler, useEffect } from 'react';
-import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
-import { required } from '@/shared/hooks/form/validators';
+import { useValidatedForm } from '@nikozyrev/relidate';
+import { notNaN, required } from '@nikozyrev/relidate/validators';
 import { useAddTransfer } from '../api/use-add-transfer';
 import { getUTCDate } from '../lib/get-utc-date';
 import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
 
-interface IAddTransferFormInputs {
+type state = {
   date: Date | undefined;
   fromCashAccountId: string;
   toCashAccountId: string;
   fromSum: string;
   toSum: string;
   comment: string;
-}
+};
 
 export function useAddTransferForm({
   cashAccounts,
@@ -20,7 +20,7 @@ export function useAddTransferForm({
   cashAccounts: { id: string; name: string; currencyId: number }[];
 }) {
   const { addTransfer, isLoading } = useAddTransfer();
-  const form = useValidatedForm<IAddTransferFormInputs>({
+  const form = useValidatedForm<state>({
     initialState: {
       date: new Date(),
       fromCashAccountId: '',
@@ -31,8 +31,8 @@ export function useAddTransferForm({
     },
     validators: {
       date: [required],
-      fromSum: [required, (v) => !isNaN(Number(v))],
-      toSum: [required, (v) => !isNaN(Number(v))],
+      fromSum: [required, notNaN],
+      toSum: [required, notNaN],
       fromCashAccountId: [required],
       toCashAccountId: [required],
     },
