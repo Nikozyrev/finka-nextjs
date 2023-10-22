@@ -13,7 +13,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@next-auth/prisma-adapter": "^1.0.7",
-    "@nikozyrev/relidate": "^0.3.1",
+    "@nikozyrev/relidate": "^0.3.2",
     "@prisma/client": "^5.2.0",
     "@tremor/react": "^3.7.3",
     "@types/node": "20.5.9",
