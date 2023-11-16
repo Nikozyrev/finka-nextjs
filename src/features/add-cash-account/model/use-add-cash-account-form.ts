@@ -1,13 +1,13 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { useValidatedForm } from 'relidate';
+import { useForm } from 'relidate';
 import { required } from 'relidate/validators';
 import { addCashAccount } from '../api/add-cash-account';
 
 export function useAddCashAccountForm() {
   const Router = useRouter();
 
-  const form = useValidatedForm({
+  const form = useForm({
     initialState: {
       name: '',
       startBalance: '',

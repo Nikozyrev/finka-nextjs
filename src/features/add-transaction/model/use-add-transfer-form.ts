@@ -1,5 +1,5 @@
 import { FormEventHandler, useEffect } from 'react';
-import { useValidatedForm } from 'relidate';
+import { useForm } from 'relidate';
 import { notNaN, required } from 'relidate/validators';
 import { useAddTransfer } from '../api/use-add-transfer';
 import { getUTCDate } from '../lib/get-utc-date';
@@ -20,7 +20,7 @@ export function useAddTransferForm({
   cashAccounts: { id: string; name: string; currencyId: number }[];
 }) {
   const { addTransfer, isLoading } = useAddTransfer();
-  const form = useValidatedForm<state>({
+  const form = useForm<state>({
     initialState: {
       date: new Date(),
       fromCashAccountId: '',

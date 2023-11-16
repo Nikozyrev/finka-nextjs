@@ -1,5 +1,5 @@
 import { FormEventHandler } from 'react';
-import { useValidatedForm } from 'relidate';
+import { useForm } from 'relidate';
 import { notNaN, required } from 'relidate/validators';
 import { IAddCategoryType } from '@/entities/main-category';
 import { getSumWithSign } from '../lib/get-sum-with-sign';
@@ -20,7 +20,7 @@ export function useAddTransactionForm({
   categoryType: IAddCategoryType;
 }) {
   const { addTransaction, isLoading } = useAddTransaction();
-  const form = useValidatedForm<state>({
+  const form = useForm<state>({
     initialState: {
       date: new Date(),
       sum: '',
