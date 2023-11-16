@@ -1,13 +1,13 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
-import { required } from '@/shared/hooks/form/validators';
+import { useForm } from 'relidate';
+import { required } from 'relidate/validators';
 import { addCategory } from '../api/add-category';
 
 export function useAddCategoryForm() {
   const Router = useRouter();
 
-  const form = useValidatedForm({
+  const form = useForm({
     initialState: {
       name: '',
       mainCategoryId: '',

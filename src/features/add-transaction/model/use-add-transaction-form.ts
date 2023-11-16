@@ -1,18 +1,18 @@
 import { FormEventHandler } from 'react';
+import { useForm } from 'relidate';
+import { notNaN, required } from 'relidate/validators';
 import { IAddCategoryType } from '@/entities/main-category';
-import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
-import { required } from '@/shared/hooks/form/validators';
 import { getSumWithSign } from '../lib/get-sum-with-sign';
 import { getUTCDate } from '../lib/get-utc-date';
 import { useAddTransaction } from '../api/use-add-transaction';
 
-interface IAddTransactionFormInputs {
+type state = {
   date: Date | undefined;
   sum: string;
   cashAccountId: string;
   categoryId: string;
   comment: string;
-}
+};
 
 export function useAddTransactionForm({
   categoryType,
@@ -20,7 +20,7 @@ export function useAddTransactionForm({
   categoryType: IAddCategoryType;
 }) {
   const { addTransaction, isLoading } = useAddTransaction();
-  const form = useValidatedForm<IAddTransactionFormInputs>({
+  const form = useForm<state>({
     initialState: {
       date: new Date(),
       sum: '',
@@ -30,7 +30,7 @@ export function useAddTransactionForm({
     },
     validators: {
       date: [required],
-      sum: [required, (v) => !isNaN(Number(v))],
+      sum: [required, notNaN],
       cashAccountId: [required],
       categoryId: [required],
     },

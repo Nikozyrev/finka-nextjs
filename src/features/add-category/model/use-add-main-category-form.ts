@@ -1,8 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { useValidatedForm } from '@/shared/hooks/form/use-validated-form';
-import { required } from '@/shared/hooks/form/validators';
+import { useForm } from 'relidate';
+import { required } from 'relidate/validators';
 import { addMainCategory } from '../api/add-main-category';
 
 const initialState: {
@@ -18,7 +18,7 @@ const initialState: {
 export function useAddMainCategoryForm() {
   const Router = useRouter();
 
-  const form = useValidatedForm({
+  const form = useForm({
     initialState,
     validators: {
       name: [required],
