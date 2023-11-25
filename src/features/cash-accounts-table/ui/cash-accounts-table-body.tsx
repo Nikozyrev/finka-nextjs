@@ -1,5 +1,5 @@
 import { TableBody } from '@tremor/react';
-import { getCashAccountsWithBalances } from '../api/get-cash-accounts-with-balances';
+import { getCashAccountsWithBalances } from '@/entities/cash-account';
 import { CashAccountsTableRow } from './cash-accounts-table-row';
 
 export async function CashAccountsTableBody() {

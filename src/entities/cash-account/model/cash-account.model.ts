@@ -1,4 +1,5 @@
 import { Decimal } from '@prisma/client/runtime/library';
+import { Currency } from '@prisma/client';
 
 export interface ICashAccount {
   id?: string;
@@ -14,4 +15,12 @@ export interface ICashAccountData {
   currencyId: number;
   startBalance: number;
   userId: string;
+}
+
+export interface ICashAccountFromDb {
+  id: string;
+  name: string;
+  currency: Currency;
+  startBalance: number;
+  currentBalance: number;
 }
