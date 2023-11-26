@@ -7,10 +7,11 @@ import { IAddCategoryType } from '@/entities/main-category/';
 import { useAddTransactionForm } from '../model/use-add-transaction-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { AppDatePicker } from '@/shared/ui/form/date-picker';
+import { ICashAccountFromDb } from '@/entities/cash-account';
 
 interface IAddTransactionFormProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];
-  cashAccounts: { id: string; name: string }[];
+  cashAccounts: ICashAccountFromDb[];
   categoryType: IAddCategoryType;
 }
 
@@ -19,8 +20,9 @@ export function AddTransactionForm({
   categories,
   categoryType,
 }: IAddTransactionFormProps) {
-  const { handleSubmit, isLoading, isValid, fields, update } =
-    useAddTransactionForm({ categoryType });
+  const { handleSubmit, isLoading, isValid, fields, update, register } =
+    useAddTransactionForm({ categoryType, cashAccounts });
+  const { sum } = fields;
 
   return (
     <Card>
@@ -44,8 +46,9 @@ export function AddTransactionForm({
         />
         <AppNumberInput
           placeholder="Sum"
-          value={fields.sum.value}
-          onChange={(e) => update('sum', e.target.value)}
+          {...register('sum')}
+          error={sum.touched && !sum.isValid}
+          errorMessage={sum.errors[0]}
         />
         <AppSelect
           options={categories

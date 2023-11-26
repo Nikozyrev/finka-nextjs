@@ -5,6 +5,7 @@ import { IAddCategoryType } from '@/entities/main-category';
 import { getSumWithSign } from '../lib/get-sum-with-sign';
 import { getUTCDate } from '../lib/get-utc-date';
 import { useAddTransaction } from '../api/use-add-transaction';
+import { ICashAccountFromDb, isEnoughBalance } from '@/entities/cash-account';
 
 type state = {
   date: Date | undefined;
@@ -14,10 +15,19 @@ type state = {
   comment: string;
 };
 
+const checkBalance =
+  (categoryType: IAddCategoryType, cashAccounts: ICashAccountFromDb[]) =>
+  (v: string, { cashAccountId }: state) =>
+    categoryType === 'INCOME'
+      ? true
+      : isEnoughBalance(cashAccounts, cashAccountId, v);
+
 export function useAddTransactionForm({
   categoryType,
+  cashAccounts,
 }: {
   categoryType: IAddCategoryType;
+  cashAccounts: ICashAccountFromDb[];
 }) {
   const { addTransaction, isLoading } = useAddTransaction();
   const form = useForm<state>({
@@ -30,7 +40,7 @@ export function useAddTransactionForm({
     },
     validators: {
       date: [required],
-      sum: [required, notNaN],
+      sum: [required, notNaN, checkBalance(categoryType, cashAccounts)],
       cashAccountId: [required],
       categoryId: [required],
     },

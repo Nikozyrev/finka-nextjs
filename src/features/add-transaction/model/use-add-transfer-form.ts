@@ -3,7 +3,8 @@ import { useForm } from 'relidate';
 import { notNaN, required } from 'relidate/validators';
 import { useAddTransfer } from '../api/use-add-transfer';
 import { getUTCDate } from '../lib/get-utc-date';
-import { IsSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
+import { isSameCurrenciesAccounts } from '../lib/is-same-currencies-accounts';
+import { ICashAccountFromDb, isEnoughBalance } from '@/entities/cash-account';
 
 type state = {
   date: Date | undefined;
@@ -14,10 +15,15 @@ type state = {
   comment: string;
 };
 
+const checkBalance =
+  (cashAccounts: ICashAccountFromDb[]) =>
+  (v: string, { fromCashAccountId }: state) =>
+    isEnoughBalance(cashAccounts, fromCashAccountId, v);
+
 export function useAddTransferForm({
   cashAccounts,
 }: {
-  cashAccounts: { id: string; name: string; currencyId: number }[];
+  cashAccounts: ICashAccountFromDb[];
 }) {
   const { addTransfer, isLoading } = useAddTransfer();
   const form = useForm<state>({
@@ -31,7 +37,7 @@ export function useAddTransferForm({
     },
     validators: {
       date: [required],
-      fromSum: [required, notNaN],
+      fromSum: [required, notNaN, checkBalance(cashAccounts)],
       toSum: [required, notNaN],
       fromCashAccountId: [required],
       toCashAccountId: [required],
@@ -40,7 +46,7 @@ export function useAddTransferForm({
 
   const { fromCashAccountId, toCashAccountId, fromSum } = form.getState();
 
-  const isSameCurrencies = IsSameCurrenciesAccounts(
+  const isSameCurrencies = isSameCurrenciesAccounts(
     cashAccounts,
     fromCashAccountId,
     toCashAccountId
@@ -81,7 +87,5 @@ export function useAddTransferForm({
     handleSubmit,
     isLoading,
     isSameCurrencies,
-    fromCashAccountId,
-    toCashAccountId,
   };
 }

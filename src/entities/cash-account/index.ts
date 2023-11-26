@@ -1,5 +1,5 @@
 export * from './model/cash-account.model';
-
+export * from './model/validators';
 export { getCashAccounts, getUserCashAccounts } from './api/get-cash-accounts';
 export { addCashAccount } from './api/add-cash-account';
 export { getCashAccount, getUserCashAccount } from './api/get-cash-account';

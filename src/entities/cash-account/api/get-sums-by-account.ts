@@ -1,3 +1,5 @@
+'use server';
+
 import { cache } from 'react';
 import { Decimal } from '@prisma/client/runtime/library';
 import { prisma } from '@/shared/lib/prisma';

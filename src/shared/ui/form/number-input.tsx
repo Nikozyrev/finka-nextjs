@@ -10,6 +10,8 @@ export const AppNumberInput = forwardRef<
   const { enableStepper, step, ...rest } = props;
 
   return (
-    <NumberInput ref={ref} enableStepper={false} step={'0.01'} {...rest} />
+    <div>
+      <NumberInput ref={ref} enableStepper={false} step={'0.01'} {...rest} />
+    </div>
   );
 });

@@ -1,11 +1,11 @@
-import { getUserCashAccounts } from '@/entities/cash-account';
+import { getCashAccountsWithBalances } from '@/entities/cash-account';
 import { AddTransactionForm } from './add-transaction-form';
 import { AddTransferForm } from './add-transfer-form';
 import { AppTabs, ITab } from '@/shared/ui/tabs';
 import { getUserCategories } from '@/entities/category';
 
 export const AddTransactionTabs = async () => {
-  const cashAccounts = await getUserCashAccounts();
+  const cashAccounts = await getCashAccountsWithBalances();
   const categories = await getUserCategories();
 
   const tabs: ITab[] = [
@@ -31,17 +31,7 @@ export const AddTransactionTabs = async () => {
     },
     {
       name: 'Transfer',
-      component: (
-        <AddTransferForm
-          cashAccounts={cashAccounts.map(
-            ({ id, name, currency: { id: currencyId } }) => ({
-              id,
-              name,
-              currencyId,
-            })
-          )}
-        />
-      ),
+      component: <AddTransferForm cashAccounts={cashAccounts} />,
     },
   ];
 
