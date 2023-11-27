@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { TableCell, TableRow } from '@tremor/react';
 import { CashFlowSection, CategoryType } from '@prisma/client';
 import { ICashFlowCategory, ICashFlowTotals } from '../model/cash-flow.model';
@@ -11,12 +10,12 @@ interface ICashFlowTableSectionProps {
   months: number[];
 }
 
-export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
+export function CashFlowTableSection({
   months,
   section,
   categories,
   totals,
-}) => {
+}: ICashFlowTableSectionProps) {
   const sectionCategories = categories.filter(
     ({ cashFlowSection }) => cashFlowSection === section
   );
@@ -74,4 +73,4 @@ export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
       />
     </>
   );
-};
+}

@@ -1,6 +1,5 @@
 'use client';
 
-import { FC } from 'react';
 import { useAppSearchParams } from '@/shared/hooks/search-params';
 import { AppSelect } from '@/shared/ui/select';
 
@@ -9,7 +8,7 @@ interface IYearSelectProps {
   year: number;
 }
 
-export const YearSelect: FC<IYearSelectProps> = ({ years, year }) => {
+export function YearSelect({ years, year }: IYearSelectProps) {
   const { setSearchParam } = useAppSearchParams();
 
   return (
@@ -22,4 +21,4 @@ export const YearSelect: FC<IYearSelectProps> = ({ years, year }) => {
       onValueChange={(v) => setSearchParam('year', v)}
     />
   );
-};
+}
