@@ -26,12 +26,16 @@ export async function CashFlowTable(props: {
             categories={categories}
             totals={totals}
             months={months}
+            year={year}
+            baseCurrencyId={currencyId}
           />
           <CashFlowTableSection
             section={CashFlowSection.INVESTMENTS}
             categories={categories}
             totals={totals}
             months={months}
+            year={year}
+            baseCurrencyId={currencyId}
           />
           <CashFlowTableTotals totals={totals} months={months} />
         </TableBody>

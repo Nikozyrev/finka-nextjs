@@ -2,12 +2,15 @@ import { TableCell, TableRow } from '@tremor/react';
 import { CashFlowSection, CategoryType } from '@prisma/client';
 import { ICashFlowCategory, ICashFlowTotals } from '../model/cash-flow.model';
 import { CashFlowTableRow } from './cash-flow-table-row';
+import { CashFlowTableCategoryRow } from './cash-flow-table-category-row';
 
 interface ICashFlowTableSectionProps {
   section: CashFlowSection;
   categories: ICashFlowCategory[];
   totals: ICashFlowTotals;
   months: number[];
+  year: number;
+  baseCurrencyId: number;
 }
 
 export function CashFlowTableSection({
@@ -15,6 +18,8 @@ export function CashFlowTableSection({
   section,
   categories,
   totals,
+  year,
+  baseCurrencyId,
 }: ICashFlowTableSectionProps) {
   const sectionCategories = categories.filter(
     ({ cashFlowSection }) => cashFlowSection === section
@@ -36,12 +41,12 @@ export function CashFlowTableSection({
         </TableCell>
       </TableRow>
       {incomeCategories.map((category) => (
-        <CashFlowTableRow
+        <CashFlowTableCategoryRow
           key={category.id}
-          className="text-sm"
-          name={category.name}
+          category={category}
+          year={year}
+          baseCurrencyId={baseCurrencyId}
           months={months}
-          sumsByMonths={category.sumsByMonths}
         />
       ))}
       <CashFlowTableRow
@@ -51,12 +56,12 @@ export function CashFlowTableSection({
         sumsByMonths={totals[section].cashFlowIn}
       />
       {expenseCategories.map((category) => (
-        <CashFlowTableRow
+        <CashFlowTableCategoryRow
           key={category.id}
-          className="text-sm"
-          name={category.name}
+          category={category}
+          year={year}
+          baseCurrencyId={baseCurrencyId}
           months={months}
-          sumsByMonths={category.sumsByMonths}
         />
       ))}
       <CashFlowTableRow

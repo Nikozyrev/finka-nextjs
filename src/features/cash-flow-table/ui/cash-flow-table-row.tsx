@@ -1,12 +1,16 @@
-import clsx from 'clsx';
 import { TableCell, TableRow } from '@tremor/react';
-import { ICashFlowSumsByMonths } from '../model/cash-flow.model';
+import {
+  ICashFlowSumsByMonths,
+  ICashFlowSumsByMonthsNumbers,
+} from '../model/cash-flow.model';
+import { showNum } from '@/shared/helpers/show-num';
 
 interface ICashFlowTableRowProps {
   name: string;
   months: number[];
-  sumsByMonths: ICashFlowSumsByMonths;
+  sumsByMonths: ICashFlowSumsByMonths | ICashFlowSumsByMonthsNumbers;
   className?: string;
+  onClick?: () => void;
 }
 
 export function CashFlowTableRow({
@@ -14,26 +18,22 @@ export function CashFlowTableRow({
   months,
   sumsByMonths,
   className,
+  onClick,
 }: ICashFlowTableRowProps) {
   return (
-    <TableRow>
-      <TableCell
-        className={clsx(
-          'text-left p-1 sticky top-0 left-0 bg-white',
-          className
-        )}
-      >
+    <TableRow className={className} onClick={onClick}>
+      <TableCell className={'text-left p-1 sticky top-0 left-0 bg-white'}>
         {name}
       </TableCell>
 
       {months.map((m) => (
-        <TableCell key={m} className={clsx('text-right p-1', className)}>
-          {sumsByMonths[m]?.toFixed(0)}
+        <TableCell key={m} className={'text-right p-1'}>
+          {showNum(sumsByMonths[m])}
         </TableCell>
       ))}
 
-      <TableCell className={clsx('text-right p-1', className)}>
-        {sumsByMonths.totalYear.toFixed(0)}
+      <TableCell className={'text-right p-1'}>
+        {showNum(sumsByMonths.totalYear)}
       </TableCell>
     </TableRow>
   );

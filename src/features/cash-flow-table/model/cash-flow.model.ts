@@ -18,6 +18,29 @@ export interface ICashFlowSumsByMonths {
   totalYear: Decimal;
 }
 
+export interface ICashFlowSumsByMonthsNumbers {
+  [month: string]: number | undefined;
+  '1'?: number;
+  '2'?: number;
+  '3'?: number;
+  '4'?: number;
+  '5'?: number;
+  '6'?: number;
+  '7'?: number;
+  '8'?: number;
+  '9'?: number;
+  '10'?: number;
+  '11'?: number;
+  '12'?: number;
+  totalYear: number;
+}
+
+export interface ICashFlowSubCategory {
+  id: string;
+  name: string;
+  sumsByMonth: ICashFlowSumsByMonthsNumbers;
+}
+
 export interface ICashFlowCategory {
   id: string;
   name: string;
