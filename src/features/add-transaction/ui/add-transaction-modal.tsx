@@ -11,7 +11,7 @@ export function AddTransactionModal({ form }: { form: ReactNode }) {
     <>
       <AddTransactionButton onClick={() => setIsOpen(true)} />
 
-      <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <AppModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {form}
       </AppModal>
     </>

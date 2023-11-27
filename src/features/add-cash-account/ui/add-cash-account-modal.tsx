@@ -14,7 +14,7 @@ export function AddCashAccountModal() {
         Add account
       </Button>
 
-      <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <AppModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <AddCashAccountForm />
       </AppModal>
     </>

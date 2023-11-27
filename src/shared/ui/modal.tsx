@@ -5,19 +5,15 @@ import { Dialog, Transition } from '@headlessui/react';
 
 interface IAppModalProps {
   isOpen: boolean;
-  setIsOpen: (v: boolean) => void;
+  onClose: () => void;
   children: ReactNode;
 }
 
-export const AppModal = ({ isOpen, setIsOpen, children }: IAppModalProps) => {
+export const AppModal = ({ isOpen, onClose, children }: IAppModalProps) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={() => setIsOpen(false)}
-        >
+        <Dialog as="div" className="relative z-10" onClose={onClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-200"
