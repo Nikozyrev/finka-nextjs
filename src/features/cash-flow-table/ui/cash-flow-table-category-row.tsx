@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getSubcategoriesSums } from '../api/get-sums-by-main-category';
+import { useState } from 'react';
 import {
   ICashFlowCategory,
   ICashFlowSubCategory,
@@ -10,27 +9,14 @@ import { CashFlowTableRow } from './cash-flow-table-row';
 
 export function CashFlowTableCategoryRow({
   category,
-  year,
-  baseCurrencyId,
+  subcategories,
   months,
 }: {
   category: ICashFlowCategory;
-  year: number;
-  baseCurrencyId: number;
+  subcategories: ICashFlowSubCategory[];
   months: number[];
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [subcategories, setSubcategories] = useState<ICashFlowSubCategory[]>(
-    []
-  );
-
-  useEffect(() => {
-    if (isOpen) {
-      getSubcategoriesSums(category.id, year, baseCurrencyId).then((v) =>
-        setSubcategories(v)
-      );
-    }
-  }, [isOpen, category.id, year, baseCurrencyId]);
 
   return (
     <>
@@ -38,19 +24,26 @@ export function CashFlowTableCategoryRow({
         className="text-sm cursor-pointer"
         name={category.name}
         months={months}
-        sumsByMonths={category.sumsByMonths}
+        sumsByMonths={category.sumsByMonth}
         onClick={() => setIsOpen((v) => !v)}
       />
       {isOpen &&
-        subcategories.map((s) => (
-          <CashFlowTableRow
-            key={s.id}
-            className="text-slate-400 text-[0.8rem]"
-            name={s.name}
-            sumsByMonths={s.sumsByMonth}
-            months={months}
-          />
-        ))}
+        subcategories
+          .filter(({ categoryId }) => categoryId === category.id)
+          .sort(
+            (a, b) =>
+              Math.abs(b.sumsByMonth.totalYear) -
+              Math.abs(a.sumsByMonth.totalYear)
+          )
+          .map((s) => (
+            <CashFlowTableRow
+              key={s.id}
+              className="text-slate-400 text-[0.8rem]"
+              name={s.name}
+              sumsByMonths={s.sumsByMonth}
+              months={months}
+            />
+          ))}
     </>
   );
 }

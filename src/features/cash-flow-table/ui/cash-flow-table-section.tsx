@@ -1,16 +1,19 @@
 import { TableCell, TableRow } from '@tremor/react';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { ICashFlowCategory, ICashFlowTotals } from '../model/cash-flow.model';
+import {
+  ICashFlowCategory,
+  ICashFlowSubCategory,
+  ICashFlowTotals,
+} from '../model/cash-flow.model';
 import { CashFlowTableRow } from './cash-flow-table-row';
 import { CashFlowTableCategoryRow } from './cash-flow-table-category-row';
 
 interface ICashFlowTableSectionProps {
   section: CashFlowSection;
   categories: ICashFlowCategory[];
+  subcategories: ICashFlowSubCategory[];
   totals: ICashFlowTotals;
   months: number[];
-  year: number;
-  baseCurrencyId: number;
 }
 
 export function CashFlowTableSection({
@@ -18,20 +21,25 @@ export function CashFlowTableSection({
   section,
   categories,
   totals,
-  year,
-  baseCurrencyId,
+  subcategories,
 }: ICashFlowTableSectionProps) {
   const sectionCategories = categories.filter(
     ({ cashFlowSection }) => cashFlowSection === section
   );
 
-  const incomeCategories = sectionCategories.filter(
-    ({ categoryType }) => categoryType === CategoryType.INCOME
-  );
+  const incomeCategories = sectionCategories
+    .filter(({ categoryType }) => categoryType === CategoryType.INCOME)
+    .sort(
+      (a, b) =>
+        Math.abs(b.sumsByMonth.totalYear) - Math.abs(a.sumsByMonth.totalYear)
+    );
 
-  const expenseCategories = sectionCategories.filter(
-    ({ categoryType }) => categoryType === CategoryType.EXPENSE
-  );
+  const expenseCategories = sectionCategories
+    .filter(({ categoryType }) => categoryType === CategoryType.EXPENSE)
+    .sort(
+      (a, b) =>
+        Math.abs(b.sumsByMonth.totalYear) - Math.abs(a.sumsByMonth.totalYear)
+    );
 
   return (
     <>
@@ -44,8 +52,7 @@ export function CashFlowTableSection({
         <CashFlowTableCategoryRow
           key={category.id}
           category={category}
-          year={year}
-          baseCurrencyId={baseCurrencyId}
+          subcategories={subcategories}
           months={months}
         />
       ))}
@@ -59,8 +66,7 @@ export function CashFlowTableSection({
         <CashFlowTableCategoryRow
           key={category.id}
           category={category}
-          year={year}
-          baseCurrencyId={baseCurrencyId}
+          subcategories={subcategories}
           months={months}
         />
       ))}

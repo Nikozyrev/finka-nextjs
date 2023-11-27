@@ -11,7 +11,10 @@ export async function CashFlowTable(props: {
 }) {
   const year = props.year || new Date().getFullYear();
   const currencyId = props.currencyId || 1;
-  const { categories, totals } = await getCashFlowData(year, currencyId);
+  const { subcategories, categories, totals } = await getCashFlowData(
+    year,
+    currencyId
+  );
 
   const months = Array.from(new Array(12), (_, i) => i + 1);
 
@@ -23,19 +26,17 @@ export async function CashFlowTable(props: {
         <TableBody>
           <CashFlowTableSection
             section={CashFlowSection.OPERATIONAL}
+            subcategories={subcategories}
             categories={categories}
             totals={totals}
             months={months}
-            year={year}
-            baseCurrencyId={currencyId}
           />
           <CashFlowTableSection
             section={CashFlowSection.INVESTMENTS}
+            subcategories={subcategories}
             categories={categories}
             totals={totals}
             months={months}
-            year={year}
-            baseCurrencyId={currencyId}
           />
           <CashFlowTableTotals totals={totals} months={months} />
         </TableBody>

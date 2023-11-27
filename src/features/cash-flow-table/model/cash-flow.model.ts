@@ -38,6 +38,7 @@ export interface ICashFlowSumsByMonthsNumbers {
 export interface ICashFlowSubCategory {
   id: string;
   name: string;
+  categoryId: string;
   sumsByMonth: ICashFlowSumsByMonthsNumbers;
 }
 
@@ -46,7 +47,7 @@ export interface ICashFlowCategory {
   name: string;
   categoryType: CategoryType;
   cashFlowSection: CashFlowSection;
-  sumsByMonths: ICashFlowSumsByMonths;
+  sumsByMonth: ICashFlowSumsByMonthsNumbers;
 }
 
 export interface ICashFlowSectionTotals {
