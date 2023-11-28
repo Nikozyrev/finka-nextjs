@@ -11,7 +11,7 @@ export function AddCategoriesModal({ tabs }: { tabs: ReactNode }) {
     <>
       <AddCategoriesButton onClick={() => setIsOpen(true)} />
 
-      <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <AppModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {tabs}
       </AppModal>
     </>

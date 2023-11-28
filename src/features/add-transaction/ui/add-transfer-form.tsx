@@ -5,9 +5,10 @@ import { AppSelect } from '@/shared/ui/select';
 import { useAddTransferForm } from '../model/use-add-transfer-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { AppDatePicker } from '@/shared/ui/form/date-picker';
+import { ICashAccountFromDb } from '@/entities/cash-account';
 
 interface IAddTransferFormProps {
-  cashAccounts: { id: string; name: string; currencyId: number }[];
+  cashAccounts: ICashAccountFromDb[];
 }
 
 export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
@@ -18,11 +19,11 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
     isLoading,
     isValid,
     isSameCurrencies,
-    fromCashAccountId,
-    toCashAccountId,
+    register,
   } = useAddTransferForm({
     cashAccounts,
   });
+  const { fromCashAccountId, toCashAccountId, fromSum } = fields;
 
   return (
     <Card>
@@ -37,7 +38,7 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         />
         <AppSelect
           options={cashAccounts
-            .filter(({ id }) => id !== toCashAccountId)
+            .filter(({ id }) => id !== toCashAccountId.value)
             .map(({ id, name }) => ({
               value: id,
               text: name,
@@ -48,7 +49,7 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         />
         <AppSelect
           options={cashAccounts
-            .filter(({ id }) => id !== fromCashAccountId)
+            .filter(({ id }) => id !== fromCashAccountId.value)
             .map(({ id, name }) => ({
               value: id,
               text: name,
@@ -59,21 +60,14 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         />
         <AppNumberInput
           placeholder={isSameCurrencies ? 'Sum' : 'Sum From'}
-          value={fields.fromSum.value}
-          onChange={(e) => update('fromSum', e.target.value)}
+          {...register('fromSum')}
+          error={fromSum.touched && !fromSum.isValid}
+          errorMessage={fromSum.errors[0]}
         />
         {!isSameCurrencies && (
-          <AppNumberInput
-            placeholder="Sum To"
-            value={fields.toSum.value}
-            onChange={(e) => update('toSum', e.target.value)}
-          />
+          <AppNumberInput placeholder="Sum To" {...register('toSum')} />
         )}
-        <TextInput
-          placeholder="Comment"
-          value={fields.comment.value}
-          onChange={(e) => update('comment', e.target.value)}
-        />
+        <TextInput placeholder="Comment" {...register('comment')} />
         <Button
           className="w-fit"
           type="submit"

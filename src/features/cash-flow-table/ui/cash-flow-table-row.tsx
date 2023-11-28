@@ -1,40 +1,40 @@
-import { FC } from 'react';
 import { TableCell, TableRow } from '@tremor/react';
-import { ICashFlowSumsByMonths } from '../model/cash-flow.model';
+import {
+  ICashFlowSumsByMonths,
+  ICashFlowSumsByMonthsNumbers,
+} from '../model/cash-flow.model';
+import { showNum } from '@/shared/helpers/show-num';
 
 interface ICashFlowTableRowProps {
   name: string;
   months: number[];
-  sumsByMonths: ICashFlowSumsByMonths;
+  sumsByMonths: ICashFlowSumsByMonths | ICashFlowSumsByMonthsNumbers;
   className?: string;
+  onClick?: () => void;
 }
 
-export const CashFlowTableRow: FC<ICashFlowTableRowProps> = ({
+export function CashFlowTableRow({
   name,
   months,
   sumsByMonths,
   className,
-}) => {
+  onClick,
+}: ICashFlowTableRowProps) {
   return (
-    <TableRow>
-      <TableCell
-        className={`text-left p-1 sticky top-0 left-0 bg-white ${
-          className ?? ''
-        }`}
-      >
+    <TableRow className={className} onClick={onClick}>
+      <TableCell className={'text-left p-1 sticky top-0 left-0 bg-white'}>
         {name}
       </TableCell>
-      {months.map((m) => {
-        const cellSum = sumsByMonths[m]?.toFixed(0);
-        return (
-          <TableCell className={`text-right p-1 ${className ?? ''}`} key={m}>
-            {cellSum}
-          </TableCell>
-        );
-      })}
-      <TableCell className={`text-right p-1 ${className ?? ''}`}>
-        {sumsByMonths.totalYear.toFixed(0)}
+
+      {months.map((m) => (
+        <TableCell key={m} className={'text-right p-1'}>
+          {showNum(sumsByMonths[m])}
+        </TableCell>
+      ))}
+
+      <TableCell className={'text-right p-1'}>
+        {showNum(sumsByMonths.totalYear)}
       </TableCell>
     </TableRow>
   );
-};
+}

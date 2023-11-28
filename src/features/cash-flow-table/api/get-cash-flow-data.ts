@@ -1,21 +1,15 @@
 import { getSumsByCategories } from './get-sums-by-categories';
 import { getCashFlowTotals } from './get-cash-flow-totals';
-import { getCategoryData } from './get-category-data';
+import { getCategoriesData, getSubcategoriesData } from './get-categories-data';
 
 export const getCashFlowData = async (year: number, baseCurrencyId: number) => {
   const sumsByCategories = await getSumsByCategories(year, baseCurrencyId);
 
-  const uniqueCategoriesIds = sumsByCategories.reduce(
-    (acc, val) =>
-      acc.includes(val.main_category_id) ? acc : [...acc, val.main_category_id],
-    [] as string[]
-  );
+  const subcategories = getSubcategoriesData(sumsByCategories);
 
-  const categories = uniqueCategoriesIds.map((id) =>
-    getCategoryData(sumsByCategories, id)
-  );
+  const categories = getCategoriesData(sumsByCategories);
 
   const totals = getCashFlowTotals(sumsByCategories);
 
-  return { categories, totals };
+  return { subcategories, categories, totals };
 };

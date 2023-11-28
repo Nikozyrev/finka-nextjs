@@ -1,6 +1,6 @@
-import { getUserCashAccounts } from '@/entities/cash-account';
+import { ICashAccountFromDb } from '../model/cash-account.model';
+import { getUserCashAccounts } from './get-cash-accounts';
 import { getUserSumsByAccount } from './get-sums-by-account';
-import { ICashAccountFromDb } from '../model/cash-account.mode';
 
 export const getCashAccountsWithBalances = async (): Promise<
   ICashAccountFromDb[]

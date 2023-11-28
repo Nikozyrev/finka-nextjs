@@ -1,5 +1,5 @@
-export const IsSameCurrenciesAccounts = (
-  cashAccounts: { id: string; currencyId: number }[],
+export const isSameCurrenciesAccounts = (
+  cashAccounts: { id: string; currency: { id: number } }[],
   fromAccountId: string,
   toAccountId: string
 ) => {
@@ -11,5 +11,5 @@ export const IsSameCurrenciesAccounts = (
   );
 
   if (!(account1 && account2)) return false;
-  return account1.currencyId === account2.currencyId;
+  return account1.currency.id === account2.currency.id;
 };

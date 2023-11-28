@@ -1,33 +1,45 @@
-import { FC } from 'react';
 import { TableCell, TableRow } from '@tremor/react';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { ICashFlowCategory, ICashFlowTotals } from '../model/cash-flow.model';
+import {
+  ICashFlowCategory,
+  ICashFlowSubCategory,
+  ICashFlowTotals,
+} from '../model/cash-flow.model';
 import { CashFlowTableRow } from './cash-flow-table-row';
+import { CashFlowTableCategoryRow } from './cash-flow-table-category-row';
 
 interface ICashFlowTableSectionProps {
   section: CashFlowSection;
   categories: ICashFlowCategory[];
+  subcategories: ICashFlowSubCategory[];
   totals: ICashFlowTotals;
   months: number[];
 }
 
-export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
+export function CashFlowTableSection({
   months,
   section,
   categories,
   totals,
-}) => {
+  subcategories,
+}: ICashFlowTableSectionProps) {
   const sectionCategories = categories.filter(
     ({ cashFlowSection }) => cashFlowSection === section
   );
 
-  const incomeCategories = sectionCategories.filter(
-    ({ categoryType }) => categoryType === CategoryType.INCOME
-  );
+  const incomeCategories = sectionCategories
+    .filter(({ categoryType }) => categoryType === CategoryType.INCOME)
+    .sort(
+      (a, b) =>
+        Math.abs(b.sumsByMonth.totalYear) - Math.abs(a.sumsByMonth.totalYear)
+    );
 
-  const expenseCategories = sectionCategories.filter(
-    ({ categoryType }) => categoryType === CategoryType.EXPENSE
-  );
+  const expenseCategories = sectionCategories
+    .filter(({ categoryType }) => categoryType === CategoryType.EXPENSE)
+    .sort(
+      (a, b) =>
+        Math.abs(b.sumsByMonth.totalYear) - Math.abs(a.sumsByMonth.totalYear)
+    );
 
   return (
     <>
@@ -37,12 +49,11 @@ export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
         </TableCell>
       </TableRow>
       {incomeCategories.map((category) => (
-        <CashFlowTableRow
+        <CashFlowTableCategoryRow
           key={category.id}
-          className="text-sm"
-          name={category.name}
+          category={category}
+          subcategories={subcategories}
           months={months}
-          sumsByMonths={category.sumsByMonths}
         />
       ))}
       <CashFlowTableRow
@@ -52,12 +63,11 @@ export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
         sumsByMonths={totals[section].cashFlowIn}
       />
       {expenseCategories.map((category) => (
-        <CashFlowTableRow
+        <CashFlowTableCategoryRow
           key={category.id}
-          className="text-sm"
-          name={category.name}
+          category={category}
+          subcategories={subcategories}
           months={months}
-          sumsByMonths={category.sumsByMonths}
         />
       ))}
       <CashFlowTableRow
@@ -74,4 +84,4 @@ export const CashFlowTableSection: FC<ICashFlowTableSectionProps> = ({
       />
     </>
   );
-};
+}
