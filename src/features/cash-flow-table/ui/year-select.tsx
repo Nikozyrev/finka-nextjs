@@ -10,14 +10,16 @@ interface IYearSelectProps {
 
 export function YearSelect({ years, year }: IYearSelectProps) {
   const { setSearchParam } = useAppSearchParams();
+  const yearsOptions = years.map((year) => ({
+    text: `${year}`,
+    value: `${year}`,
+  }));
+  const allOption = { text: 'All', value: 'All' };
 
   return (
     <AppSelect
-      options={years.map((year) => ({
-        text: `${year}`,
-        value: `${year}`,
-      }))}
-      value={`${year}`}
+      options={[allOption, ...yearsOptions]}
+      value={`${year || allOption.value}`}
       onValueChange={(v) => setSearchParam('year', v)}
     />
   );

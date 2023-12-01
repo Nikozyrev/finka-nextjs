@@ -1,8 +1,8 @@
+import { cache } from 'react';
 import { Decimal } from '@prisma/client/runtime/library';
 import { CashFlowSection, CategoryType, Prisma } from '@prisma/client';
 import { prisma } from '@/shared/lib/prisma';
 import { getUserId } from '@/shared/utils/get-user-info';
-import { cache } from 'react';
 
 export interface ISumsByCategories {
   year: number;
@@ -26,7 +26,8 @@ const getFunc = cache(
     LEFT JOIN currencyrates AS R ON T.date = R.date AND A.currency_id = R.currency_id AND R.base_currency_id = ${baseCurrencyId}
     LEFT JOIN categories AS C ON T.category_id = C.id
     LEFT JOIN maincategories AS M ON C.main_category_id = M.id
-    WHERE T.user_id = '${userId}' AND YEAR(T.date) = '${year}' AND M.cash_flow_section <> 'null'
+    WHERE T.user_id = '${userId}' AND YEAR(T.date) LIKE '${year || '%'}' 
+    AND M.cash_flow_section <> 'null'
     GROUP BY year, month, C.id;`,
       ])
     );

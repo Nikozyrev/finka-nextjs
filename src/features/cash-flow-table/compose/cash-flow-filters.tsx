@@ -3,13 +3,13 @@ import { CurrencySelect } from '../ui/currency-select';
 import { YearSelect } from '../ui/year-select';
 import { getCurrencies } from '@/entities/currency';
 import { getTransactionsYears } from '../api/get-years';
+import { transformCFProps } from '../lib/transform-cf-props';
 
 export async function CashFlowFilters(props: {
-  currencyId?: number;
-  year?: number;
+  currencyId?: string;
+  year?: string;
 }) {
-  const year = props.year || new Date().getFullYear();
-  const currencyId = props.currencyId || 1;
+  const { year, currencyId } = transformCFProps(props);
   const currencies = await getCurrencies();
   const years = await getTransactionsYears();
 
