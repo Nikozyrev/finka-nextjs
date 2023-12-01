@@ -13,19 +13,22 @@ interface ICashFlowPageProps {
 export default async function CashFlowPage({
   searchParams,
 }: ICashFlowPageProps) {
-  const year = Number(searchParams?.year);
-  const currencyId = Number(searchParams?.currency);
-
   return (
-    <Grid className="h-full gap-2 grid-rows-[auto,minmax(0,1fr)]">
+    <Grid className="w-fit h-full gap-2 grid-rows-[auto,minmax(0,1fr)]">
       <Col>
         <Suspense fallback={<Spinner />}>
-          <CashFlowFilters currencyId={currencyId} year={year} />
+          <CashFlowFilters
+            currencyId={searchParams?.currency}
+            year={searchParams?.year}
+          />
         </Suspense>
       </Col>
       <Col>
         <Suspense fallback={<Spinner />}>
-          <CashFlowTable currencyId={currencyId} year={year} />
+          <CashFlowTable
+            currencyId={searchParams?.currency}
+            year={searchParams?.year}
+          />
         </Suspense>
       </Col>
     </Grid>

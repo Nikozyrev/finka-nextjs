@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { TableHead, TableRow, TableHeaderCell } from '@tremor/react';
 
 export function CashFlowTableHead({ months }: { months: number[] }) {
-  const tableColumns = ['Category', ...months, 'YTD'];
+  const tableColumns = ['Category', ...months, 'Total'];
 
   return (
     <TableHead>
@@ -12,7 +12,8 @@ export function CashFlowTableHead({ months }: { months: number[] }) {
             key={v}
             className={clsx(
               'py-2 text-center font-bold bg-white',
-              i === 0 && 'sticky top-0 left-0 z-[1]'
+              i === 0 && 'sticky top-0 left-0 z-[1] text-left',
+              i === tableColumns.length - 1 && 'text-right'
             )}
           >
             {v}

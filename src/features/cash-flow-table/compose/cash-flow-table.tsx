@@ -4,19 +4,18 @@ import { getCashFlowData } from '../api/get-cash-flow-data';
 import { CashFlowTableSection } from '../ui/cash-flow-table-section';
 import { CashFlowTableTotals } from '../ui/cash-flow-table-totals';
 import { CashFlowTableHead } from '../ui/cash-flow-table-head';
+import { transformCFProps } from '../lib/transform-cf-props';
 
 export async function CashFlowTable(props: {
-  year?: number;
-  currencyId?: number;
+  year?: string;
+  currencyId?: string;
 }) {
-  const year = props.year || new Date().getFullYear();
-  const currencyId = props.currencyId || 1;
+  const { year, currencyId, months } = transformCFProps(props);
+
   const { subcategories, categories, totals } = await getCashFlowData(
     year,
     currencyId
   );
-
-  const months = Array.from(new Array(12), (_, i) => i + 1);
 
   return (
     <Card className="p-4 h-full">
