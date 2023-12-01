@@ -5,6 +5,7 @@ import { CashFlowTableSection } from '../ui/cash-flow-table-section';
 import { CashFlowTableTotals } from '../ui/cash-flow-table-totals';
 import { CashFlowTableHead } from '../ui/cash-flow-table-head';
 import { transformCFProps } from '../lib/transform-cf-props';
+import { CashFlowTableRow } from '../ui/cash-flow-table-row';
 
 export async function CashFlowTable(props: {
   year?: string;
@@ -12,10 +13,8 @@ export async function CashFlowTable(props: {
 }) {
   const { year, currencyId, months } = transformCFProps(props);
 
-  const { subcategories, categories, totals } = await getCashFlowData(
-    year,
-    currencyId
-  );
+  const { subcategories, categories, totals, savingsRate } =
+    await getCashFlowData(year, currencyId);
 
   return (
     <Card className="p-4 h-full">
@@ -29,6 +28,13 @@ export async function CashFlowTable(props: {
             categories={categories}
             totals={totals}
             months={months}
+          />
+          <CashFlowTableRow
+            name="Savings Rate"
+            months={months}
+            sumsByMonths={savingsRate}
+            mode="percent"
+            className="font-bold text-sm"
           />
           <CashFlowTableSection
             section={CashFlowSection.INVESTMENTS}
