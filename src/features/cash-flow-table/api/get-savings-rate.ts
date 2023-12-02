@@ -9,7 +9,7 @@ export const getSavingsRate = (totals: ICashFlowTotals) =>
     (acc, k) => ({
       ...acc,
       [k]: totals.OPERATIONAL.cashFlow[k]?.dividedBy(
-        totals.OPERATIONAL.cashFlowIn[k] || 0
+        totals.OPERATIONAL.cashFlowIn[k] || Infinity
       ),
     }),
     { totalYear: new Decimal(0) }
