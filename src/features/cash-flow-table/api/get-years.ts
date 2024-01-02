@@ -19,7 +19,7 @@ const getYears = cache(
       return data.map(({ year }) => year);
     },
     [],
-    { tags: ['transactions'] }
+    { tags: ['transactions', 'user_tr_count'] }
   )
 );
 
