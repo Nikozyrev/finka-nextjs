@@ -16,8 +16,6 @@ export const saveRatesOnDate = async (date: Date) => {
     const dbData = await addCurrencyRates(rates);
     return dbData;
   } catch {
-    throw new Error(
-      `Rates on date ${date.toDateString()} are already in the database.`
-    );
+    console.log('Rates on date', date.toDateString(), 'are already in db');
   }
 };
