@@ -11,7 +11,7 @@ export async function saveRatesHistory(daysCount: number) {
     const date = new Date(startDate.getTime() - dayMilliseconds * counter);
     console.log('Fetching date', date.toDateString());
     await saveRatesOnDate(date);
-    await new Promise((res) => setTimeout(res, 2000));
+    await new Promise((res) => setTimeout(res, 200));
     counter += 1;
   }
 

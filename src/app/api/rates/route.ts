@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { saveRatesOnDate } from '@/features/get-currency-rates';
+import { saveRatesHistory } from '@/features/get-currency-rates/api/save-rates-history';
 
-const saveTodayRates = async () => {
+const saveLatest10DaysRates = async () => {
   try {
-    const rates = await saveRatesOnDate(new Date());
-    return NextResponse.json(rates);
+    await saveRatesHistory(10);
+    return NextResponse.json({ status: 'success' });
   } catch (error) {
     let message = '';
     if (error instanceof Error) {
@@ -16,4 +16,4 @@ const saveTodayRates = async () => {
   }
 };
 
-export { saveTodayRates as GET };
+export { saveLatest10DaysRates as GET };

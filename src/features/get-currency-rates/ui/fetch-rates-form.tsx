@@ -12,7 +12,7 @@ export function FetchRatesForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { isValid, register, getState } = useForm({
     initialState: {
-      daysCount: 0,
+      daysCount: 30,
     },
     validators: {
       daysCount: [required, (v) => v > 0],
