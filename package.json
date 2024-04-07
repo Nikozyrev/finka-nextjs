@@ -25,6 +25,7 @@
     "react-dom": "^18.2.0",
     "relidate": "^0.6.1",
     "tailwindcss": "3.3.3",
+    "xlsx": "^0.18.5",
     "zod": "^3.22.3"
   },
   "devDependencies": {
