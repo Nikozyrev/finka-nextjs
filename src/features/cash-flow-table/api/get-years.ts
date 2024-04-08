@@ -9,7 +9,7 @@ const getYears = cache(
     async (userId: string) => {
       const data = await prisma.$queryRaw<{ year: number }[]>(
         Prisma.sql([
-          `SELECT DISTINCT YEAR(date) AS year
+          `SELECT DISTINCT EXTRACT('Year' FROM date) AS year
         FROM transactions
         WHERE user_id = '${userId}';`,
         ])

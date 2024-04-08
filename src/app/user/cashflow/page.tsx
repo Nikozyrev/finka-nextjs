@@ -24,7 +24,10 @@ export default async function CashFlowPage({
         </Suspense>
       </Col>
       <Col>
-        <Suspense fallback={<Spinner />}>
+        <Suspense
+          key={`${searchParams?.currency}-${searchParams?.year}`}
+          fallback={<Spinner />}
+        >
           <CashFlowTable
             currencyId={searchParams?.currency}
             year={searchParams?.year}
