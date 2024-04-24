@@ -5,3 +5,4 @@ export { addCashAccount } from './api/add-cash-account';
 export { getCashAccount, getUserCashAccount } from './api/get-cash-account';
 export { updateCashAccount } from './api/update-cash-account';
 export { getCashAccountsWithBalances } from './api/get-cash-accounts-with-balances';
+export { CashAccountLink } from './ui/cash-account-link';

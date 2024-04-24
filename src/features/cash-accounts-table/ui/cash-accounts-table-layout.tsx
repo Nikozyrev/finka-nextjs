@@ -1,14 +1,16 @@
-import { Card, Table } from '@tremor/react';
-import { CashAccountsTableBody } from './cash-accounts-table-body';
-import { CashAccountsTableHead } from './cash-accounts-table-head';
+import { AppTable } from '@/shared/ui/table';
+import { getCashAccountsWithBalances } from '@/entities/cash-account';
+import { cashAccountsColumnsMap } from './cash-accounts-columns-map';
 
-export const CashAccountsTableLayout = async () => {
+export async function CashAccountsTableLayout() {
+  const accountsWithActualBalances = await getCashAccountsWithBalances();
+
   return (
-    <Card className="px-3 py-1 sm:w-fit">
-      <Table>
-        <CashAccountsTableHead />
-        <CashAccountsTableBody />
-      </Table>
-    </Card>
+    <AppTable
+      rows={accountsWithActualBalances}
+      columns={Array.from(cashAccountsColumnsMap.keys())}
+      getKey={({ id }) => id}
+      renderCell={(row, column) => cashAccountsColumnsMap.get(column)?.(row)}
+    />
   );
-};
+}

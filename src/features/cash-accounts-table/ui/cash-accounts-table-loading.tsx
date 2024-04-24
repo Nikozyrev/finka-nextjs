@@ -1,10 +1,16 @@
-import { Flex } from '@tremor/react';
-import { Spinner } from '@/shared/ui/spinner';
+import { AppTable } from '@/shared/ui/table';
+import { cashAccountsColumnsMap } from './cash-accounts-columns-map';
+import { CellSkeleton } from '@/shared/ui/cell-skeleton';
 
-export const CashAccountsTableLoading = () => {
+const loadingAccountsData = Array.from({ length: 10 }, (_, i) => i);
+
+export function CashAccountsTableLoading() {
   return (
-    <Flex className="p-9">
-      <Spinner />
-    </Flex>
+    <AppTable
+      rows={loadingAccountsData}
+      columns={Array.from(cashAccountsColumnsMap.keys())}
+      getKey={(i) => i}
+      renderCell={(row, column) => <CellSkeleton />}
+    />
   );
-};
+}
