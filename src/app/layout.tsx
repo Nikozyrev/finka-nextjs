@@ -1,6 +1,8 @@
-import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { PrimeReactProvider } from 'primereact/api';
+import './globals.css';
+import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +21,9 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
-      <body className={`${inter.className} h-full`}>{children}</body>
+      <PrimeReactProvider>
+        <body className={`${inter.className} h-full`}>{children}</body>
+      </PrimeReactProvider>
     </html>
   );
 }
