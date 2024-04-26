@@ -1,12 +1,9 @@
 import { FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'relidate';
 import { required } from 'relidate/validators';
-import { addCashAccount } from '../api/add-cash-account';
+import { addCashAccountAction } from '../api/add-cash-account';
 
 export function useAddCashAccountForm() {
-  const Router = useRouter();
-
   const form = useForm({
     initialState: {
       name: '',
@@ -24,9 +21,8 @@ export function useAddCashAccountForm() {
     const { name, currencyId, startBalance } = form.getState();
 
     if (!name || !currencyId) return;
-    await addCashAccount({ name, startBalance, currencyId });
+    await addCashAccountAction({ name, startBalance, currencyId });
     form.reset();
-    Router.refresh();
   };
 
   return { handleSubmit, ...form };
