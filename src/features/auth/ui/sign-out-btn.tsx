@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@tremor/react';
 import { signOut } from 'next-auth/react';
+import { AppButton } from '@/shared/ui/button';
 
-export const SignOutBtn = () => {
-  return <Button onClick={() => signOut()}>Sign Out</Button>;
-};
+export function SignOutBtn() {
+  return <AppButton label="Sign Out" onClick={() => signOut()} />;
+}
