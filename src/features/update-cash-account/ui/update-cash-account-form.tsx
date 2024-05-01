@@ -33,7 +33,7 @@ export async function UpdateCashAccountForm({ id }: { id: string }) {
           name={formFields.currencyId}
           value={account?.currency.id.toString()}
         />
-        <SubmitButton label="Update" />
+        <SubmitButton className="w-fit" label="Update" />
       </form>
     </Card>
   );
