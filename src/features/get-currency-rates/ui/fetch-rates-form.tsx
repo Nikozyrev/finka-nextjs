@@ -38,11 +38,10 @@ export function FetchRatesForm() {
       <AppButton
         className="w-fit"
         type="submit"
+        label="Fetch rates"
         loading={isLoading}
         disabled={!isValid}
-      >
-        Fetch rates
-      </AppButton>
+      />
     </form>
   );
 }
