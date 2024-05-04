@@ -1,1 +1,1 @@
-export { UpdateCashAccountForm } from './ui/update-cash-account-form';
+export { UpdateCashAccountData as UpdateCashAccountForm } from './ui/update-cash-account-data';

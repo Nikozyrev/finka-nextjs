@@ -1,8 +1,8 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
-import { AppButton } from '@/shared/ui/button';
+import { Button } from 'primereact/button';
 
 export function SignOutBtn() {
-  return <AppButton label="Sign Out" onClick={() => signOut()} />;
+  return <Button label="Sign Out" onClick={() => signOut()} />;
 }

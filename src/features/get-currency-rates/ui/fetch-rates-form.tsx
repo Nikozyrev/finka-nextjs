@@ -1,16 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from 'primereact/button';
+import { InputNumber } from 'primereact/inputnumber';
 import { useForm } from 'relidate';
 import { required } from 'relidate/validators';
 
-import { AppButton } from '@/shared/ui/button';
-import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { saveRatesHistory } from '../api/save-rates-history';
 
 export function FetchRatesForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const { isValid, register, getState } = useForm({
+  const {
+    isValid,
+    getState,
+    update,
+    fields: { daysCount },
+  } = useForm({
     initialState: {
       daysCount: 30,
     },
@@ -30,12 +35,14 @@ export function FetchRatesForm() {
         setIsLoading(false);
       }}
     >
-      <AppNumberInput
-        step="1"
+      <InputNumber
+        step={1}
         placeholder="Days count"
-        {...register('daysCount')}
+        suffix=" days"
+        value={daysCount.value}
+        onChange={(e) => update('daysCount', e.value ?? 0)}
       />
-      <AppButton
+      <Button
         className="w-fit"
         type="submit"
         label="Fetch rates"
