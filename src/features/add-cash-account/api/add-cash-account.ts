@@ -11,19 +11,17 @@ export const addCashAccountAction = async ({
   currencyId,
 }: {
   name: string;
-  startBalance: string;
+  startBalance: number;
   currencyId: string;
 }) => {
   const userId = await getUserId();
 
-  const startBalanceNum = Number(startBalance);
-
   await addCashAccount({
     name,
     userId,
-    startBalance: Number.isNaN(startBalanceNum)
+    startBalance: Number.isNaN(startBalance)
       ? new Decimal(0)
-      : new Decimal(startBalanceNum),
+      : new Decimal(startBalance),
     currencyId: Number(currencyId),
   });
 

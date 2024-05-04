@@ -1,22 +1,17 @@
 'use client';
 
-import { forwardRef } from 'react';
-import { NumberInput, NumberInputProps } from '@tremor/react';
+import { InputNumber, InputNumberProps } from 'primereact/inputnumber';
 
-export const AppNumberInput = forwardRef<
-  HTMLInputElement | null,
-  NumberInputProps
->(function AppNumberInput(props, ref) {
-  const { enableStepper, step, ...rest } = props;
+export function AppNumberInput(props: InputNumberProps) {
+  const { min, step, minFractionDigits, maxFractionDigits, ...rest } = props;
 
   return (
-    <div>
-      <NumberInput
-        ref={ref}
-        enableStepper={false}
-        step={step || '0.01'}
-        {...rest}
-      />
-    </div>
+    <InputNumber
+      min={min || 0}
+      step={step || 0.01}
+      minFractionDigits={minFractionDigits || 0}
+      maxFractionDigits={maxFractionDigits || 2}
+      {...rest}
+    />
   );
-});
+}

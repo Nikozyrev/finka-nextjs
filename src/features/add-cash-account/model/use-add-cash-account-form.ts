@@ -7,7 +7,7 @@ export function useAddCashAccountForm() {
   const form = useForm({
     initialState: {
       name: '',
-      startBalance: '',
+      startBalance: 0,
       currencyId: '',
     },
     validators: {
