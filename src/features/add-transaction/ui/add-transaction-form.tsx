@@ -20,9 +20,8 @@ export function AddTransactionForm({
   categories,
   categoryType,
 }: IAddTransactionFormProps) {
-  const { handleSubmit, isLoading, isValid, fields, update, register } =
+  const { handleSubmit, isLoading, isValid, fields, update, touch } =
     useAddTransactionForm({ categoryType, cashAccounts });
-  const { sum } = fields;
 
   return (
     <Card>
@@ -46,9 +45,11 @@ export function AddTransactionForm({
         />
         <AppNumberInput
           placeholder="Sum"
-          {...register('sum')}
-          error={sum.touched && !sum.isValid}
-          errorMessage={sum.errors[0]}
+          invalid={fields.sum.touched && !fields.sum.isValid}
+          tooltip={fields.sum.errors[0]}
+          value={fields.sum.value}
+          onChange={(e) => update('sum', e.value)}
+          onBlur={() => touch('sum')}
         />
         <AppSelect
           options={categories

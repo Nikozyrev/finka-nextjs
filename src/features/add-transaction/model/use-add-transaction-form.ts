@@ -9,7 +9,7 @@ import { ICashAccountFromDb, isEnoughBalance } from '@/entities/cash-account';
 
 type state = {
   date: Date | undefined;
-  sum: string;
+  sum: number | null;
   cashAccountId: string;
   categoryId: string;
   comment: string;
@@ -17,10 +17,9 @@ type state = {
 
 const checkBalance =
   (categoryType: IAddCategoryType, cashAccounts: ICashAccountFromDb[]) =>
-  (v: string, { cashAccountId }: state) =>
-    categoryType === 'INCOME'
-      ? true
-      : isEnoughBalance(cashAccounts, cashAccountId, v);
+  (v: number | null, { cashAccountId }: state) =>
+    categoryType === 'INCOME' ||
+    isEnoughBalance(cashAccounts, cashAccountId, v ?? 0);
 
 export function useAddTransactionForm({
   categoryType,
@@ -33,7 +32,7 @@ export function useAddTransactionForm({
   const form = useForm<state>({
     initialState: {
       date: new Date(),
-      sum: '',
+      sum: null,
       cashAccountId: '',
       categoryId: '',
       comment: '',
