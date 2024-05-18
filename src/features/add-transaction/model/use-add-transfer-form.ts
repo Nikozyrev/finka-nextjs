@@ -10,15 +10,15 @@ type state = {
   date: Date | undefined;
   fromCashAccountId: string;
   toCashAccountId: string;
-  fromSum: string;
-  toSum: string;
+  fromSum: number | null;
+  toSum: number | null;
   comment: string;
 };
 
 const checkBalance =
   (cashAccounts: ICashAccountFromDb[]) =>
-  (v: string, { fromCashAccountId }: state) =>
-    isEnoughBalance(cashAccounts, fromCashAccountId, v);
+  (v: number | null, { fromCashAccountId }: state) =>
+    isEnoughBalance(cashAccounts, fromCashAccountId, v ?? 0);
 
 export function useAddTransferForm({
   cashAccounts,
@@ -31,8 +31,8 @@ export function useAddTransferForm({
       date: new Date(),
       fromCashAccountId: '',
       toCashAccountId: '',
-      fromSum: '',
-      toSum: '',
+      fromSum: null,
+      toSum: null,
       comment: '',
     },
     validators: {
