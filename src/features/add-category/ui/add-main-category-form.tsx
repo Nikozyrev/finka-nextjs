@@ -2,8 +2,8 @@
 
 import { Button, Card, TextInput } from '@tremor/react';
 import { CashFlowSection, CategoryType } from '@prisma/client';
-import { AppSelect } from '@/shared/ui/select';
 import { useAddMainCategoryForm } from '../model/use-add-main-category-form';
+import { Dropdown } from 'primereact/dropdown';
 
 export function AddMainCategoryForm() {
   const { handleSubmit, fields, isValid, update } = useAddMainCategoryForm();
@@ -20,23 +20,17 @@ export function AddMainCategoryForm() {
           value={fields.name.value}
           onChange={(e) => update('name', e.target.value)}
         />
-        <AppSelect
+        <Dropdown
           placeholder="Category Type"
-          options={Object.entries(CategoryType).map(([_, type]) => ({
-            text: type,
-            value: type,
-          }))}
+          options={Object.entries(CategoryType).map(([_, type]) => type)}
           value={fields.categoryType.value}
-          onValueChange={(v) => update('categoryType', v as CategoryType)}
+          onChange={(e) => update('categoryType', e.value)}
         />
-        <AppSelect
+        <Dropdown
           placeholder="Cash Flow Section"
-          options={Object.entries(CashFlowSection).map(([_, type]) => ({
-            text: type,
-            value: type,
-          }))}
+          options={Object.entries(CashFlowSection).map(([_, type]) => type)}
           value={fields.cashFlowSection.value}
-          onValueChange={(v) => update('cashFlowSection', v as CashFlowSection)}
+          onChange={(e) => update('cashFlowSection', e.value)}
         />
         <Button className="w-fit" type="submit" disabled={!isValid}>
           Add Main Category

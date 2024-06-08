@@ -1,8 +1,8 @@
 'use client';
 
 import { Currency } from '@prisma/client';
-import { AppSelect } from '@/shared/ui/select';
 import { useAppSearchParams } from '@/shared/hooks/search-params';
+import { Dropdown } from 'primereact/dropdown';
 
 interface ICurrencySelectProps {
   currencies: Currency[];
@@ -16,13 +16,12 @@ export function CurrencySelect({
   const { setSearchParam } = useAppSearchParams();
 
   return (
-    <AppSelect
-      options={currencies.map(({ id, symbol }) => ({
-        text: symbol,
-        value: `${id}`,
-      }))}
-      value={`${currencyId}`}
-      onValueChange={(v) => setSearchParam('currency', v)}
+    <Dropdown
+      options={currencies}
+      optionLabel='name'
+      optionValue='id'
+      value={currencyId}
+      onChange={(e) => setSearchParam('currency', e.value)}
     />
   );
 }

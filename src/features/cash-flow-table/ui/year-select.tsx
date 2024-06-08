@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppSearchParams } from '@/shared/hooks/search-params';
-import { AppSelect } from '@/shared/ui/select';
+import { Dropdown } from 'primereact/dropdown';
 
 interface IYearSelectProps {
   years: number[];
@@ -10,17 +10,14 @@ interface IYearSelectProps {
 
 export function YearSelect({ years, year }: IYearSelectProps) {
   const { setSearchParam } = useAppSearchParams();
-  const yearsOptions = years.map((year) => ({
-    text: `${year}`,
-    value: `${year}`,
-  }));
-  const allOption = { text: 'All', value: 'All' };
+  const yearsOptions = years.map(String);
+  const allOption = 'All';
 
   return (
-    <AppSelect
+    <Dropdown
       options={[allOption, ...yearsOptions]}
-      value={`${year || allOption.value}`}
-      onValueChange={(v) => setSearchParam('year', v)}
+      value={Number.isNaN(year) ? allOption : year.toString()}
+      onChange={(e) => setSearchParam('year', e.value)}
     />
   );
 }

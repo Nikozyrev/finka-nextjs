@@ -2,11 +2,11 @@
 
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { AppSelect } from '@/shared/ui/select';
 import { useAddTransferForm } from '../model/use-add-transfer-form';
 import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { AppDatePicker } from '@/shared/ui/form/date-picker';
 import { ICashAccountFromDb } from '@/entities/cash-account';
+import { Dropdown } from 'primereact/dropdown';
 
 interface IAddTransferFormProps {
   cashAccounts: ICashAccountFromDb[];
@@ -37,26 +37,22 @@ export function AddTransferForm({ cashAccounts }: IAddTransferFormProps) {
         value={fields.date.value}
         onValueChange={(v) => update('date', v)}
       />
-      <AppSelect
-        options={cashAccounts
-          .filter(({ id }) => id !== toCashAccountId.value)
-          .map(({ id, name }) => ({
-            value: id,
-            text: name,
-          }))}
+      <Dropdown
+        filter
+        options={cashAccounts.filter(({ id }) => id !== toCashAccountId.value)}
+        optionLabel='name'
+        optionValue='id'
         value={fields.fromCashAccountId.value}
-        onValueChange={(v) => update('fromCashAccountId', v)}
+        onChange={(e) => update('fromCashAccountId', e.value)}
         placeholder="From Account"
       />
-      <AppSelect
-        options={cashAccounts
-          .filter(({ id }) => id !== fromCashAccountId.value)
-          .map(({ id, name }) => ({
-            value: id,
-            text: name,
-          }))}
+      <Dropdown
+        filter
+        options={cashAccounts.filter(({ id }) => id !== fromCashAccountId.value)}
+        optionLabel='name'
+        optionValue='id'
         value={fields.toCashAccountId.value}
-        onValueChange={(v) => update('toCashAccountId', v)}
+        onChange={(e) => update('toCashAccountId', e.value)}
         placeholder="To Account"
       />
       <AppNumberInput

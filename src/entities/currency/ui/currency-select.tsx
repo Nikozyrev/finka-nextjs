@@ -1,6 +1,6 @@
 'use client';
 
-import { AppSelect } from '@/shared/ui/select';
+import { Dropdown } from 'primereact/dropdown';
 import { useCurrencies } from '../model/currency-context';
 
 export function CurrencySelect({
@@ -17,16 +17,15 @@ export function CurrencySelect({
   const currencies = useCurrencies();
 
   return (
-    <AppSelect
-      options={currencies.map(({ id, name, symbol }) => ({
-        text: `${name} (${symbol})`,
-        value: id.toString(),
-      }))}
-      placeholder="Currency"
+    <Dropdown
+      options={currencies}
+      optionLabel='name'
+      optionValue='id'
       name={name}
       value={value}
-      onValueChange={onValueChange}
+      onChange={(e) => onValueChange?.(e.value)}
       className={className}
+      placeholder="Currency"
     />
   );
 }

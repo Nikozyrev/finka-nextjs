@@ -1,8 +1,7 @@
 'use client';
 
-import { FC } from 'react';
-import { AppSelect } from '@/shared/ui/select';
 import { IUserMainCategory } from '@/entities/main-category';
+import { Dropdown } from 'primereact/dropdown';
 
 interface ISelectMainCategoryProps {
   mainCategories: IUserMainCategory[];
@@ -11,16 +10,25 @@ interface ISelectMainCategoryProps {
   className?: string;
 }
 
-export const SelectMainCategory: FC<ISelectMainCategoryProps> = ({
+export function SelectMainCategory({
   mainCategories,
+  onValueChange,
   ...props
-}) => {
-  const options = [...mainCategories]
-    .sort((a, b) => b.categoryType.localeCompare(a.categoryType))
-    .map(({ id, name, cashFlowSection, categoryType }) => ({
-      value: id,
-      text: `${name} [${categoryType} (${cashFlowSection})]`,
-    }));
+}: ISelectMainCategoryProps) {
+  const options = [...mainCategories].sort((a, b) =>
+    b.categoryType.localeCompare(a.categoryType)
+  );
 
-  return <AppSelect placeholder="Main Category" options={options} {...props} />;
+  return (
+    <Dropdown
+      filter
+      itemTemplate={(c) => `${c.name} [${c.categoryType} (${c.cashFlowSection})]`}
+      optionLabel='name'
+      optionValue="id"
+      placeholder="Main Category"
+      options={options}
+      onChange={(e) => onValueChange(e.value)}
+      {...props}
+    />
+  );
 };

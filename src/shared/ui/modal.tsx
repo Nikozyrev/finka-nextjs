@@ -17,7 +17,7 @@ export function AppModal({
   header,
 }: IAppModalProps) {
   return (
-    <Dialog dismissableMask header={header} visible={isOpen} onHide={onClose}>
+    <Dialog className='min-w-[400px]' dismissableMask header={header} visible={isOpen} onHide={onClose}>
       {children}
     </Dialog>
   );
