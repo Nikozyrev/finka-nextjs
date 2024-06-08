@@ -9,6 +9,7 @@ import { AppNumberInput } from '@/shared/ui/form/number-input';
 import { AppDatePicker } from '@/shared/ui/form/date-picker';
 import { ICashAccountFromDb } from '@/entities/cash-account';
 import { Dropdown } from 'primereact/dropdown';
+import { Calendar } from 'primereact/calendar';
 
 interface IAddTransactionFormProps {
   categories: { id: string; name: string; categoryType: CategoryType }[];
@@ -30,9 +31,10 @@ export function AddTransactionForm({
       onSubmit={handleSubmit}
       autoComplete="off"
     >
-      <AppDatePicker
+      <Calendar
+        dateFormat='dd.mm.yy'
         value={fields.date.value}
-        onValueChange={(v) => update('date', v)}
+        onChange={({ value }) => update('date', value ?? undefined)}
       />
       <Dropdown
         filter
